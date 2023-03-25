@@ -1,0 +1,13 @@
+{
+    "id": "haunted",
+    "title": "Haunted",
+    "description": "A game about murder and what comes after.",
+    "version": "0.1.0",
+    "authors" : [
+        {
+            "name": "Jesse Burneko",
+            "url": "https://bloodthornpress.com/",
+            "email": "jburneko@gmail.com"
+        }
+    ]
+}

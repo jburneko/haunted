@@ -1,0 +1,25 @@
+
+{
+    "Actor": {
+        "types": ["murderer", "ghost", "supporting"],
+        "templates": {
+            "attributes": {
+                "influence" : 0,
+                "effort" : 0
+            }
+        },
+        "murderer": {
+            "templates": ["attributes"],
+            "ambition" : ""
+        },
+        "ghost" : {
+            "presence": 0,
+            "unfinishedBusiness": ""
+        },
+        "supporting": {
+            "templates": ["attributes"],
+            "disposition": "",
+            "problem": ""
+        }
+    }
+}
