@@ -1,4 +1,3 @@
-//import { MurdererSheet } from "./scripts/murderer-sheet.js"
 
 Hooks.once("init", () => {
     CONFIG.debug.hooks = true;

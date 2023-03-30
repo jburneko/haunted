@@ -11,7 +11,14 @@
         }
     ],
     "scripts" : [
-        "haunted.js",
+        "scripts/haunted.js",
         "scripts/murderer-sheet.js"
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
     ]
 }
