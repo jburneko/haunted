@@ -1,5 +1,9 @@
 class MurdererSheet extends ActorSheet {
+    static TEMPLATES = {
+        SHEET: "systems/haunted/templates/murderer-sheet.hbs"
+    }
+
     get template() {
-        return "systems/haunted/templates/murderer-sheet.html";
+        return MurdererSheet.TEMPLATES.SHEET;
     }
 } 
