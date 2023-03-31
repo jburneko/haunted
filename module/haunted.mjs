@@ -11,7 +11,17 @@ async function preloadTemplates() {
 
 Hooks.once("init", () => {
     CONFIG.debug.hooks = true;
-    console.log(game);
+    console.log(CONFIG);
+
+    CONFIG.fontDefinitions["PermanentMarker"] = {
+      "editor": true,
+      "fonts": [{urls: [`systems/haunted/assets/fonts/PermanentMarker-Regular.ttf`]}]
+    }
+
+    CONFIG.fontDefinitions["CarbonScript"] = {
+      "editor": true,
+      "fonts": [{urls: [`systems/haunted/assets/fonts/CarbonScript.ttf`]}]
+    }
 
     CONFIG.Actor.documentClass = HauntedActor;
 
