@@ -1,3 +1,7 @@
 <form>
-    <h1>Hello World: {{localize 'HAUNTED.Title'}}</h1>
+  <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+  <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name" /></h1>
+  <label for="system.ambition">{{localize "HAUNTED.Character.Ambition"}}</label>
+  <input type="text" name="system.ambition" value="{{system.ambition}}" data-dtype="String"/>
+  {{> "systems/haunted/templates/partials/character-attributes.hbs"}}
 </form>
