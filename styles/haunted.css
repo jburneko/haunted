@@ -1,0 +1,22 @@
+.haunted .character-header h1 {
+    font-family: CarbonScript;
+    font-size: xxx-large;
+    text-shadow: 0 0 10px black;
+}
+
+.haunted .character-header input {
+    width: fit-content;
+    height:fit-content;
+    text-shadow: inherit;
+}
+
+.haunted .attribute-name {
+    font-family: "PermanentMarker";
+    color: darkred;
+    font-size: medium;
+}
+
+.haunted .rollable:hover {
+    cursor: pointer;
+    text-shadow: 0 0 10px black;
+}

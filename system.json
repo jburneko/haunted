@@ -10,8 +10,12 @@
             "email": "jburneko@gmail.com"
         }
     ],
-    "scripts" : [],
-    "esmodules" : ["module/haunted.mjs"],
+    "esmodules" : [
+        "module/haunted.mjs"
+    ],
+    "styles" : [
+        "styles/haunted.css"
+    ],
     "packs" : [
         {
             "name": "scenes",

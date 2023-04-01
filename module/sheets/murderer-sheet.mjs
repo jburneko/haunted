@@ -5,7 +5,8 @@ export class MurdererSheet extends ActorSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-          template: MurdererSheet.TEMPLATES.SHEET
+          template: MurdererSheet.TEMPLATES.SHEET,
+          classes: ["haunted"]
         });
       }
 
@@ -22,7 +23,7 @@ export class MurdererSheet extends ActorSheet {
     activateListeners(html) {
 
       if (this.actor.isOwner) {
-        html.find(".influence label").click(this._rollInfluence.bind(this));
+        html.find(".rollable").click(this._rollInfluence.bind(this));
       }
 
       super.activateListeners(html);
