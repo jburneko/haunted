@@ -5,6 +5,9 @@
             "Ambition": "Ambition",
             "Influence": "Influence",
             "Effort": "Effort"
+        },
+        "Dialogs": {
+            "InfluenceRoll": "Roll Influence"
         }
     }
 }

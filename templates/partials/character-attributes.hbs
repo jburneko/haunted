@@ -1,4 +1,8 @@
-<label style="font-family: PermanentMarker" ="system.influence">{{localize "HAUNTED.Character.Influence"}}</label>
-<input type="number" name="system.influence" value="{{system.influence}}" data-dtype="Number"/>
-<label for="system.effort">{{localize "HAUNTED.Character.Effort"}}</label>
-<input type="number" name="system.effort" value="{{system.effort}}" data-dtype="Number"/>
+<div class="influence flexrow">
+    <label class="flex0" for="system.influence"><span class="fas fa-dice"></span>{{localize "HAUNTED.Character.Influence"}}:</label>
+    <input type="number" name="system.influence" value="{{system.influence}}" data-dtype="Number"/>
+</div>
+<div class="flexrow">
+    <label class ="flex0" for="system.effort">{{localize "HAUNTED.Character.Effort"}}:</label>
+    <input type="number" name="system.effort" value="{{system.effort}}" data-dtype="Number"/>
+</div>

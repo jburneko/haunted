@@ -1,7 +1,13 @@
-<form>
-  <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-  <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name" /></h1>
-  <label for="system.ambition">{{localize "HAUNTED.Character.Ambition"}}</label>
-  <input type="text" name="system.ambition" value="{{system.ambition}}" data-dtype="String"/>
+<form class="flexcol">
+  <header class="sheet-header">
+    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name" /></h1>
+  </header>
+  <section class="flexcol">
+    <div class="flexrow">
+      <label class="flex0" for="system.ambition">{{localize "HAUNTED.Character.Ambition"}}:</label>
+      <input type="text" name="system.ambition" value="{{system.ambition}}" data-dtype="String"/>
+    </div>
   {{> "systems/haunted/templates/partials/character-attributes.hbs"}}
+  </section>
 </form>

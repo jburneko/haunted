@@ -9,24 +9,26 @@ async function preloadTemplates() {
     return loadTemplates(templatePaths);
   }
 
+function defineFonts() {
+  CONFIG.fontDefinitions["PermanentMarker"] = {
+    "editor": true,
+    "fonts": [{urls: [`systems/haunted/assets/fonts/PermanentMarker-Regular.ttf`]}]
+  }
+
+  CONFIG.fontDefinitions["CarbonScript"] = {
+    "editor": true,
+    "fonts": [{urls: [`systems/haunted/assets/fonts/CarbonScript.ttf`]}]
+  }
+}
+
 Hooks.once("init", () => {
     CONFIG.debug.hooks = true;
-    console.log(CONFIG);
-
-    CONFIG.fontDefinitions["PermanentMarker"] = {
-      "editor": true,
-      "fonts": [{urls: [`systems/haunted/assets/fonts/PermanentMarker-Regular.ttf`]}]
-    }
-
-    CONFIG.fontDefinitions["CarbonScript"] = {
-      "editor": true,
-      "fonts": [{urls: [`systems/haunted/assets/fonts/CarbonScript.ttf`]}]
-    }
 
     CONFIG.Actor.documentClass = HauntedActor;
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("haunted", MurdererSheet, { types: ["murderer"], makeDefault: true});
 
+    defineFonts();
     preloadTemplates();
 });

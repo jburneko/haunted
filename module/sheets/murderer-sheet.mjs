@@ -16,7 +16,20 @@ export class MurdererSheet extends ActorSheet {
         context.system = actorData.system;
         context.flags = actorData.flags;
 
-        console.log(context);
         return context;
+    }
+
+    activateListeners(html) {
+
+      if (this.actor.isOwner) {
+        html.find(".influence label").click(this._rollInfluence.bind(this));
+      }
+
+      super.activateListeners(html);
+    }
+
+    _rollInfluence(event) {
+      event.preventDefault();
+      this.actor.showInfluenceRollDialog();
     }
 } 
