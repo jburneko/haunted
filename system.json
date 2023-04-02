@@ -30,5 +30,7 @@
             "name": "English",
             "path": "lang/en.json"
         }
-    ]
+    ],
+    "primaryTokenAttribute": "influence",
+    "secondaryTokenAttribute": "effort"
 }

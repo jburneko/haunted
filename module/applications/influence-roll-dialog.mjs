@@ -12,4 +12,22 @@ export class InfluenceRollDialog extends Application {
     getData() {
         return {};
     }
+
+    activateListeners(html) {
+        super.activateListeners(html);
+
+        html.find(".influence-roll-button").click(this._onInfluenceRoll.bind(this));
+    }
+
+    _onInfluenceRoll(event) {
+        event.preventDefault();
+        const form = $(event.currentTarget).parents(".roll-influence-dialog")[0];
+        const effortSpent = parseInt($(form).find("input[name=effort-spent]").val());
+        const helpDice = parseInt($(form).find("input[name=help-dice]").val());
+    
+        this.close();
+
+        this.actor.rollInfluence(effortSpent, helpDice);
+
+    }
 }
