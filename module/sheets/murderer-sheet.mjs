@@ -1,6 +1,6 @@
 export class MurdererSheet extends ActorSheet {
     static TEMPLATES = {
-        SHEET: "systems/haunted/templates/murderer-sheet.hbs"
+        SHEET: "systems/haunted/templates/sheets/murderer-sheet.hbs"
     }
 
     static get defaultOptions() {

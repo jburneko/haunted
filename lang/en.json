@@ -11,6 +11,9 @@
             "EffortSpent": "Effort Spent",
             "HelpDice": "Help Dice",
             "Roll": "Roll"
+        },
+        "Chat": {
+            "InfluenceRoll": "Influence Roll"
         }
     }
 }

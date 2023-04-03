@@ -1,4 +1,5 @@
 import { InfluenceRollDialog } from "../applications/influence-roll-dialog.mjs";
+import { DiceFormater } from "../utlis/dice-formater.mjs";
 
 export class HauntedActor extends Actor {
 
@@ -19,17 +20,23 @@ export class HauntedActor extends Actor {
         const influceRoll = new Roll(diceFormula, this.getRollData());
         
         influceRoll.evaluate({async:false});
-        
+   
         this.reportInfluenceRoll(influceRoll);
     }
 
-    async reportInfluenceRoll(influceRoll) {
-        const dice = influceRoll.terms[0].results
-            .map(a => a.result)
-            .sort((a, b) => a - b)
-            .reverse();
+    async reportInfluenceRoll(influenceRoll) {
+        const dice = DiceFormater.sortDice(influenceRoll.terms[0].results);
+        const chatData = {influenceRoll: dice};
+        const html = await renderTemplate(
+            "systems/haunted/templates/chat/influence-roll-single.hbs",
+            chatData
+        )
 
-        console.log(dice);
+        ChatMessage.create({
+            content: html,
+            sound: CONFIG.sounds.dice, //TODO: Support Dice So Nice?
+            speaker: ChatMessage.getSpeaker({actor: this}),
+        });
     }
 
     async spendEffort(effortSpent)

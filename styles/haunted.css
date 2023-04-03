@@ -1,5 +1,22 @@
+
+  @font-face {
+    font-family: "PermanentMarker";
+    src: url("../assets/fonts/PermanentMarker-Regular.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "CarbonScript";
+    src: url("../assets/fonts/CarbonScript.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "DPoly-Six-Sider";
+    src: url("../assets/fonts/DPoly-Six-Sider.otf") format("opentype");
+  }
+
+
 .haunted .character-header h1 {
-    font-family: CarbonScript;
+    font-family: "CarbonScript";
     font-size: xxx-large;
     text-shadow: 0 0 10px black;
 }
@@ -19,4 +36,21 @@
 .haunted .rollable:hover {
     cursor: pointer;
     text-shadow: 0 0 10px black;
+}
+
+.influence-roll-message {
+    border: 2px solid black;
+    text-align: center;
+}
+
+.influence-roll-message .influence-roll-title {
+    font-family: "PermanentMarker";
+    color: darkred;
+    font-size: medium;
+}
+
+.influence-roll-message .influence-dice {
+    font-family: "DPoly-Six-Sider";
+    font-size: xx-large;
+    border: 2xp solid darkred;
 }
