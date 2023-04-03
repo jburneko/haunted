@@ -1,10 +1,19 @@
 import { DiceFormater } from "./dice-formater.mjs"
+import { HauntedActor } from "../documents/haunted-actor.mjs";
 
 export const configureHandlebars = () => {
     Handlebars.registerHelper("format_dice", (dice) => {
         const diceObj = DiceFormater.highlightDice(dice);
         const diceStr = DiceFormater.diceToString(diceObj);
         return diceStr;
+    });
+
+    Handlebars.registerHelper('isdefined', function (value) {
+      return value !== undefined;
+    });
+
+    Handlebars.registerHelper('local_disposition', function (value) {
+      return HauntedActor.DISPOSITION.getLocalString(value);
     });
 };
 

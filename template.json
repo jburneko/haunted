@@ -1,11 +1,17 @@
 
 {
     "Actor": {
-        "types": ["murderer", "ghost", "supporting"],
+        "types": ["murderer", "ghost", "support-murderer", "support-victim", "support-both"],
         "templates": {
             "attributes": {
                 "influence" : 0,
                 "effort" : 0
+            },
+            "attitude": {
+                "disposition": 0
+            },
+            "crisis": {
+                "problem": ""
             }
         },
         "murderer": {
@@ -16,10 +22,14 @@
             "presence": 0,
             "unfinishedBusiness": ""
         },
-        "supporting": {
-            "templates": ["attributes"],
-            "disposition": "",
-            "problem": ""
+        "support-murderer": {
+            "templates": ["attributes", "attitude"]
+        },
+        "support-victim": {
+            "templates": ["attributes", "attitude", "crisis"]
+        },
+        "support-both": {
+            "templates": ["attributes", "attitude", "crisis"]
         }
     }
 }

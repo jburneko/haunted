@@ -4,7 +4,9 @@
         "Character" : {
             "Ambition": "Ambition",
             "Influence": "Influence",
-            "Effort": "Effort"
+            "Effort": "Effort",
+            "Disposition": "Disposition",
+            "Problem": "Problem"
         },
         "Dialogs": {
             "InfluenceRoll": "Roll Influence",
@@ -14,6 +16,14 @@
         },
         "Chat": {
             "InfluenceRoll": "Influence Roll"
+        },
+        "Disposition": {
+            "Unknown": "Unknown",
+            "Adversary": "Adversary",
+            "Unfriendly": "Unfriendly",
+            "Conflicted" : "Conflicted",
+            "Friendly": "Friendly",
+            "Advocate": "Advocate"
         }
     }
 }
