@@ -32,5 +32,6 @@
         }
     ],
     "primaryTokenAttribute": "influence",
-    "secondaryTokenAttribute": "effort"
+    "secondaryTokenAttribute": "effort",
+    "manifest": "https://github.com/jburneko/haunted/blob/main/system.json"
 }

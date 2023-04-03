@@ -1,8 +1,5 @@
 <form>
-  <header class="character-header">
-    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="72px" height="72px" />
-    <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name" /></h1>
-  </header>
+  {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
   <section>
     <label class="attribute-name" for="system.ambition">{{localize "HAUNTED.Character.Ambition"}}:</label>
     <input type="text" name="system.ambition" value="{{system.ambition}}" data-dtype="String"/>

@@ -4,7 +4,9 @@ import { DiceFormater } from "../utlis/dice-formater.mjs";
 export class HauntedActor extends Actor {
 
     static CHARACTER_TYPES = {
-        MURDERER: 'murderer'
+        MURDERER: 'murderer',
+        GHOST: "ghost",
+        SUPPORT: "supporting"
     }
 
     async showInfluenceRollDialog() {
@@ -49,8 +51,19 @@ export class HauntedActor extends Actor {
 }
 
 Hooks.on("createActor", (actorData, ...args) => {
-    if(actorData.type === HauntedActor.CHARACTER_TYPES.MURDERER) {
-        actorData.update({"system.influence": 2,
+    switch(actorData.type) {
+        case HauntedActor.CHARACTER_TYPES.MURDERER:
+            actorData.update({"system.influence": 2,
                           "system.effort": 6 });
+            break;
+
+        case HauntedActor.CHARACTER_TYPES.SUPPORT:
+            const roll = new Roll("1d6+1").evaluate({async: false});
+            const influence = roll.total;
+            const effort = 8 - influence;
+
+            actorData.update({"system.influence": influence,
+                              "system.effort": effort});
+            break;
     }
 });

@@ -10,6 +10,7 @@ export const configureHandlebars = () => {
 
 export async function preloadTemplates() {
     const templatePaths = [
+      "systems/haunted/templates/sheets/partials/character-header.hbs",
       "systems/haunted/templates/sheets/partials/character-attributes.hbs",
     ];
   
