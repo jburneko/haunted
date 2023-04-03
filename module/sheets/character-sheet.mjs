@@ -1,3 +1,5 @@
+import { HauntedActor } from "../documents/haunted-actor.mjs";
+
 export class CharacterSheet extends ActorSheet {
 
     getData () {
@@ -11,16 +13,18 @@ export class CharacterSheet extends ActorSheet {
     }
 
     activateListeners(html) {
-
-      if (this.actor.isOwner) {
-        html.find(".rollable").click(this._rollInfluence.bind(this));
-      }
-
-      super.activateListeners(html);
+        if (this.actor.isOwner) {
+            html.find(".rollable").click(this._rollInfluence.bind(this));
+        }
+        super.activateListeners(html);
     }
 
     _rollInfluence(event) {
-      event.preventDefault();
-      this.actor.showInfluenceRollDialog();
+        event.preventDefault();
+        const attribute = event.target.getAttribute("data-attribute");
+        if(attribute === HauntedActor.ATTRIBUTE.INFLUENCE)
+            this.actor.showInfluenceRollDialog();
+        else
+            this.actor.rollAttribute(attribute);
     }
 } 

@@ -6,7 +6,9 @@
             "Influence": "Influence",
             "Effort": "Effort",
             "Disposition": "Disposition",
-            "Problem": "Problem"
+            "Problem": "Problem",
+            "UnfinishedBusiness": "Unfinished Business",
+            "Presence": "Presence"
         },
         "Dialogs": {
             "InfluenceRoll": "Roll Influence",

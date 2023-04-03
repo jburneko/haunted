@@ -38,19 +38,24 @@
     text-shadow: 0 0 10px black;
 }
 
-.influence-roll-message {
+.attribute-roll-message {
     border: 2px solid black;
     text-align: center;
 }
 
-.influence-roll-message .influence-roll-title {
+.attribute-roll-message .attribute-roll-title {
     font-family: "PermanentMarker";
     color: darkred;
     font-size: medium;
 }
 
-.influence-roll-message .influence-dice {
+.attribute-roll-message .attribute-dice {
     font-family: "DPoly-Six-Sider";
     font-size: xx-large;
     border: 2xp solid darkred;
+}
+
+.chat-message .message-header .message-sender {
+  font-family: "CarbonScript";
+  text-shadow: 0 0 10px black;
 }

@@ -1,0 +1,9 @@
+<form>
+  {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
+  <section>
+    <label class="attribute-name" for="system.unfinishedBusiness">{{localize "HAUNTED.Character.UnfinishedBusiness"}}:</label>
+    <input type="text" name="system.unfinishedBusiness" value="{{system.unfinishedBusiness}}" data-dtype="String"/>
+    <label class="attribute-name rollable" data-attribute="presence" for="system.presence"><i class="fas fa-dice"></i>{{localize "HAUNTED.Character.Presence"}}:</label>
+    <input type="number" name="system.presence" value="{{system.presence}}" data-dtype="Number"/>
+  </section>
+</form>

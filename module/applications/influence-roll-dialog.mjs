@@ -1,3 +1,5 @@
+import { HauntedActor } from "../documents/haunted-actor.mjs";
+
 export class InfluenceRollDialog extends Application {
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -27,7 +29,7 @@ export class InfluenceRollDialog extends Application {
     
         this.close();
 
-        this.actor.rollInfluence(effortSpent, helpDice);
+        this.actor.rollAttribute(HauntedActor.ATTRIBUTE.INFLUENCE, effortSpent, helpDice);
 
     }
 }

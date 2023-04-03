@@ -12,6 +12,24 @@ export class HauntedActor extends Actor {
         SUPPORT_BOTH: "support-both"
     }
 
+    static ATTRIBUTE_STRS = {
+        influence: "HAUNTED.Character.Influence",
+        presence: "HAUNTED.Character.Presence"
+    }
+
+    static ATTRIBUTE = {
+        INFLUENCE: "influence",
+        PRESENCE: "presence",
+
+        getStringID: (attribute) => {
+            return HauntedActor.ATTRIBUTE_STRS[attribute];
+        },
+
+        getLocalString: (attribute) => {
+            return game.i18n.localize(HauntedActor.ATTRIBUTE.getStringID(attribute));
+        }
+    }
+
     static DISPOSITION_STRS = [
         "HAUNTED.Disposition.Unknown",
         "HAUNTED.Disposition.Adversary",
@@ -63,24 +81,27 @@ export class HauntedActor extends Actor {
         dialog.render(true);
     }
 
-    async rollInfluence(effortSpent, helpDice) {
+    async rollAttribute(attribute, effortSpent = 0, helpDice= 0) {
         effortSpent = effortSpent <= 0 ? 0 : await this.spendEffort(effortSpent); 
-        const totalDice = this.system.influence + effortSpent + helpDice;
+        const totalDice = this.system[attribute] + effortSpent + helpDice;
         const diceFormula = `${totalDice}d6`;
-        const influceRoll = new Roll(diceFormula, this.getRollData());
+        const roll = new Roll(diceFormula, this.getRollData());
         
-        influceRoll.evaluate({async:false});
+        roll.evaluate({async:false});
    
-        this.reportInfluenceRoll(influceRoll);
+        this.reportAttributeRoll(attribute, roll);
     }
 
-    async reportInfluenceRoll(influenceRoll) {
-        const dice = DiceFormater.sortDice(influenceRoll.terms[0].results);
-        const chatData = {influenceRoll: dice};
+    async reportAttributeRoll(attribute, roll) {
+        const dice = DiceFormater.sortDice(roll.terms[0].results);
+        const chatData = {
+            attribute: attribute,
+            roll: dice
+        };
         const html = await renderTemplate(
-            "systems/haunted/templates/chat/influence-roll-single.hbs",
+            "systems/haunted/templates/chat/attribute-roll-single.hbs",
             chatData
-        )
+        );
 
         ChatMessage.create({
             content: html,
@@ -111,6 +132,12 @@ Hooks.on("createActor", (actorData, ...args) => {
                 "system.influence": 2,
                 "system.effort": 6 
             };
+            break;
+
+        case HauntedActor.CHARACTER_TYPE.GHOST:
+            stats = {
+                "system.presence": 8
+            }
             break;
 
         case HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER:

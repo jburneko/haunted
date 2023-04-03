@@ -15,6 +15,10 @@ export const configureHandlebars = () => {
     Handlebars.registerHelper('local_disposition', function (value) {
       return HauntedActor.DISPOSITION.getLocalString(value);
     });
+
+    Handlebars.registerHelper('local_attribute', function (value) {
+      return HauntedActor.ATTRIBUTE.getLocalString(value);
+    });
 };
 
 export async function preloadTemplates() {
