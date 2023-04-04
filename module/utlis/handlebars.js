@@ -25,6 +25,7 @@ export async function preloadTemplates() {
     const templatePaths = [
       "systems/haunted/templates/sheets/partials/character-header.hbs",
       "systems/haunted/templates/sheets/partials/character-attributes.hbs",
+      "systems/haunted/templates/sheets/partials/character-notes.hbs"
     ];
   
     return loadTemplates(templatePaths);

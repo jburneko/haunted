@@ -64,6 +64,45 @@ export class HauntedActor extends Actor {
         {min: 11, max:12, disposition: HauntedActor.DISPOSITION.ADVERSARY}      
     ]
 
+    static async create(data, options = {}) {
+        data.system = data.system || {};
+        data.ownership = data.ownership || {};
+        const system = {}
+        const ownership = {}
+
+        switch(data.type) {
+            case HauntedActor.CHARACTER_TYPE.MURDERER:
+                system.influence = 2;
+                system.effort = 6;
+                break;
+    
+            case HauntedActor.CHARACTER_TYPE.GHOST:
+                system.presence = 8
+                break;
+    
+            case HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER:
+            case HauntedActor.CHARACTER_TYPE.SUPPORT_BOTH:
+                const disposition = HauntedActor.generateDisposition();
+                system.disposition = disposition;
+    
+            case HauntedActor.CHARACTER_TYPE.SUPPORT_VICTIM:
+                const roll = new Roll("1d6+1").evaluate({async: false});
+                const influence = roll.total;
+                const effort = 8 - influence;
+    
+                system.influence = influence;
+                system.effort = effort;
+    
+                ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER
+                break;
+        }
+
+        mergeObject(data.system, system, {overwrite: false});
+        mergeObject(data.ownership, ownership, {overwrite: false});
+
+        return super.create(data, options);
+    }
+
     static generateDisposition() {
         const roll = new Roll("2d6");
         roll.evaluate({async:false})
@@ -118,56 +157,3 @@ export class HauntedActor extends Actor {
         return effortSpent;
     }
 }
-
-Hooks.on("createActor", (actorData, ...args) => {
-    let stats = {};
-    let disposition = {};
-    let ownership = {};
-
-    console.log(actorData);
-
-    switch(actorData.type) {
-        case HauntedActor.CHARACTER_TYPE.MURDERER:
-            stats = {
-                "system.influence": 2,
-                "system.effort": 6 
-            };
-            break;
-
-        case HauntedActor.CHARACTER_TYPE.GHOST:
-            stats = {
-                "system.presence": 8
-            }
-            break;
-
-        case HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER:
-        case HauntedActor.CHARACTER_TYPE.SUPPORT_BOTH:
-            const attitude = HauntedActor.generateDisposition();
-            disposition = {
-                "system.disposition": attitude
-            };
-
-        case HauntedActor.CHARACTER_TYPE.SUPPORT_VICTIM:
-            const roll = new Roll("1d6+1").evaluate({async: false});
-            const influence = roll.total;
-            const effort = 8 - influence;
-
-            stats = {
-                "system.influence": influence,
-                "system.effort": effort
-            };
-
-            ownership = {
-                "ownership.default": CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER
-            };
-            break;
-    }
-
-    const initState = {
-        ...stats,
-        ...disposition,
-        ...ownership
-    };
-
-    actorData.update(initState);
-});

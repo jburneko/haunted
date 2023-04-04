@@ -13,13 +13,14 @@ export class CharacterSheet extends ActorSheet {
     }
 
     activateListeners(html) {
-        if (this.actor.isOwner) {
-            html.find(".rollable").click(this._rollInfluence.bind(this));
-        }
         super.activateListeners(html);
+
+        if (this.actor.isOwner) {
+            html.find(".rollable").click(this._rollAttribute.bind(this));
+        }
     }
 
-    _rollInfluence(event) {
+    _rollAttribute(event) {
         event.preventDefault();
         const attribute = event.target.getAttribute("data-attribute");
         if(attribute === HauntedActor.ATTRIBUTE.INFLUENCE)

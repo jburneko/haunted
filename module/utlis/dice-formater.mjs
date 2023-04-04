@@ -26,13 +26,13 @@ export class DiceFormater {
         const diceStr = dice.reduce((str, die) => {
             let map = DiceFormater.getMap(DiceFormater.DIE_COLOR.WHITE);
 
+            if(str.length > 0)
+                str += ` `;
+
             if(typeof die !== 'number') {
                 map = DiceFormater.getMap(die.color)
                 die = die.value;
             }
-
-            if(str.length > 0)
-                str += ` `;
 
             str += `${map[die]}`;
 

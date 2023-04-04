@@ -9,6 +9,8 @@ Hooks.once("init", () => {
 
     CONFIG.Actor.documentClass = HauntedActor;
 
+    console.log(CONFIG);
+
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("haunted", MurdererSheet, { types: [HauntedActor.CHARACTER_TYPE.MURDERER], makeDefault: true});
     Actors.registerSheet("haunted", GhostSheet, { types: [HauntedActor.CHARACTER_TYPE.GHOST], makeDefault: true});
@@ -16,4 +18,7 @@ Hooks.once("init", () => {
    
     preloadTemplates();
     configureHandlebars();
+});
+
+Hooks.on("refreshToken", (token, ...args) => {
 });

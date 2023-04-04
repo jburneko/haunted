@@ -1,12 +1,15 @@
-<form>
+<form class="haunted-sheet">
   {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
-  <section>
+  <section class="character-info">
+    {{#if (isdefined system.problem)}}
+        <div class="character-motive">
+            <label class="attribute-name" for="system.problem">{{localize "HAUNTED.Character.Problem"}}:</label>
+            <input type="text" name="system.problem" value="{{system.problem}}" data-dtype="String"/>
+        </div>
+    {{/if}}
     <label class="attribute-name" for="system.disposition">{{localize "HAUNTED.Character.Disposition"}}:</label>
     <input type="number" name="system.disposition" value="{{system.disposition}}" data-dtype="Number"/>
-    {{#if (isdefined system.problem)}}
-        <label class="attribute-name" for="system.problem">{{localize "HAUNTED.Character.Problem"}}:</label>
-        <input type="text" name="system.problem" value="{{system.problem}}" data-dtype="String"/>
-    {{/if}}
     {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
   </section>
+  {{> "systems/haunted/templates/sheets/partials/character-notes.hbs"}}
 </form>

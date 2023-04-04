@@ -14,6 +14,10 @@
     src: url("../assets/fonts/DPoly-Six-Sider.otf") format("opentype");
   }
 
+.haunted .haunted-sheet {
+  display: flex;
+  flex-direction: column;
+}
 
 .haunted .character-header h1 {
     font-family: "CarbonScript";
@@ -22,20 +26,41 @@
 }
 
 .haunted .character-header input {
-    width: fit-content;
     height:fit-content;
     text-shadow: inherit;
+}
+
+.haunted .character-motive {
+  /*display: flex;
+  flex-direction: row;*/
+  margin-bottom: 10px;
+}
+
+.haunted .haunted-attributes {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px;
+}
+
+.haunted .effort-label {
+  margin-left: 10px;
 }
 
 .haunted .attribute-name {
     font-family: "PermanentMarker";
     color: darkred;
     font-size: medium;
+    flex-shrink: 0;
+    margin-right: 5px;
 }
 
 .haunted .rollable:hover {
     cursor: pointer;
     text-shadow: 0 0 10px black;
+}
+
+.haunted .prosemirror {
+  height: 100vh;
 }
 
 .attribute-roll-message {

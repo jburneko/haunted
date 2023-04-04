@@ -12,10 +12,13 @@
             },
             "crisis": {
                 "problem": ""
+            },
+            "details": {
+                "notes" : ""
             }
         },
         "murderer": {
-            "templates": ["attributes"],
+            "templates": ["attributes", "details"],
             "ambition" : ""
         },
         "ghost" : {
@@ -23,13 +26,13 @@
             "unfinishedBusiness": ""
         },
         "support-murderer": {
-            "templates": ["attributes", "attitude"]
+            "templates": ["attributes", "attitude", "details"]
         },
         "support-victim": {
-            "templates": ["attributes", "attitude", "crisis"]
+            "templates": ["attributes", "attitude", "crisis", "details"]
         },
         "support-both": {
-            "templates": ["attributes", "attitude", "crisis"]
+            "templates": ["attributes", "attitude", "crisis", "details"]
         }
     }
 }
