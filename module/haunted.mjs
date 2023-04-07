@@ -6,6 +6,7 @@ import { configureHandlebars, preloadTemplates } from "./utlis/handlebars.js";
 import { HauntedToken } from "./placeables/HauntedToken.mjs";
 import { ActorToSVG } from "./utlis/actor-to-svg.mjs";
 import { SocketHandler } from "./networking/socket-handler.mjs";
+import { SceneLoader } from "./utlis/scene-loader.mjs";
 
 Hooks.once("init", () => {
     CONFIG.debug.hooks = true;
@@ -16,6 +17,10 @@ Hooks.once("init", () => {
     console.log(CONST);
     console.log(CONFIG);
     console.log(game);
+
+    const scenes = game.packs.get("haunted.scenes");
+
+    console.log(scenes);
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("haunted", MurdererSheet, { types: [HauntedActor.CHARACTER_TYPE.MURDERER], makeDefault: true});
@@ -32,3 +37,8 @@ Hooks.once("init", () => {
        });
 });
 
+Hooks.once("ready", () => {
+    if(game.scenes.size === 0) {
+        SceneLoader.loadScene();
+    }
+});
