@@ -2,6 +2,7 @@
     "HAUNTED": {
         "Title" : "Haunted",
         "Character" : {
+            "Name": "Name",
             "Ambition": "Ambition",
             "Influence": "Influence",
             "Effort": "Effort",

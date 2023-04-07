@@ -1,5 +1,8 @@
 import { InfluenceRollDialog } from "../applications/influence-roll-dialog.mjs";
 import { DiceFormater } from "../utlis/dice-formater.mjs";
+import { ActorToSVG } from "../utlis/actor-to-svg.mjs";
+import { SocketEvents } from "../networking/socket-events.mjs";
+import { HauntedToken } from "../placeables/HauntedToken.mjs";
 
 export class HauntedActor extends Actor {
 
@@ -67,8 +70,17 @@ export class HauntedActor extends Actor {
     static async create(data, options = {}) {
         data.system = data.system || {};
         data.ownership = data.ownership || {};
-        const system = {}
-        const ownership = {}
+        data.prototypeToken = data.prototypeToken || {};
+
+        console.log(data);
+
+        const system = {};
+        const ownership = {};
+        const prototypeToken = {
+            actorLink: true,
+            height: 3,
+            width: 5
+        };
 
         switch(data.type) {
             case HauntedActor.CHARACTER_TYPE.MURDERER:
@@ -99,6 +111,7 @@ export class HauntedActor extends Actor {
 
         mergeObject(data.system, system, {overwrite: false});
         mergeObject(data.ownership, ownership, {overwrite: false});
+        mergeObject(data.prototypeToken, prototypeToken, {overwrite: false});
 
         return super.create(data, options);
     }
@@ -149,11 +162,32 @@ export class HauntedActor extends Actor {
         });
     }
 
-    async spendEffort(effortSpent)
-    {
+    async spendEffort(effortSpent) {
         effortSpent = effortSpent <= this.system.effort ? effortSpent : this.system.effort;
         const newEffort = this.system.effort - effortSpent;
         await this.update({"system.effort": newEffort});
         return effortSpent;
     }
+
+    async updateToken() {
+        const svgFile = ActorToSVG.createSVG(this);
+        await ActorToSVG.uploadFile(svgFile);
+        HauntedToken.redrawToken(this.id);
+        SocketEvents.refreshToken(this.id);
+    }
 }
+
+Hooks.on("createActor", (document, options, userID) => {
+    const user = game.users.get(game.userId);
+    if(user.hasRole(CONST.USER_ROLES.GAMEMASTER))
+        document.update({"prototypeToken.texture.src": ActorToSVG.getFullPath(document)});
+})
+
+Hooks.on("preUpdateActor", (document, changes, options, userID) => {
+})
+
+Hooks.on("updateActor", (document, changes, options, userID) => {
+    const user = game.users.get(game.userId);
+    if(user.hasRole(CONST.USER_ROLES.GAMEMASTER))
+        document.updateToken();
+})
