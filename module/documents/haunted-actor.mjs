@@ -86,10 +86,14 @@ export class HauntedActor extends Actor {
             case HauntedActor.CHARACTER_TYPE.MURDERER:
                 system.influence = 2;
                 system.effort = 6;
+
+                ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
                 break;
     
             case HauntedActor.CHARACTER_TYPE.GHOST:
                 system.presence = 8
+
+                ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
                 break;
     
             case HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER:
@@ -105,7 +109,7 @@ export class HauntedActor extends Actor {
                 system.influence = influence;
                 system.effort = effort;
     
-                ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER
+                ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER;
                 break;
         }
 

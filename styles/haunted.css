@@ -1,13 +1,4 @@
-
-  @font-face {
-    font-family: "PermanentMarker";
-    src: url("../assets/fonts/PermanentMarker-Regular.ttf") format("truetype");
-  }
-
-  @font-face {
-    font-family: "CarbonScript";
-    src: url("../assets/fonts/CarbonScript.ttf") format("truetype");
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Finger+Paint&family=Permanent+Marker&display=swap');
 
   @font-face {
     font-family: "DPoly-Six-Sider";
@@ -20,8 +11,8 @@
 }
 
 .haunted .character-header h1 {
-    font-family: "CarbonScript";
-    font-size: xxx-large;
+    font-family: "Finger Paint";
+    font-size: xx-large;
     text-shadow: 0 0 10px black;
 }
 
@@ -47,7 +38,7 @@
 }
 
 .haunted .attribute-name {
-    font-family: "PermanentMarker";
+    font-family: "Permanent Marker";
     color: darkred;
     font-size: medium;
     flex-shrink: 0;
@@ -69,7 +60,7 @@
 }
 
 .attribute-roll-message .attribute-roll-title {
-    font-family: "PermanentMarker";
+    font-family: "Permanent Marker";
     color: darkred;
     font-size: medium;
 }
@@ -81,7 +72,7 @@
 }
 
 .chat-message .message-header .message-sender {
-  font-family: "CarbonScript";
+  font-family: "Finger Paint";
   text-shadow: 0 0 10px black;
 }
 

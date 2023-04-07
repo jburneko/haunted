@@ -7,7 +7,7 @@ export class ActorToSVG {
     static X = ActorToSVG.MARGIN
     static FONT_SIZE = 26.666
     static LEADING = 27.466
-    static STYLE = `font-family:'PermanentMarker-Regular', 'Permanent Marker';font-size:${ActorToSVG.FONT_SIZE}px;fill:rgb(139,0,0);`
+    static STYLE = `font-family:'Permanent Marker';font-size:${ActorToSVG.FONT_SIZE}px;fill:rgb(139,0,0);`
 
     static PROPERTIES = [
         {label: "HAUNTED.Character.Ambition", field: "ambition"},
@@ -16,10 +16,15 @@ export class ActorToSVG {
         {label: "HAUNTED.Character.Disposition", field: "disposition"},
         {label: "HAUNTED.Character.Influence", field: "influence"},
         {label: "HAUNTED.Character.Effort", field: "effort"},
+        {label: "HAUNTED.Character.Presence", field: "presence"},
     ]
 
-    static createText(field, entry, y_pos) {
-        return `<text  x="${ActorToSVG.X}" y="${y_pos}" style="${ActorToSVG.STYLE}">${field}: ${entry}</text>`
+    static async createPath() {
+        try {
+            await FilePicker.browse("data", ActorToSVG.getPath());
+        } catch (e) {
+            await FilePicker.createDirectory("data", ActorToSVG.getPath());
+        }
     }
 
     static getPath() {
@@ -34,22 +39,32 @@ export class ActorToSVG {
         return `${ActorToSVG.getPath()}/${ActorToSVG.getFileName(actorData)}`;
     }
 
-    static async createPath() {
-        try {
-            await FilePicker.browse("data", ActorToSVG.getPath());
-        } catch (e) {
-            await FilePicker.createDirectory("data", ActorToSVG.getPath());
-        }
-    }
-
     static async uploadFile(file) {
         return FilePicker.upload("data", ActorToSVG.getPath(), file, {}, {notify:false});
+    }
+
+    static wrap (text, limit) { //limt between 30 and 33
+        if (text.length > limit) {
+          // find the last space within limit
+          let edge = text.slice(0, limit).lastIndexOf(' ');
+          if (edge > 0) {
+            let line = text.slice(0, edge);
+            let remainder = text.slice(edge + 1);
+            return line + '\n' + wrap(remainder, limit);
+          }
+        }
+        return text;
+      }
+
+    static createText(field, entry, y_pos) {
+        return `<text  x="${ActorToSVG.X}" y="${y_pos}" style="${ActorToSVG.STYLE}">${field}: ${entry}</text>`
     }
 
     static createSVG(actorData) {
         
         let svgStr = ActorToSVG.HEADER + ActorToSVG.RECT;
         let y = ActorToSVG.MARGIN + ActorToSVG.FONT_SIZE;
+
         svgStr += this.createText(game.i18n.localize("HAUNTED.Character.Name"), actorData.name, y);
         for (const property of ActorToSVG.PROPERTIES) {
             const value = actorData.system[property.field];
