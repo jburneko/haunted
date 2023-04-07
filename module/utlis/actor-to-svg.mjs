@@ -43,37 +43,54 @@ export class ActorToSVG {
         return FilePicker.upload("data", ActorToSVG.getPath(), file, {}, {notify:false});
     }
 
-    static wrap (text, limit) { //limt between 30 and 33
+    static wrap (text, limit) { //limt between 30 and 33 maybe 26?
         if (text.length > limit) {
           // find the last space within limit
           let edge = text.slice(0, limit).lastIndexOf(' ');
           if (edge > 0) {
             let line = text.slice(0, edge);
             let remainder = text.slice(edge + 1);
-            return line + '\n' + wrap(remainder, limit);
+            return line + '\n' + ActorToSVG.wrap(remainder, limit);
           }
         }
         return text;
-      }
+    }
 
     static createText(field, entry, y_pos) {
-        return `<text  x="${ActorToSVG.X}" y="${y_pos}" style="${ActorToSVG.STYLE}">${field}: ${entry}</text>`
+        let text = `${field}: ${entry}`;
+        text = ActorToSVG.wrap(text, 32);
+        text = text.split('\n');
+
+        const result = {svgText: ``};
+        for (const line of text) {
+            result.svgStr += `<text  x="${ActorToSVG.X}" y="${y_pos}" style="${ActorToSVG.STYLE}">${line}</text>`;
+            y_pos += ActorToSVG.LEADING;
+        }
+
+        result.y_pos = y_pos;
+
+        return result;
     }
 
     static createSVG(actorData) {
-        
         let svgStr = ActorToSVG.HEADER + ActorToSVG.RECT;
         let y = ActorToSVG.MARGIN + ActorToSVG.FONT_SIZE;
 
-        svgStr += this.createText(game.i18n.localize("HAUNTED.Character.Name"), actorData.name, y);
+        let lines = this.createText(game.i18n.localize("HAUNTED.Character.Name"), actorData.name, y);
+        svgStr += lines.svgStr;
+        y = lines.y_pos;
+
         for (const property of ActorToSVG.PROPERTIES) {
             const value = actorData.system[property.field];
             if(value !== undefined) {
                 const localLabel = game.i18n.localize(property.label);
-                y += ActorToSVG.LEADING * 2;
-                svgStr += this.createText(localLabel, value, y);
+                y += ActorToSVG.LEADING;
+                lines = this.createText(localLabel, value, y);
+                svgStr += lines.svgStr;
+                y = lines.y_pos;
             }
         }
+
         svgStr += ActorToSVG.FOOTER;
         
         return new File([svgStr], ActorToSVG.getFileName(actorData));
