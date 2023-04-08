@@ -1,11 +1,11 @@
-  @import url('https://fonts.googleapis.com/css2?family=Finger+Paint&family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Finger+Paint&family=Permanent+Marker&display=swap');
 
-  @font-face {
-    font-family: "DPoly-Six-Sider";
-    src: url("../assets/fonts/DPoly-Six-Sider.otf") format("opentype");
-  }
+@font-face {
+  font-family: "DPoly-Six-Sider";
+  src: url("../assets/fonts/DPoly-Six-Sider.otf") format("opentype");
+}
 
-.haunted .haunted-sheet {
+.haunted .haunted-sheet, .roll-influence-dialog {
   display: flex;
   flex-direction: column;
 }
@@ -28,7 +28,7 @@
 .haunted .haunted-attributes {
   display: flex;
   flex-direction: row;
-  margin: 1.5rem 0;
+  margin-bottom: 1.5rem;
 }
 
 .haunted .effort-label {
@@ -43,6 +43,11 @@
     margin-right: 0.5rem;
 }
 
+.haunted .number-field {
+  width: 2rem;
+  text-align: center;
+}
+
 .haunted .rollable:hover {
     cursor: pointer;
     text-shadow: 0 0 10px black;
@@ -50,6 +55,14 @@
 
 .haunted .prosemirror {
   height: 100vh;
+}
+
+.haunted .adjust-button {
+  width: fit-content;
+  padding: 0 1rem;
+  margin-left: 0.5rem; 
+  align-self: center;
+  font-weight: bold;
 }
 
 .attribute-roll-message {
@@ -66,7 +79,7 @@
 .attribute-roll-message .attribute-dice {
     font-family: "DPoly-Six-Sider";
     font-size: xx-large;
-    padding:2px;
+    padding: 2px;
     border: 4px solid darkred;
     margin: 8px;
 }

@@ -100,7 +100,6 @@ export class HauntedActor extends Actor {
     
             case HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER:
             case HauntedActor.CHARACTER_TYPE.SUPPORT_BOTH:
-                data.img = "systems/haunted/assets/icons/character.svg";
                 const disposition = HauntedActor.generateDisposition();
                 system.disposition = disposition;
     
@@ -111,6 +110,8 @@ export class HauntedActor extends Actor {
     
                 system.influence = influence;
                 system.effort = effort;
+
+                data.img = "systems/haunted/assets/icons/character.svg";
     
                 ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER;
                 break;
@@ -174,6 +175,13 @@ export class HauntedActor extends Actor {
         const newEffort = this.system.effort - effortSpent;
         await this.update({"system.effort": newEffort});
         return effortSpent;
+    }
+
+    async adjustDisposition(delta) {
+        let newDisposition = this.system.disposition += delta;
+        if(newDisposition <= HauntedActor.DISPOSITION.UNKNOWN) newDisposition = HauntedActor.DISPOSITION.ADVOCATE;
+        else if(newDisposition > HauntedActor.DISPOSITION.ADVOCATE) newDisposition = HauntedActor.DISPOSITION.ADVERSARY;
+        this.update({"system.disposition":newDisposition}); 
     }
 
     async updateToken() {

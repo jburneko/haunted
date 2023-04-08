@@ -2,6 +2,13 @@ import { HauntedActor } from "../documents/haunted-actor.mjs";
 
 export class CharacterSheet extends ActorSheet {
 
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            width: 512,
+            height: 720
+        });
+    }
+
     getData () {
         const context = super.getData();
         const actorData = this.actor.toObject(false);

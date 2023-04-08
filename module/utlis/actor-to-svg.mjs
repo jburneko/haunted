@@ -1,3 +1,4 @@
+import { HauntedActor } from "../documents/haunted-actor.mjs"
 
 export class ActorToSVG {
     static HEADER = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300">`
@@ -58,7 +59,7 @@ export class ActorToSVG {
 
     static createText(field, entry, y_pos) {
         let text = `${field}: ${entry}`;
-        text = ActorToSVG.wrap(text, 32);
+        text = ActorToSVG.wrap(text, 35);
         text = text.split('\n');
 
         const result = {svgText: ``};
@@ -81,9 +82,10 @@ export class ActorToSVG {
         y = lines.y_pos;
 
         for (const property of ActorToSVG.PROPERTIES) {
-            const value = actorData.system[property.field];
+            let value = actorData.system[property.field];
             if(value !== undefined) {
                 const localLabel = game.i18n.localize(property.label);
+                if(property.field === "disposition") value = HauntedActor.DISPOSITION.getLocalString(value);
                 y += ActorToSVG.LEADING;
                 lines = this.createText(localLabel, value, y);
                 svgStr += lines.svgStr;
