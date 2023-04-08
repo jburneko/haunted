@@ -84,6 +84,7 @@ export class HauntedActor extends Actor {
 
         switch(data.type) {
             case HauntedActor.CHARACTER_TYPE.MURDERER:
+                data.img = "systems/haunted/assets/icons/spy.svg";
                 system.influence = 2;
                 system.effort = 6;
 
@@ -91,6 +92,7 @@ export class HauntedActor extends Actor {
                 break;
     
             case HauntedActor.CHARACTER_TYPE.GHOST:
+                data.img = "systems/haunted/assets/icons/haunting.svg";
                 system.presence = 8
 
                 ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
@@ -98,6 +100,7 @@ export class HauntedActor extends Actor {
     
             case HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER:
             case HauntedActor.CHARACTER_TYPE.SUPPORT_BOTH:
+                data.img = "systems/haunted/assets/icons/character.svg";
                 const disposition = HauntedActor.generateDisposition();
                 system.disposition = disposition;
     
