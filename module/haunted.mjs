@@ -14,14 +14,6 @@ Hooks.once("init", () => {
     CONFIG.Actor.documentClass = HauntedActor;
     CONFIG.Token.objectClass = HauntedToken;
 
-    console.log(CONST);
-    console.log(CONFIG);
-    console.log(game);
-
-    const scenes = game.packs.get("haunted.scenes");
-
-    console.log(scenes);
-
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("haunted", MurdererSheet, { types: [HauntedActor.CHARACTER_TYPE.MURDERER], makeDefault: true});
     Actors.registerSheet("haunted", GhostSheet, { types: [HauntedActor.CHARACTER_TYPE.GHOST], makeDefault: true});
