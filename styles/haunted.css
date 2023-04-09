@@ -1,9 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Finger+Paint&family=Permanent+Marker&display=swap');
-
-@font-face {
-  font-family: "DPoly-Six-Sider";
-  src: url("../assets/fonts/DPoly-Six-Sider.otf") format("opentype");
-}
 
 .haunted .haunted-sheet, .roll-influence-dialog {
   display: flex;
@@ -13,7 +7,7 @@
 .haunted .character-header h1 {
     font-family: "Finger Paint";
     font-size: xx-large;
-    text-shadow: 0 0 10px black;
+    text-shadow: 0 0 0.5rem black;
 }
 
 .haunted .character-header input {
@@ -36,9 +30,6 @@
 }
 
 .haunted .attribute-name {
-    font-family: "Permanent Marker";
-    color: darkred;
-    font-size: medium;
     flex-shrink: 0;
     margin-right: 0.5rem;
 }
@@ -65,27 +56,13 @@
   font-weight: bold;
 }
 
-.attribute-roll-message {
-    border: 2px solid black;
-    text-align: center;
+.haunted .disposition {
+  align-self: center;
 }
 
-.attribute-roll-message .attribute-roll-title {
-    font-family: "Permanent Marker";
-    color: darkred;
-    font-size: medium;
+.haunted .disposition-buttons {
+  display: flex;
+  flex-direction: column;
 }
 
-.attribute-roll-message .attribute-dice {
-    font-family: "DPoly-Six-Sider";
-    font-size: xx-large;
-    padding: 2px;
-    border: 4px solid darkred;
-    margin: 8px;
-}
-
-.chat-message .message-header .message-sender {
-  font-family: "Finger Paint";
-  text-shadow: 0 0 10px black;
-}
 

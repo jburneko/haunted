@@ -2,11 +2,11 @@
   {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
   <section class ="character-info">
     <div class="character-motive">
-        <label class="attribute-name" for="system.unfinishedBusiness">{{localize "HAUNTED.Character.UnfinishedBusiness"}}:</label>
+        <label class="attribute-name haunted-attribute-label" for="system.unfinishedBusiness">{{localize "HAUNTED.Character.UnfinishedBusiness"}}:</label>
         <input type="text" name="system.unfinishedBusiness" value="{{system.unfinishedBusiness}}" data-dtype="String"/>
     </div>
     <div class="haunted-attributes">
-        <label class="attribute-name rollable" data-attribute="presence" for="system.presence"><i class="fas fa-dice"></i> {{localize "HAUNTED.Character.Presence"}}:</label>
+        <label class="attribute-name haunted-attribute-label rollable" data-attribute="presence" for="system.presence"><i class="fas fa-dice"></i> {{localize "HAUNTED.Character.Presence"}}:</label>
         <input class="number-field" type="number" name="system.presence" value="{{system.presence}}" data-dtype="Number"/>
     </div>
   </section>

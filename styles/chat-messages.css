@@ -1,0 +1,17 @@
+.attribute-roll-message {
+    border: 2px solid black;
+    text-align: center;
+}
+
+.attribute-dice {
+    font-family: "DPoly-Six-Sider";
+    font-size: xx-large;
+    padding: 2px;
+    border: 4px solid darkred;
+    margin: 8px;
+}
+
+.chat-message .message-header .message-sender {
+  font-family: "Finger Paint";
+  text-shadow: 0 0 0.5rem black;
+}

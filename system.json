@@ -14,6 +14,8 @@
         "module/haunted.mjs"
     ],
     "styles" : [
+        "styles/fonts.css",
+        "styles/chat-messages.css",
         "styles/haunted.css"
     ],
     "packs" : [

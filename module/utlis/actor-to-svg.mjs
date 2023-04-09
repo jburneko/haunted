@@ -59,10 +59,10 @@ export class ActorToSVG {
 
     static createText(field, entry, y_pos) {
         let text = `${field}: ${entry}`;
-        text = ActorToSVG.wrap(text, 35);
+        text = ActorToSVG.wrap(text, 32);
         text = text.split('\n');
 
-        const result = {svgText: ``};
+        const result = {svgStr: ``};
         for (const line of text) {
             result.svgStr += `<text  x="${ActorToSVG.X}" y="${y_pos}" style="${ActorToSVG.STYLE}">${line}</text>`;
             y_pos += ActorToSVG.LEADING;
