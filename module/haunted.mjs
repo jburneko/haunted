@@ -7,12 +7,14 @@ import { HauntedToken } from "./placeables/HauntedToken.mjs";
 import { ActorToSVG } from "./utlis/actor-to-svg.mjs";
 import { SocketHandler } from "./networking/socket-handler.mjs";
 import { SceneLoader } from "./utlis/scene-loader.mjs";
+import { HauntedConflict } from "./documents/haunted-conflict.mjs";
 
 Hooks.once("init", () => {
     CONFIG.debug.hooks = true;
 
     CONFIG.Actor.documentClass = HauntedActor;
     CONFIG.Token.objectClass = HauntedToken;
+    CONFIG.Combat.documentClass = HauntedConflict;
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("haunted", MurdererSheet, { types: [HauntedActor.CHARACTER_TYPE.MURDERER], makeDefault: true});

@@ -19,6 +19,14 @@ export class DiceFormater {
                     .reverse();
     }
 
+    static sortDiceArray(dice) {
+        return dice.sort((a, b) => a - b).reverse();
+    }
+
+    static sortDiceList(diceList) {
+        return diceList.sort((a, b) => a.dice[0] - b.dice[0]).reverse();
+    }
+
     static diceToString(dice) {
         if(!Array.isArray(dice))
             dice = new Array(dice);

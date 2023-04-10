@@ -23,7 +23,15 @@ export class SocketEvents {
     static spendHelpDice(helpers) {
         const eventData = {
             event_id: `SOCKETEVENT.spendHelpDice`,
-            data: helpers
+            data: helpers, 
+        };
+        SocketEvents.send(eventData);
+    }
+
+    static addConflictRoll(actorId, dice) {
+        const eventData = {
+            event_id: `SOCKETEVENT.addConflictRoll`,
+            data : {actorId: actorId, dice:dice}
         };
         SocketEvents.send(eventData);
     }

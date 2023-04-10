@@ -143,6 +143,34 @@ export class HauntedActor extends Actor {
         return game.actors.contents.filter(character => types.includes(character.type));
     }
 
+    static async _spendHelpDice(helpers) {
+        for (const helper of helpers) {
+            if(helper.count === 0) continue;
+
+            const actor = game.actors.get(helper.id);
+            let update = {};
+
+            if(actor.type === HauntedActor.CHARACTER_TYPE.GHOST ) {
+                update = {"system.presence.value": actor.system.presence.value - helper.count};
+            }
+            else
+                update = {"system.effort": actor.system.effort - Math.min(actor.system.effort, helper.count)};
+            
+            await actor.update(update);
+        }
+    }
+
+    get inConflict() {
+        const conflict = game.combat;
+
+        if(conflict?.started) {
+            const characters = conflict.combatants;
+            if(characters.find(character => character.actorId === this.id)) return true;
+        }
+
+        return false
+    }
+
     async showInfluenceRollDialog() {
         const dialog = new InfluenceRollDialog();
         dialog.actor = this;
@@ -162,16 +190,21 @@ export class HauntedActor extends Actor {
         const roll = new Roll(diceFormula, this.getRollData());
         
         roll.evaluate({async:false});
-   
-        this.reportAttributeRoll(attribute, roll);
+
+        const dice = DiceFormater.sortDice(roll.terms[0].results);
+
+        if(this.inConflict)
+            game.combat.addRoll(this, dice);
+        else
+            this.reportAttributeRoll(attribute, dice);
     }
 
-    async reportAttributeRoll(attribute, roll) {
-        const dice = DiceFormater.sortDice(roll.terms[0].results);
+    async reportAttributeRoll(attribute, dice) {
         const chatData = {
             attribute: attribute,
             roll: dice
         };
+
         const html = await renderTemplate(
             "systems/haunted/templates/chat/attribute-roll-single.hbs",
             chatData
@@ -189,22 +222,6 @@ export class HauntedActor extends Actor {
         const newEffort = this.system.effort - effortSpent;
         await this.update({"system.effort": newEffort});
         return effortSpent;
-    }
-
-    static async _spendHelpDice(helpers) {
-        for (const helper of helpers) {
-            if(helper.count === 0) continue;
-
-            const actor = game.actors.get(helper.id);
-            let update = {};
-
-            if(actor.type === HauntedActor.CHARACTER_TYPE.GHOST )
-                update = {"system.presence.value": actor.system.presence.value - helper.count};
-            else
-                update = {"system.effort": actor.system.effort - Math.min(actor.system.effort, helper.count)};
-            
-            await actor.update(update);
-        }
     }
 
     async spendHelpDice(helpers) {
