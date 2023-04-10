@@ -140,8 +140,6 @@ export class HauntedActor extends Actor {
 
     static getCharacterType(types) {
         if(!Array.isArray(types)) types = [types];
-        console.log(types);
-        console.log(game.actors.contents);
         return game.actors.contents.filter(character => types.includes(character.type));
     }
 

@@ -16,6 +16,7 @@
     "styles" : [
         "styles/fonts.css",
         "styles/chat-messages.css",
+        "styles/dialogs.css",
         "styles/haunted.css"
     ],
     "packs" : [

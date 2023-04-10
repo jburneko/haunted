@@ -1,0 +1,10 @@
+.roll-influence-dialog {
+    display: flex;
+    flex-direction: column;
+  }
+
+.help-header {
+    display: flex;
+    flex-direction: row;
+}
+  

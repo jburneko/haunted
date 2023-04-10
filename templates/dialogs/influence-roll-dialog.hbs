@@ -3,9 +3,18 @@
         <label class="attribute-name haunted-attribute-label" for="effort-spent"> {{localize "HAUNTED.Dialogs.EffortSpent"}}:</label>
         <input class="number-field" name="effort-spent" type="number" value=0 />
     </div>
-     <div class="haunted-attributes">
-        <label class="attribute-name haunted-attribute-label" for="help-dice">{{localize "HAUNTED.Dialogs.HelpDice"}}:</label>
-        <input class="number-field" name="help-dice" type="number" value=0 />
+     <div class="help-header">
+        <label class="haunted-attribute-label">{{localize "HAUNTED.Dialogs.Helpers"}}:</label>
+        <button class="adjust-button add-helper">+</button>
     </div>
+    <ul class="helper-list">
+        {{#each helpers}}
+        <li class="helper-params">
+            <label>{{this.id}}</label>
+            <input class="number-field help-dice" type="number" name="help-dice" data-index="{{this.index}}" value="{{this.count}}" data-dtype="Number"/>
+            <label class="haunted-attribute-label rollable" data-index="{{this.index}}"><i class="fas fa-trash"></i></label>
+        </li>
+        {{/each}}
+    </ul>
     <button class="adjust-button influence-roll-button">{{localize "HAUNTED.Dialogs.Roll"}}</button>
 </form>

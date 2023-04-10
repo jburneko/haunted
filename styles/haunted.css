@@ -1,5 +1,5 @@
 
-.haunted .haunted-sheet, .roll-influence-dialog {
+.haunted .haunted-sheet {
   display: flex;
   flex-direction: column;
 }
