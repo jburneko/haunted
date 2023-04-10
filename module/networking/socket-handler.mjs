@@ -1,3 +1,4 @@
+import { HauntedActor } from "../documents/haunted-actor.mjs";
 import { HauntedToken } from "../placeables/HauntedToken.mjs";
 import { UserUtils } from "../utlis/user-utils.mjs";
 
@@ -6,6 +7,7 @@ export class SocketHandler {
         switch(data.event_id) {
             case `SOCKETEVENT.refreshToken`: SocketHandler.refreshToken(data.data); break;
             case `SOCKETEVENT.decreasePresence`: SocketHandler.decreasePresence(data.data); break;
+            case `SOCKETEVENT.spendHelpDice`: SocketHandler.spendHelpDice(data.data); break;
         }
     }
 
@@ -24,5 +26,10 @@ export class SocketHandler {
 
             ghost.decreasePresence();
         }
+    }
+
+    static spendHelpDice(helpers) {
+        if (UserUtils.isGM)
+            HauntedActor._spendHelpDice(helpers);
     }
 }

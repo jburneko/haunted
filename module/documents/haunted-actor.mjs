@@ -149,12 +149,18 @@ export class HauntedActor extends Actor {
         dialog.render(true);
     }
 
-    async rollAttribute(attribute, effortSpent = 0, helpDice= 0) {
+    async rollAttribute(attribute, effortSpent = 0, helpers=[]) {
         effortSpent = effortSpent <= 0 ? 0 : await this.spendEffort(effortSpent);
+        const helpDice = this.totalHelpDice(helpers)
+        await this.spendHelpDice(helpers);
+
+        console.log("***** ROLLING *****");
+        console.log(effortSpent);
+        console.log(helpers);
+        console.log(helpDice);
+
         let value = this.system[attribute];
         if(typeof value !== 'number') value = value.value;
-
-        console.log(value)
 
         const totalDice = value + effortSpent + helpDice;
         const diceFormula = `${totalDice}d6`;
@@ -188,6 +194,37 @@ export class HauntedActor extends Actor {
         const newEffort = this.system.effort - effortSpent;
         await this.update({"system.effort": newEffort});
         return effortSpent;
+    }
+
+    static async _spendHelpDice(helpers) {
+        for (const helper of helpers) {
+            const actor = game.actors.get(helper.id);
+            let update = {};
+
+            if(actor.type === HauntedActor.CHARACTER_TYPE.GHOST )
+                update = {"system.presence.value": actor.system.presence.value - helper.count};
+            else
+                update = {"system.effort": actor.system.effort - Math.min(actor.system.effort, helper.count)};
+            
+            await actor.update(update);
+        }
+    }
+
+    async spendHelpDice(helpers) {
+        if(UserUtils.isGM)
+           await HauntedActor._spendHelpDice(helpers);
+        else
+            SocketEvents.spendHelpDice(helpers);
+    }
+
+    totalHelpDice(helpers) {
+        return helpers.reduce((accumulator, helper) => {
+            if(helper.count === 0) return accumulator;
+
+            const actor = game.actors.get(helper.id);
+            if(actor.type === HauntedActor.CHARACTER_TYPE.GHOST) return accumulator + helper.count;
+            return accumulator + Math.min(helper.count, actor.system.effort);
+        }, 0);
     }
 
     async adjustDisposition(delta) {

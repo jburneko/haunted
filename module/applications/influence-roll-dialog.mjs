@@ -14,26 +14,28 @@ export class InfluenceRollDialog extends Application {
     constructor() {
         super();
         this.helpers = [];
+        this.effortSpent = 0;
     }
 
     get helperChoices() {
         const helpers = HauntedActor.getCharacterType([...HauntedActor.CHARACTER_TYPE.SUPPORT, HauntedActor.CHARACTER_TYPE.GHOST])
-            .map(helper => ({ [helper.id]: helper.name }));
+            .map(helper => ({ key:helper.id, label:helper.name }));
         return helpers;
     }
 
     getData() {
         const data = {
             helperChoices: this.helperChoices,
-            helpers: this.helpers
-        }
+            helpers: this.helpers,
+            effortSpent: this.effortSpent
+        };
 
         return data;
     }
 
     createHelper() {
         const helper = {
-            id: null,
+            id: "",
             index: this.helpers.length,
             count: 0
         }
@@ -62,40 +64,49 @@ export class InfluenceRollDialog extends Application {
     activateListeners(html) {
         super.activateListeners(html);
 
-        html.find(".influence-roll-button").click(this._onInfluenceRoll.bind(this));
+        html.find(".influence-roll-button").click(this._onRollInfluence.bind(this));
         html.find(".add-helper").click(this._onAddHelper.bind(this));
         html.find(".rollable").click(this._onDeleteHelper.bind(this));
         html.find(".help-dice").change(this._onUpdateHelper.bind(this));
+        html.find(".helper-choices").change(this._onUpdateHelper.bind(this));
+        html.find(".number-field").change(this._onUpdateEffort.bind(this));
     }
 
     _onUpdateHelper(event) {
-        event.preventDefault();
         const index = parseInt(event.target.getAttribute("data-index"));
-        const count = parseInt(event.target.value)
-        this.updateHelper(index, null, count);
-    }
+        const helper = $(event.currentTarget).parents(".helper-params")[0]
+        const count = parseInt($(helper).find(".help-dice").val());
+        const id = $(helper).find(".helper-choices").val();
 
-    _onDeleteHelper(event) {
-        event.preventDefault();
-        const index = parseInt(event.currentTarget.getAttribute("data-index"));
-        this.deleteHelper(index);
+        this.updateHelper(index, id, count);
         this.render();
     }
 
-    _onAddHelper(event) {
-        event.preventDefault();
+    _onUpdateEffort(event) {
+        this.effortSpent = parseInt(event.target.value);
+        this.render();
+    }
+
+    _onDeleteHelper(event) {
+        const index = parseInt(event.currentTarget.getAttribute("data-index"));
+        
+        this.deleteHelper(index)
+        this.render();
+    }
+
+    _onAddHelper(event) {        
         this.createHelper();
         this.render();
     }
 
-    _onInfluenceRoll(event) {
+    _onRollInfluence(event) {
         event.preventDefault();
+        
         const form = $(event.currentTarget).parents(".roll-influence-dialog")[0];
         const effortSpent = parseInt($(form).find("input[name=effort-spent]").val());
     
         this.close();
 
         this.actor.rollAttribute(HauntedActor.ATTRIBUTE.INFLUENCE, effortSpent, this.helpers);
-
     }
 }

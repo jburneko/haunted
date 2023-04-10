@@ -8,7 +8,7 @@ export class SocketEvents {
         const eventData = {
             event_id : `SOCKETEVENT.refreshToken`,
             data: actorId
-        }
+        };
         SocketEvents.send(eventData);
     }
 
@@ -16,7 +16,15 @@ export class SocketEvents {
         const eventData = {
             event_id : `SOCKETEVENT.decreasePresence`,
             data: actorId
-        }
+        };
+        SocketEvents.send(eventData);
+    }
+
+    static spendHelpDice(helpers) {
+        const eventData = {
+            event_id: `SOCKETEVENT.spendHelpDice`,
+            data: helpers
+        };
         SocketEvents.send(eventData);
     }
 }
