@@ -17,6 +17,7 @@ export class SupportSheet extends CharacterSheet {
 
         html.find(".increase-disposition").click(this._onIncreaseDisposition.bind(this));
         html.find(".decrease-disposition").click(this._onDecreaseDisposition.bind(this));
+        html.find(".increase-influence").click(this._onIncreaseInfluence.bind(this));
     }
 
     _onIncreaseDisposition(event) {
@@ -27,5 +28,10 @@ export class SupportSheet extends CharacterSheet {
     _onDecreaseDisposition(event) {
       event.preventDefault();
       this.actor.adjustDisposition(-1);
+    }
+
+    _onIncreaseInfluence(event) {
+      event.preventDefault();
+      this.actor.increaseSupportInfluence();
     }
 } 

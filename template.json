@@ -22,7 +22,10 @@
             "ambition" : ""
         },
         "ghost" : {
-            "presence": 0,
+            "presence": {
+                "value": 0,
+                "max": 0
+            },
             "unfinishedBusiness": ""
         },
         "support-murderer": {

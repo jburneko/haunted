@@ -50,8 +50,10 @@
 
 .haunted .adjust-button {
   width: fit-content;
-  padding: 0 1rem;
-  margin-left: 0.5rem; 
+  font-size: medium;
+  margin-left: 0.5rem;
+  line-height: 0;
+  height: 27px; 
   align-self: center;
   font-weight: bold;
 }

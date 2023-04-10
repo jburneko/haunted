@@ -3,6 +3,7 @@ import { DiceFormater } from "../utlis/dice-formater.mjs";
 import { ActorToSVG } from "../utlis/actor-to-svg.mjs";
 import { SocketEvents } from "../networking/socket-events.mjs";
 import { HauntedToken } from "../placeables/HauntedToken.mjs";
+import { UserUtils } from "../utlis/user-utils.mjs";
 
 export class HauntedActor extends Actor {
 
@@ -93,8 +94,10 @@ export class HauntedActor extends Actor {
     
             case HauntedActor.CHARACTER_TYPE.GHOST:
                 data.img = "systems/haunted/assets/icons/haunting.svg";
-                system.presence = 8
-
+                system.presence = {
+                    value: 8,
+                    max: 8
+                };
                 ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
                 break;
     
@@ -135,6 +138,13 @@ export class HauntedActor extends Actor {
         }
     }
 
+    static getCharacterType(types) {
+        if(!Array.isArray(types)) types = [types];
+        console.log(types);
+        console.log(game.actors.contents);
+        return game.actors.contents.filter(character => types.includes(character.type));
+    }
+
     async showInfluenceRollDialog() {
         const dialog = new InfluenceRollDialog();
         dialog.actor = this;
@@ -142,8 +152,13 @@ export class HauntedActor extends Actor {
     }
 
     async rollAttribute(attribute, effortSpent = 0, helpDice= 0) {
-        effortSpent = effortSpent <= 0 ? 0 : await this.spendEffort(effortSpent); 
-        const totalDice = this.system[attribute] + effortSpent + helpDice;
+        effortSpent = effortSpent <= 0 ? 0 : await this.spendEffort(effortSpent);
+        let value = this.system[attribute];
+        if(typeof value !== 'number') value = value.value;
+
+        console.log(value)
+
+        const totalDice = value + effortSpent + helpDice;
         const diceFormula = `${totalDice}d6`;
         const roll = new Roll(diceFormula, this.getRollData());
         
@@ -184,6 +199,42 @@ export class HauntedActor extends Actor {
         this.update({"system.disposition":newDisposition}); 
     }
 
+    async increaseSupportInfluence() {
+        const currentInfluence = this.system.influence;
+        const currentEffort = this.system.effort;
+
+        if(currentEffort > currentInfluence) {
+            this.update({
+                "system.influence" : currentInfluence + 1,
+                "system.effort" : currentEffort - (currentInfluence + 1)
+            });
+        }
+    }
+
+    async decreasePresence() {
+        this.update({
+            "system.presence.value" : this.system.presence.value - 1,
+            "system.presence.max": this.system.presence.max - 1
+        });
+    }
+
+    async increaseMurdererInfluence() {
+        const ghost = HauntedActor.getCharacterType(HauntedActor.CHARACTER_TYPE.GHOST)[0];
+        const currentMaxPresence = ghost.system.presence.max;
+        const currentInfluence = this.system.influence;
+
+        if(currentMaxPresence > 0) {
+            this.update(({
+                "system.influence": currentInfluence + 1
+            }));
+
+            if(UserUtils.isGM)
+                ghost.decreasePresence();
+            else
+                SocketEvents.decreasePresence(ghost.id);
+        }
+    }
+
     async updateToken() {
         const svgFile = ActorToSVG.createSVG(this);
         await ActorToSVG.uploadFile(svgFile);
@@ -193,8 +244,7 @@ export class HauntedActor extends Actor {
 }
 
 Hooks.on("createActor", (document, options, userID) => {
-    const user = game.users.get(game.userId);
-    if(user.hasRole(CONST.USER_ROLES.GAMEMASTER))
+    if(UserUtils.isGM)
         document.update({"prototypeToken.texture.src": ActorToSVG.getFullPath(document)});
 })
 
@@ -202,7 +252,6 @@ Hooks.on("preUpdateActor", (document, changes, options, userID) => {
 })
 
 Hooks.on("updateActor", (document, changes, options, userID) => {
-    const user = game.users.get(game.userId);
-    if(user.hasRole(CONST.USER_ROLES.GAMEMASTER))
+    if(UserUtils.isGM)
         document.updateToken();
 })

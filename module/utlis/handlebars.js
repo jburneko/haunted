@@ -19,6 +19,14 @@ export const configureHandlebars = () => {
     Handlebars.registerHelper('local_attribute', function (value) {
       return HauntedActor.ATTRIBUTE.getLocalString(value);
     });
+
+    Handlebars.registerHelper('local_attribute', function (value) {
+      return HauntedActor.ATTRIBUTE.getLocalString(value);
+    });
+
+    Handlebars.registerHelper('issupport', function (value) {
+      return HauntedActor.CHARACTER_TYPE.SUPPORT.includes(value);
+    });
 };
 
 export async function preloadTemplates() {
