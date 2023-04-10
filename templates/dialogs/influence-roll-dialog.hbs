@@ -1,16 +1,16 @@
 <form class="haunted roll-influence-dialog">
     <div class="haunted-attributes">
-        <label class="attribute-name haunted-attribute-label" for="effort-spent"> {{localize "HAUNTED.Dialogs.EffortSpent"}}:</label>
-        <input class="number-field" name="effort-spent" type="number" value={{effortSpent}} />
+        <label class="attribute-name haunted-attribute-label" for="effortSpent"> {{localize "HAUNTED.Dialogs.EffortSpent"}}:</label>
+        <input class="number-field" name="effortSpent" type="number" value={{rollInfo.effortSpent}} />
     </div>
      <div class="help-header">
         <label class="haunted-attribute-label">{{localize "HAUNTED.Dialogs.Helpers"}}:</label>
         <button class="adjust-button add-helper">+</button>
     </div>
     <ul class="helper-list">
-        {{#each helpers}}
+        {{#each rollInfo.helpers}}
         <li class="helper-params">
-            <select class="helper-choices" data-index="{{this.index}}">
+            <select class="helper-choices" name="helper-choice" data-index="{{this.index}}">
                 {{selectOptions ../helperChoices selected=this.id nameAttr="key" labelAttr="label"}}
             </select>
             <input class="number-field help-dice" type="number" name="help-dice" data-index="{{this.index}}" value="{{this.count}}" data-dtype="Number"/>

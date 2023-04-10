@@ -154,11 +154,6 @@ export class HauntedActor extends Actor {
         const helpDice = this.totalHelpDice(helpers)
         await this.spendHelpDice(helpers);
 
-        console.log("***** ROLLING *****");
-        console.log(effortSpent);
-        console.log(helpers);
-        console.log(helpDice);
-
         let value = this.system[attribute];
         if(typeof value !== 'number') value = value.value;
 
@@ -198,6 +193,8 @@ export class HauntedActor extends Actor {
 
     static async _spendHelpDice(helpers) {
         for (const helper of helpers) {
+            if(helper.count === 0) continue;
+
             const actor = game.actors.get(helper.id);
             let update = {};
 

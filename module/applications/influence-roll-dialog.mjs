@@ -1,36 +1,9 @@
 import { HauntedActor } from "../documents/haunted-actor.mjs";
 
-export class InfluenceRollDialog extends Application {
-    static get defaultOptions() {
-        const options = super.defaultOptions;
-        options.id = "influence-roll-dialog";
-        options.title = game.i18n.localize("HAUNTED.Dialogs.InfluenceRoll");
-        options.template = "systems/haunted/templates/dialogs/influence-roll-dialog.hbs";
-        options.width = 256;
-        options.height = 256;
-        return options
-    }
-
+class RollInfo {
     constructor() {
-        super();
-        this.helpers = [];
         this.effortSpent = 0;
-    }
-
-    get helperChoices() {
-        const helpers = HauntedActor.getCharacterType([...HauntedActor.CHARACTER_TYPE.SUPPORT, HauntedActor.CHARACTER_TYPE.GHOST])
-            .map(helper => ({ key:helper.id, label:helper.name }));
-        return helpers;
-    }
-
-    getData() {
-        const data = {
-            helperChoices: this.helperChoices,
-            helpers: this.helpers,
-            effortSpent: this.effortSpent
-        };
-
-        return data;
+        this.helpers = []
     }
 
     createHelper() {
@@ -38,16 +11,26 @@ export class InfluenceRollDialog extends Application {
             id: "",
             index: this.helpers.length,
             count: 0
-        }
+        };
+
         this.helpers.push(helper);
     }
 
-    updateHelper(index, id, count) {
-        if(index >= 0 && index < this.helpers.length) {
-            const helper = this.helpers[index];
-            helper.id = id;
-            helper.count = count;
-        }
+    update(expandedData) {
+        expandedData["help-dice"] = expandedData["help-dice"] || [];
+        expandedData["helper-choice"] = expandedData["helper-choice"] || []
+
+        if(!Array.isArray(expandedData["help-dice"])) expandedData["help-dice"] = [expandedData["help-dice"]];
+        if(!Array.isArray(expandedData["helper-choice"])) expandedData["helper-choice"] = [expandedData["helper-choice"]]
+
+        this.effortSpent = expandedData.effortSpent;
+        this.helpers = this.helpers.map((helper, index) => {
+            return {
+                id: expandedData["helper-choice"][index],
+                count: expandedData["help-dice"][index] || 0,
+                index: index
+            }
+        });
     }
 
     deleteHelper(index) {
@@ -60,6 +43,49 @@ export class InfluenceRollDialog extends Application {
             });
         }
     } 
+}
+
+export class InfluenceRollDialog extends FormApplication {
+    static get defaultOptions() {
+        const options = super.defaultOptions;
+        options.id = "influence-roll-dialog";
+        options.title = game.i18n.localize("HAUNTED.Dialogs.InfluenceRoll");
+        options.template = "systems/haunted/templates/dialogs/influence-roll-dialog.hbs";
+        options.width = 256;
+        options.height = 256;
+        options.userId = game.userId;
+        options.closeOnSubmit = false;
+        options.submitOnChange = true;
+        return options
+    }
+
+    constructor() {
+        super();
+        this.rollInfo = new RollInfo();
+    }
+
+    get helperChoices() {
+        const helpers = HauntedActor.getCharacterType([...HauntedActor.CHARACTER_TYPE.SUPPORT, HauntedActor.CHARACTER_TYPE.GHOST])
+            .map(helper => ({ key:helper.id, label:helper.name }));
+        return helpers;
+    }
+
+    getData() {
+        const data = {
+            helperChoices: this.helperChoices,
+            rollInfo: this.rollInfo
+        };
+
+        return data;
+    }
+
+    async _updateObject(event, formData) {
+        const expandedData = foundry.utils.expandObject(formData);
+
+        this.rollInfo.update(expandedData);
+
+        this.render();
+    }
 
     activateListeners(html) {
         super.activateListeners(html);
@@ -67,46 +93,26 @@ export class InfluenceRollDialog extends Application {
         html.find(".influence-roll-button").click(this._onRollInfluence.bind(this));
         html.find(".add-helper").click(this._onAddHelper.bind(this));
         html.find(".rollable").click(this._onDeleteHelper.bind(this));
-        html.find(".help-dice").change(this._onUpdateHelper.bind(this));
-        html.find(".helper-choices").change(this._onUpdateHelper.bind(this));
-        html.find(".number-field").change(this._onUpdateEffort.bind(this));
-    }
-
-    _onUpdateHelper(event) {
-        const index = parseInt(event.target.getAttribute("data-index"));
-        const helper = $(event.currentTarget).parents(".helper-params")[0]
-        const count = parseInt($(helper).find(".help-dice").val());
-        const id = $(helper).find(".helper-choices").val();
-
-        this.updateHelper(index, id, count);
-        this.render();
-    }
-
-    _onUpdateEffort(event) {
-        this.effortSpent = parseInt(event.target.value);
-        this.render();
     }
 
     _onDeleteHelper(event) {
+        event.preventDefault();
         const index = parseInt(event.currentTarget.getAttribute("data-index"));
-        
-        this.deleteHelper(index)
+        this.rollInfo.deleteHelper(index)
         this.render();
     }
 
-    _onAddHelper(event) {        
-        this.createHelper();
+    _onAddHelper(event) {
+        event.preventDefault();        
+        this.rollInfo.createHelper();
         this.render();
     }
 
     _onRollInfluence(event) {
         event.preventDefault();
-        
-        const form = $(event.currentTarget).parents(".roll-influence-dialog")[0];
-        const effortSpent = parseInt($(form).find("input[name=effort-spent]").val());
-    
+
         this.close();
 
-        this.actor.rollAttribute(HauntedActor.ATTRIBUTE.INFLUENCE, effortSpent, this.helpers);
+        this.actor.rollAttribute(HauntedActor.ATTRIBUTE.INFLUENCE, this.rollInfo.effortSpent, this.rollInfo.helpers);
     }
 }
