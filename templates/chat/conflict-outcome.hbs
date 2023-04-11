@@ -1,0 +1,11 @@
+<form class="conflict-outcome-message">
+    {{#each outcome}}
+        <div class="conflict-entry">
+            <div class="conflict-entry-header">
+                <span class="conflict-entry-name">{{name}}: </span>
+                <span class="haunted-attribute-label">{{attribute}}</span>
+            </div>
+            <div class="attribute-dice">{{format_conflict_dice dice victories}}</div>
+        </div>
+    {{/each}}
+</form>

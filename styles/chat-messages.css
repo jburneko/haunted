@@ -11,7 +11,17 @@
     margin: 8px;
 }
 
-.chat-message .message-header .message-sender {
+.chat-message .message-header .message-sender, .conflict-entry-name {
   font-family: "Finger Paint";
   text-shadow: 0 0 0.5rem black;
+}
+
+.conflict-entry {
+  display: flex;
+  flex-direction: column;
+}
+
+.conflict-entry-header {
+  align-self: center;
+  margin-top: 0.5rem;
 }

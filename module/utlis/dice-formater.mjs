@@ -58,5 +58,14 @@ export class DiceFormater {
             return obj;
         });
     }
+
+    static highlightVictories(dice, victories) {
+        return dice.map((die, index) => {
+            const obj = {value: die, color: DiceFormater.DIE_COLOR.WHITE}
+            if(index < victories)
+                obj.color = DiceFormater.DIE_COLOR.BLACK;
+            return obj;
+        });
+    }
 }
 

@@ -23,10 +23,7 @@ export class SocketHandler {
             console.log(game.actors);
 
             const ghost = game.actors.get(actorId);
-
-            console.log(ghost);
-
-            ghost.decreasePresence();
+            ghost.adjustPresence(-1, true);
         }
     }
 

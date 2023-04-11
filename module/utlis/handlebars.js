@@ -8,6 +8,12 @@ export const configureHandlebars = () => {
         return diceStr;
     });
 
+    Handlebars.registerHelper("format_conflict_dice", (dice, victories) => {
+      const diceObj = DiceFormater.highlightVictories(dice, victories);
+      const diceStr = DiceFormater.diceToString(diceObj);
+      return diceStr;
+    });
+
     Handlebars.registerHelper('isdefined', function (value) {
       return value !== undefined;
     });

@@ -151,6 +151,8 @@ export class HauntedActor extends Actor {
             let update = {};
 
             if(actor.type === HauntedActor.CHARACTER_TYPE.GHOST ) {
+                const conflict = game.combat;
+                if(conflict?.started) conflict.ghostHelped = true;
                 update = {"system.presence.value": actor.system.presence.value - helper.count};
             }
             else
@@ -224,6 +226,11 @@ export class HauntedActor extends Actor {
         return effortSpent;
     }
 
+    async increaseEffort(addedEffort) {
+        const newEffort = this.system.effort + addedEffort;
+        this.update({"system.effort": newEffort});
+    }
+
     async spendHelpDice(helpers) {
         if(UserUtils.isGM)
            await HauntedActor._spendHelpDice(helpers);
@@ -260,11 +267,20 @@ export class HauntedActor extends Actor {
         }
     }
 
-    async decreasePresence() {
-        this.update({
-            "system.presence.value" : this.system.presence.value - 1,
-            "system.presence.max": this.system.presence.max - 1
-        });
+    async adjustPresence(amount, adjustMax) {
+        let value = this.system.presence.value;
+        const max = this.system.presence.max;
+        
+        value = Math.min(value + amount, max);
+
+        let adjustments = {"system.presence.value" : value};
+        if(adjustMax)
+            adjustments = {
+                ...adjustments,
+                "system.presence.max": max + amount
+            };
+
+        this.update(adjustments);
     }
 
     async increaseMurdererInfluence() {
@@ -278,7 +294,7 @@ export class HauntedActor extends Actor {
             }));
 
             if(UserUtils.isGM)
-                ghost.decreasePresence();
+                ghost.adjustPresence(-1, true);
             else
                 SocketEvents.decreasePresence(ghost.id);
         }
