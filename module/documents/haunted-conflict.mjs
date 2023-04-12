@@ -102,6 +102,7 @@ export class HauntedConflict extends Combat {
     getOutcomeState(outcome) {
         const outcomeState  = {
             didMurdererWin: false,
+            didGhostWin: false,
             didGhostRoll: false,
             ghostActor: null,
         };
@@ -109,6 +110,7 @@ export class HauntedConflict extends Combat {
         const winner = game.actors.get(outcome[0].actorId);
 
         if(winner.type === HauntedActor.CHARACTER_TYPE.MURDERER) outcomeState.didMurdererWin = true;
+        if(winner.type === HauntedActor.CHARACTER_TYPE.GHOST) outcomeState.didGhostWin = true;
         
         for(const entry of outcome) {
             const character = game.actors.get(entry.actorId);
@@ -125,8 +127,9 @@ export class HauntedConflict extends Combat {
     applyVictories(outcome) {
         const victories = outcome[0].victories;
         const outcomeState = this.getOutcomeState(outcome);
-        if(outcomeState.didGhostRoll && outcomeState.didMurdererWin) {
-            outcomeState.ghostActor.adjustPresence(victories, false);
+        if(outcomeState.didGhostRoll) {
+            if(outcomeState.didMurdererWin) outcomeState.ghostActor.adjustPresence(-victories, false);
+            if(outcomeState.didGhostWin) outcomeState.ghostActor.adjustPresence(victories, false);
         }
         else {
             const winner = game.actors.get(outcome[0].actorId);
@@ -182,6 +185,19 @@ export class HauntedConflict extends Combat {
     forceConflictEnd() {
         this.delete();
     }
+
+    static onDieImage(event) {
+        event.preventDefault();
+        console.log("***** My Override ******")
+        const id = $(this).parents(".combatant.actor").attr("data-combatant-id");
+        const entry = game.combat.combatants.get(id);
+        const actor = game.actors.get(entry.actorId);
+        if(actor.type === HauntedActor.CHARACTER_TYPE.GHOST) {
+            actor.rollAttribute(HauntedActor.ATTRIBUTE.PRESENCE);
+        }
+        else
+            actor.showInfluenceRollDialog();
+    }
 }
 
 Hooks.on("combatStart", (combat, options) => {
@@ -190,4 +206,22 @@ Hooks.on("combatStart", (combat, options) => {
             entry.update({"hidden":true});
         }
     }
-})
+});
+
+Hooks.on("createCombatant", (character, options, uuid) => {
+    if(UserUtils.isGM) {
+        const actor = game.actors.get(character.actorId);
+        character.update({"img": actor.img});
+    }
+});
+
+Hooks.on("renderCombatTracker", (tracker) => {
+    const initiative = $(tracker.element).find(".combatant-control.roll")
+    $(initiative).off("click");
+    $(initiative).css("background", "url(systems/haunted/assets/icons/rolling-dices.svg) no-repeat 50% 50%");
+    $(initiative).css("background-size", "32px");
+    $(initiative).attr("data-tooltip", "Roll");
+
+    for(const element of initiative)
+        $(element).click(HauntedConflict.onDieImage.bind(element));
+});
