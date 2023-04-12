@@ -186,12 +186,17 @@ export class HauntedConflict extends Combat {
         this.delete();
     }
 
+    static getActorFromUI(element) {
+        const id = $(element).parents(".combatant.actor").attr("data-combatant-id");
+        const entry = game.combat.combatants.get(id);
+        const actor = game.actors.get(entry.actorId);
+        return actor;
+    }
+
     static onDieImage(event) {
         event.preventDefault();
         console.log("***** My Override ******")
-        const id = $(this).parents(".combatant.actor").attr("data-combatant-id");
-        const entry = game.combat.combatants.get(id);
-        const actor = game.actors.get(entry.actorId);
+        const actor = HauntedConflict.getActorFromUI(this);
         if(actor.type === HauntedActor.CHARACTER_TYPE.GHOST) {
             actor.rollAttribute(HauntedActor.ATTRIBUTE.PRESENCE);
         }
@@ -224,4 +229,26 @@ Hooks.on("renderCombatTracker", (tracker) => {
 
     for(const element of initiative)
         $(element).click(HauntedConflict.onDieImage.bind(element));
+
+    const token_names = $(tracker.element).find(".token-name");
+    for(const token_name of token_names) {
+        if(game.combat?.started)
+        {
+            const actor = HauntedConflict.getActorFromUI(token_name);
+            const conflictData = game.combat.conflictData;
+            let dice = conflictData[actor.id];
+            if(Array.isArray(dice)) {
+                dice = DiceFormater.highlightVictories(dice, 0);
+                dice = DiceFormater.diceToString(dice);
+                $(token_name).append(`<div class="conflict-dice">${dice}</div>`);
+
+                const token_img = $(token_name).siblings(".token-image");
+                $(token_img).css("width", "68px");
+                $(token_img).css("height", "68px");
+
+                const token_initiative = $(token_name).siblings(".token-initiative");
+                $(token_initiative).css("display", "none");
+            }
+        }
+    }
 });

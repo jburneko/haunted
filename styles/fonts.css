@@ -10,3 +10,9 @@
     color: darkred;
     font-size: medium;
 }
+
+.conflict-dice {
+  font-family: "DPoly-Six-Sider";
+  font-size: 20px;
+  line-height: 20px;
+}
