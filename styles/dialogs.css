@@ -7,4 +7,8 @@
     display: flex;
     flex-direction: row;
 }
+
+.influence-reminder {
+  margin-bottom: 1.5rem;
+}
   

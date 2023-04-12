@@ -195,7 +195,6 @@ export class HauntedConflict extends Combat {
 
     static onDieImage(event) {
         event.preventDefault();
-        console.log("***** My Override ******")
         const actor = HauntedConflict.getActorFromUI(this);
         if(actor.type === HauntedActor.CHARACTER_TYPE.GHOST) {
             actor.rollAttribute(HauntedActor.ATTRIBUTE.PRESENCE);

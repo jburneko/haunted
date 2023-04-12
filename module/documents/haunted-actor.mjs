@@ -174,8 +174,7 @@ export class HauntedActor extends Actor {
     }
 
     async showInfluenceRollDialog() {
-        const dialog = new InfluenceRollDialog();
-        dialog.actor = this;
+        const dialog = new InfluenceRollDialog(this);
         dialog.render(true);
     }
 

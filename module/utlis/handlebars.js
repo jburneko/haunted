@@ -33,6 +33,14 @@ export const configureHandlebars = () => {
     Handlebars.registerHelper('issupport', function (value) {
       return HauntedActor.CHARACTER_TYPE.SUPPORT.includes(value);
     });
+
+    Handlebars.registerHelper('get_help_max', function (value) {
+      const actor = game.actors.get(value);
+      if(actor.type === HauntedActor.CHARACTER_TYPE.GHOST)
+        return actor.system.presence.value;
+      else
+        return actor.system.effort;
+    });
 };
 
 export async function preloadTemplates() {

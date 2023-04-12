@@ -8,7 +8,7 @@ class RollInfo {
 
     createHelper() {
         const helper = {
-            id: "",
+            id: InfluenceRollDialog.helperChoices[0].key,
             index: this.helpers.length,
             count: 0
         };
@@ -59,12 +59,14 @@ export class InfluenceRollDialog extends FormApplication {
         return options
     }
 
-    constructor() {
+    constructor(actor) {
         super();
+        this.actor = actor;
         this.rollInfo = new RollInfo();
+        this.options.title += `: ${actor.name}`;
     }
 
-    get helperChoices() {
+    static get helperChoices() {
         const helpers = HauntedActor.getCharacterType([...HauntedActor.CHARACTER_TYPE.SUPPORT, HauntedActor.CHARACTER_TYPE.GHOST])
             .map(helper => ({ key:helper.id, label:helper.name }));
         return helpers;
@@ -72,7 +74,9 @@ export class InfluenceRollDialog extends FormApplication {
 
     getData() {
         const data = {
-            helperChoices: this.helperChoices,
+            influence: this.actor.system.influence,
+            effort: this.actor.system.effort,
+            helperChoices: InfluenceRollDialog.helperChoices,
             rollInfo: this.rollInfo
         };
 
