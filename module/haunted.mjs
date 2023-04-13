@@ -35,4 +35,8 @@ Hooks.once("ready", () => {
     if(game.scenes.size === 0) {
         SceneLoader.loadScene();
     }
+
+    const tracker = game.settings.get("core", "combatTrackerConfig");
+    tracker.resource = "influence";
+    game.settings.set("core", "combatTrackerConfig", tracker);
 });

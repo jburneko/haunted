@@ -86,7 +86,7 @@ export class ActorToSVG {
             if(value !== undefined) {
                 const localLabel = game.i18n.localize(property.label);
                 if(property.field === "disposition") value = HauntedActor.DISPOSITION.getLocalString(value);
-                if(property.field === "presence") value = `${value.value} \ ${value.max}`
+                if(property.field === "presence") value = `${value.value} / ${value.max}`
                 y += ActorToSVG.LEADING;
                 lines = this.createText(localLabel, value, y);
                 svgStr += lines.svgStr;
