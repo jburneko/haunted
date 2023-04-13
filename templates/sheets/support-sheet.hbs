@@ -8,24 +8,26 @@
       {{/if}}
     </div>
     <div class="character-disposition">
-        <label class="attribute-label" for="system.disposition">{{localize "HAUNTED.Character.Disposition"}}:</label>
-        <select name="system.disposition" {{#if (gt system.disposition 0)}} disabled {{/if}}>
-        {{#select system.disposition}}
-          <option value="0">{{localize "HAUNTED.Disposition.Unknown"}}</option>
-          <option value="1">{{localize "HAUNTED.Disposition.Adversary"}}</option>
-          <option value="2">{{localize "HAUNTED.Disposition.Unfriendly"}}</option>
-          <option value="3">{{localize "HAUNTED.Disposition.Conflicted"}}</option>
-          <option value="4">{{localize "HAUNTED.Disposition.Friendly"}}</option>
-          <option value="5">{{localize "HAUNTED.Disposition.Advocate"}}</option>
-        {{/select}}
-        </select>
+        <div class="disposition-selection">
+          <label class="attribute-label" for="system.disposition">{{localize "HAUNTED.Character.Disposition"}}:</label>
+          <select name="system.disposition" {{#if (gt system.disposition 0)}} disabled {{/if}}>
+          {{#select system.disposition}}
+            <option value="0">{{localize "HAUNTED.Disposition.Unknown"}}</option>
+            <option value="1">{{localize "HAUNTED.Disposition.Adversary"}}</option>
+            <option value="2">{{localize "HAUNTED.Disposition.Unfriendly"}}</option>
+            <option value="3">{{localize "HAUNTED.Disposition.Conflicted"}}</option>
+            <option value="4">{{localize "HAUNTED.Disposition.Friendly"}}</option>
+            <option value="5">{{localize "HAUNTED.Disposition.Advocate"}}</option>
+          {{/select}}
+          </select>
+        </div>
         {{#if (gt system.disposition 0)}}
           <div class="disposition-buttons">
             <button class="adjust-button adjust-button-label increase-disposition">+</button>
             <button class="adjust-button adjust-button-label decrease-disposition">-</button>
           </div>
         {{/if}}
-    </div>
+  </div>
     <div class="attributes-support">
       {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
     </div>

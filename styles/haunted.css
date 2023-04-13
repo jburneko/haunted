@@ -55,13 +55,21 @@
 
 .haunted .character-disposition {
   display: grid;
-  grid-template: auto / auto auto auto;
+  grid-template: auto / auto auto;
   align-items: center;
+}
+
+.disposition-selection {
+  display: flex;
+  flex-direction: column;
+  align-self: baseline;
 }
 
 .haunted .disposition-buttons {
   display: flex;
   flex-direction: column;
+  justify-self: left;
+  margin-left: 5px;
 }
 
 .haunted .attributes-support {
