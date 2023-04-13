@@ -23,7 +23,7 @@ export class CharacterSheet extends ActorSheet {
         super.activateListeners(html);
     
         if (this.actor.isOwner) {
-            html.find(".rollable").click(this._rollAttribute.bind(this));
+            html.find(".clickable").click(this._rollAttribute.bind(this));
         }
       }
     
