@@ -5,7 +5,7 @@ export class CharacterSheet extends ActorSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             width: 512,
-            height: 720
+            height: 512
         });
     }
 
