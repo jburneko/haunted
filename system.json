@@ -3,6 +3,7 @@
     "title": "Haunted",
     "description": "A game about murder and what comes after.",
     "version": "0.1.1",
+    "background" : "systems/haunted/assets/background/haunted_cover.webp",
     "authors" : [
         {
             "name": "Jesse Burneko",
