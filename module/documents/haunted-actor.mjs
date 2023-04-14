@@ -87,7 +87,7 @@ export class HauntedActor extends Actor {
             case HauntedActor.CHARACTER_TYPE.MURDERER:
                 data.img = "systems/haunted/assets/icons/spy.svg";
                 system.influence = 2;
-                system.effort = 6;
+                system.effort = 4;
 
                 ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
                 break;
@@ -95,8 +95,8 @@ export class HauntedActor extends Actor {
             case HauntedActor.CHARACTER_TYPE.GHOST:
                 data.img = "systems/haunted/assets/icons/haunting.svg";
                 system.presence = {
-                    value: 8,
-                    max: 8
+                    value: 6,
+                    max: 6
                 };
                 ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
                 break;
@@ -107,9 +107,9 @@ export class HauntedActor extends Actor {
                 system.disposition = disposition;
     
             case HauntedActor.CHARACTER_TYPE.SUPPORT_VICTIM:
-                const roll = new Roll("1d6+1").evaluate({async: false});
+                const roll = new Roll("1d4+1").evaluate({async: false});
                 const influence = roll.total;
-                const effort = 8 - influence;
+                const effort = 6 - influence;
     
                 system.influence = influence;
                 system.effort = effort;
@@ -257,11 +257,12 @@ export class HauntedActor extends Actor {
     async increaseSupportInfluence() {
         const currentInfluence = this.system.influence;
         const currentEffort = this.system.effort;
+        const cost = (currentInfluence + 1) * 2;
 
-        if(currentEffort > currentInfluence) {
+        if(currentEffort >= cost) {
             this.update({
                 "system.influence" : currentInfluence + 1,
-                "system.effort" : currentEffort - (currentInfluence + 1)
+                "system.effort" : currentEffort - cost
             });
         }
     }
