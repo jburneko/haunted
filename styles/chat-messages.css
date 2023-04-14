@@ -1,10 +1,11 @@
-.attribute-roll-message {
+.haunted .attribute-roll-message {
     border: 2px solid black;
+    padding-top: 8px;
     text-align: center;
 }
 
-.dice-box {
-  padding: 2px;
+.haunted .dice-box {
+  padding: 4px;
   border: 4px solid darkred;
   margin: 8px;
 }
