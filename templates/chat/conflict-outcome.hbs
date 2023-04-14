@@ -1,11 +1,13 @@
-<form class="conflict-outcome-message">
+<form class="haunted">
+    <section class="attribute-roll-message">
     {{#each outcome}}
         <div class="conflict-entry">
             <div class="conflict-entry-header">
                 <span class="conflict-entry-name">{{name}}: </span>
-                <span class="haunted-attribute-label">{{attribute}}</span>
+                <span class="attribute-label">{{attribute}}</span>
             </div>
-            <div class="attribute-dice">{{format_conflict_dice dice victories}}</div>
+            <div class="attribute-dice dice-box">{{format_conflict_dice dice victories}}</div>
         </div>
     {{/each}}
+    </section>
 </form>

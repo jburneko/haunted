@@ -15,12 +15,12 @@
   text-shadow: 0 0 0.5rem black;
 }
 
-.conflict-entry {
+.haunted .conflict-entry {
   display: flex;
   flex-direction: column;
 }
 
-.conflict-entry-header {
+.haunted .conflict-entry-header {
   align-self: center;
   margin-top: 0.5rem;
 }
