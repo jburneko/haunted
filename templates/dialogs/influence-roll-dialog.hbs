@@ -1,25 +1,25 @@
-<form class="haunted roll-influence-dialog">
-    <span class="haunted-attribute-label influence-reminder">{{localize "HAUNTED.Character.Influence"}}: {{influence}}</span>
-    <div class="haunted-attributes">
-        <label class="attribute-name haunted-attribute-label" for="effortSpent"> {{localize "HAUNTED.Dialogs.EffortSpent"}}:</label>
+<form class="haunted">
+    <span class="attribute-label">{{localize "HAUNTED.Character.Influence"}}: {{influence}}</span>
+    <div class="influence-roll-row">
+        <label class="attribute-label" for="effortSpent"> {{localize "HAUNTED.Dialogs.EffortSpent"}}:</label>
         <input class="number-field" name="effortSpent" type="number" value={{rollInfo.effortSpent}} />
-        <span class="haunted-attribute-label"> / {{effort}}</span>
+        <span class="attribute-label"> / {{effort}}</span>
     </div>
-     <div class="help-header">
-        <label class="haunted-attribute-label">{{localize "HAUNTED.Dialogs.Helpers"}}:</label>
-        <button class="adjust-button add-helper">+</button>
+     <div class="influence-roll-row">
+        <label class="attribute-label">{{localize "HAUNTED.Dialogs.Helpers"}}:</label>
+        <button class="adjust-button adjust-button-label add-helper">+</button>
     </div>
-    <ul class="helper-list">
+    <ul>
         {{#each rollInfo.helpers}}
-        <li class="helper-params">
-            <select class="helper-choices" name="helper-choice" data-index="{{this.index}}">
+        <li>
+            <select name="helper-choice" data-index="{{this.index}}">
                 {{selectOptions ../helperChoices selected=this.id nameAttr="key" labelAttr="label"}}
             </select>
-            <input class="number-field help-dice" type="number" name="help-dice" data-index="{{this.index}}" value="{{this.count}}" data-dtype="Number"/>
-            <span class="haunted-attribute-label">/ {{get_help_max this.id}} </span>
-            <label class="haunted-attribute-label rollable" data-index="{{this.index}}"><i class="fas fa-trash"></i></label>
+            <input class="number-field" type="number" name="help-dice" data-index="{{this.index}}" value="{{this.count}}" data-dtype="Number"/>
+            <span class="attribute-label">/ {{get_help_max this.id}} </span>
+            <label class="attribute-label clickable" data-index="{{this.index}}"><i class="fas fa-trash"></i></label>
         </li>
         {{/each}}
     </ul>
-    <button class="adjust-button influence-roll-button">{{localize "HAUNTED.Dialogs.Roll"}}</button>
+    <button class="roll-influence">{{localize "HAUNTED.Dialogs.Roll"}}</button>
 </form>

@@ -1,7 +1,6 @@
 .haunted .character-sheet-front {
   display: grid;
   grid-template: auto auto auto / 50fr 50fr;
-  column-gap: 10px;
 }
 
 .haunted .character-header {
@@ -17,7 +16,6 @@
   text-shadow: inherit;
   height: fit-content;
   margin-left: 8px;
-  width: calc(100% - 10px);
 }
 
 .haunted .character-motive {
@@ -41,9 +39,7 @@
   margin-top: 20px;
   height: 100vh;
   border-top: 2px solid var(--color-underline-header);
-  padding-top: 8px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding: 8px  8px 0;
   border-left: 2px solid black;
   border-right: 2px solid black;
 }
@@ -78,22 +74,22 @@
   row-gap: 10px;
 }
 
+.haunted .influence-roll-row {
+  margin-top: 16px;
+}
+
+.haunted .roll-influence {
+  width: fit-content;
+  margin-top: 4px;
+  margin-left: 108px;
+}
+
 
 /* justify-items (along the horizontal axis)
    align-items (along the vertical axis) 
    
    justify-content (horizontal whole grid)
    align-conent (verticle)*/
-
-
-/*.haunted .character-header input {
-    height:fit-content;
-    text-shadow: inherit;
-}*/
-
-/*.haunted .character-motive {
-  margin-bottom: 1.5rem;
-}*/
 
 
 

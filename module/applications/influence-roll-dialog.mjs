@@ -51,8 +51,8 @@ export class InfluenceRollDialog extends FormApplication {
         options.id = "influence-roll-dialog";
         options.title = game.i18n.localize("HAUNTED.Dialogs.InfluenceRoll");
         options.template = "systems/haunted/templates/dialogs/influence-roll-dialog.hbs";
-        options.width = 256;
-        options.height = 256;
+        options.width = 272;
+        options.height = 272;
         options.userId = game.userId;
         options.closeOnSubmit = false;
         options.submitOnChange = true;
@@ -94,9 +94,9 @@ export class InfluenceRollDialog extends FormApplication {
     activateListeners(html) {
         super.activateListeners(html);
 
-        html.find(".influence-roll-button").click(this._onRollInfluence.bind(this));
+        html.find(".roll-influence").click(this._onRollInfluence.bind(this));
         html.find(".add-helper").click(this._onAddHelper.bind(this));
-        html.find(".rollable").click(this._onDeleteHelper.bind(this));
+        html.find(".clickable").click(this._onDeleteHelper.bind(this));
     }
 
     _onDeleteHelper(event) {
