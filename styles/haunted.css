@@ -1,70 +1,98 @@
+.haunted .character-sheet-front {
+  display: grid;
+  grid-template: auto auto auto / 50fr 50fr;
+}
 
-.haunted .haunted-sheet {
+.haunted .character-header {
+  grid-column: 1 / -1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 2px solid var(--color-underline-header);
+  padding-bottom: 8px;
 }
 
-.haunted .character-header h1 {
-    font-family: "Finger Paint";
-    font-size: xx-large;
-    text-shadow: 0 0 0.5rem black;
-}
-
-.haunted .character-header input {
-    height:fit-content;
-    text-shadow: inherit;
+.haunted .character-header-name {
+  text-shadow: inherit;
+  height: fit-content;
+  margin-left: 8px;
 }
 
 .haunted .character-motive {
-  margin-bottom: 1.5rem;
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  margin-bottom: 20px;
 }
 
-.haunted .haunted-attributes {
+.haunted .attributes {
   display: flex;
   flex-direction: row;
-  margin-bottom: 1.5rem;
-}
-
-.haunted .effort-label {
-  margin-left: 1rem;
-}
-
-.haunted .attribute-name {
-    flex-shrink: 0;
-    margin-right: 0.5rem;
-}
-
-.haunted .number-field {
-  width: 2rem;
-  text-align: center;
-}
-
-.haunted .rollable:hover {
-    cursor: pointer;
-    text-shadow: 0 0 10px black;
-}
-
-.haunted .prosemirror {
-  height: 100vh;
 }
 
 .haunted .adjust-button {
-  width: fit-content;
-  font-size: medium;
-  margin-left: 0.5rem;
-  line-height: 0;
-  height: 27px; 
+  width: 30px;
+  height: 30px; 
   align-self: center;
-  font-weight: bold;
 }
 
-.haunted .disposition {
-  align-self: center;
+.haunted .character-sheet-back {
+  margin-top: 20px;
+  height: 100vh;
+  border-top: 2px solid var(--color-underline-header);
+  padding: 8px  8px 0;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.haunted .clickable:hover {
+  cursor: pointer;
+  text-shadow: 0 0 10px black;
+}
+
+.haunted .character-disposition {
+  display: grid;
+  grid-template: auto / auto auto;
+  align-items: center;
+}
+
+.disposition-selection {
+  display: flex;
+  flex-direction: column;
+  align-self: baseline;
 }
 
 .haunted .disposition-buttons {
   display: flex;
   flex-direction: column;
+  justify-self: left;
+  margin-left: 5px;
 }
+
+.haunted .attributes-support {
+  display: grid;
+  grid-template: auto auto / auto;
+  row-gap: 10px;
+}
+
+.haunted .influence-roll-row {
+  margin-top: 16px;
+}
+
+.haunted .roll-influence {
+  width: fit-content;
+  margin-top: 4px;
+  margin-left: 108px;
+}
+
+
+/* justify-items (along the horizontal axis)
+   align-items (along the vertical axis) 
+   
+   justify-content (horizontal whole grid)
+   align-conent (verticle)*/
+
+
+
+
 
 

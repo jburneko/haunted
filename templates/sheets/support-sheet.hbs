@@ -1,34 +1,36 @@
-<form class="haunted-sheet">
-  {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
-  <section class="character-info">
-    {{#if (isdefined system.problem)}}
-        <div class="character-motive">
-            <label class="attribute-name haunted-attribute-label" for="system.problem">{{localize "HAUNTED.Character.Problem"}}:</label>
-            <input type="text" name="system.problem" value="{{system.problem}}" data-dtype="String"/>
-        </div>
-    {{/if}}
-    <div class="haunted-attributes">
-      <div class="disposition">
-        <label class="attribute-name haunted-attribute-label" for="system.disposition">{{localize "HAUNTED.Character.Disposition"}}:</label>
-        <select name="system.disposition" {{#if (gt system.disposition 0)}} disabled {{/if}}>
-        {{#select system.disposition}}
-          <option value="0">{{localize "HAUNTED.Disposition.Unknown"}}</option>
-          <option value="1">{{localize "HAUNTED.Disposition.Adversary"}}</option>
-          <option value="2">{{localize "HAUNTED.Disposition.Unfriendly"}}</option>
-          <option value="3">{{localize "HAUNTED.Disposition.Conflicted"}}</option>
-          <option value="4">{{localize "HAUNTED.Disposition.Friendly"}}</option>
-          <option value="5">{{localize "HAUNTED.Disposition.Advocate"}}</option>
-        {{/select}}
-        </select>
-      </div>
-      {{#if (gt system.disposition 0)}}
-        <div class="disposition-buttons">
-          <button class="adjust-button increase-disposition">+</button>
-          <button class="adjust-button decrease-disposition">-</button>
-        </div>
+<form>
+  <section class="character-sheet-front">
+    {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
+    <div class="character-motive">
+      {{#if (isdefined system.problem)}}
+        <label class="attribute-label" for="system.problem">{{localize "HAUNTED.Character.Problem"}}:</label>
+        <input type="text" name="system.problem" value="{{system.problem}}" data-dtype="String"/>
       {{/if}}
     </div>
-    {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
+    <div class="character-disposition">
+        <div class="disposition-selection">
+          <label class="attribute-label" for="system.disposition">{{localize "HAUNTED.Character.Disposition"}}:</label>
+          <select name="system.disposition" {{#if (gt system.disposition 0)}} disabled {{/if}}>
+          {{#select system.disposition}}
+            <option value="0">{{localize "HAUNTED.Disposition.Unknown"}}</option>
+            <option value="1">{{localize "HAUNTED.Disposition.Adversary"}}</option>
+            <option value="2">{{localize "HAUNTED.Disposition.Unfriendly"}}</option>
+            <option value="3">{{localize "HAUNTED.Disposition.Conflicted"}}</option>
+            <option value="4">{{localize "HAUNTED.Disposition.Friendly"}}</option>
+            <option value="5">{{localize "HAUNTED.Disposition.Advocate"}}</option>
+          {{/select}}
+          </select>
+        </div>
+        {{#if (gt system.disposition 0)}}
+          <div class="disposition-buttons">
+            <button class="adjust-button adjust-button-label increase-disposition">+</button>
+            <button class="adjust-button adjust-button-label decrease-disposition">-</button>
+          </div>
+        {{/if}}
+  </div>
+    <div class="attributes-support">
+      {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
+    </div>
   </section>
   {{> "systems/haunted/templates/sheets/partials/character-notes.hbs"}}
 </form>

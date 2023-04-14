@@ -1,14 +1,13 @@
-.attribute-roll-message {
+.haunted .attribute-roll-message {
     border: 2px solid black;
+    padding-top: 8px;
     text-align: center;
 }
 
-.attribute-dice {
-    font-family: "DPoly-Six-Sider";
-    font-size: xx-large;
-    padding: 2px;
-    border: 4px solid darkred;
-    margin: 8px;
+.haunted .dice-box {
+  padding: 4px;
+  border: 4px solid darkred;
+  margin: 8px;
 }
 
 .chat-message .message-header .message-sender, .conflict-entry-name {
@@ -16,12 +15,12 @@
   text-shadow: 0 0 0.5rem black;
 }
 
-.conflict-entry {
+.haunted .conflict-entry {
   display: flex;
   flex-direction: column;
 }
 
-.conflict-entry-header {
+.haunted .conflict-entry-header {
   align-self: center;
   margin-top: 0.5rem;
 }

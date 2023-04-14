@@ -4,8 +4,8 @@ export class CharacterSheet extends ActorSheet {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            width: 512,
-            height: 720
+            width: 550,
+            height: 550
         });
     }
 
@@ -23,7 +23,7 @@ export class CharacterSheet extends ActorSheet {
         super.activateListeners(html);
     
         if (this.actor.isOwner) {
-            html.find(".rollable").click(this._rollAttribute.bind(this));
+            html.find(".clickable").click(this._rollAttribute.bind(this));
         }
       }
     

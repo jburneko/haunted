@@ -5,14 +5,41 @@
   src: url("../assets/fonts/DPoly-Six-Sider.otf") format("opentype");
 }
 
-.haunted-attribute-label {
+.haunted .character-header h1 {
+  font-family: "Finger Paint";
+  font-size: xx-large;
+  text-shadow: 0 0 0.5rem black;
+  border-bottom: none;
+}
+
+.haunted .attribute-label {
     font-family: "Permanent Marker";
     color: darkred;
     font-size: medium;
+    flex-shrink: 0;
 }
 
-.conflict-dice {
+.haunted .attribute-dice {
   font-family: "DPoly-Six-Sider";
+  font-size: xx-large;
+}
+
+.haunted .conflict-dice {
   font-size: 20px;
   line-height: 20px;
+}
+
+.haunted .adjust-button-label {
+  font-size: medium;
+  line-height: 0;
+  font-weight: bold;
+}
+
+.haunted .number-field {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-right: 5px;
+  margin-left: 5px;
 }
