@@ -239,7 +239,7 @@ Hooks.on("renderCombatTracker", (tracker) => {
             if(Array.isArray(dice)) {
                 dice = DiceFormater.highlightVictories(dice, 0);
                 dice = DiceFormater.diceToString(dice);
-                $(token_name).append(`<div class="conflict-dice">${dice}</div>`);
+                $(token_name).append(`<span class="haunted"><div class="attribute-dice conflict-dice">${dice}</div></spen>`);
 
                 const token_img = $(token_name).siblings(".token-image");
                 $(token_img).css("width", "68px");
