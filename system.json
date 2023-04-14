@@ -2,7 +2,7 @@
     "id": "haunted",
     "title": "Haunted",
     "description": "A game about murder and what comes after.",
-    "version": "0.1.1",
+    "version": "1.0.1",
     "background" : "systems/haunted/assets/background/haunted_cover.webp",
     "authors" : [
         {

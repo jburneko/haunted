@@ -61,6 +61,11 @@
   align-self: baseline;
 }
 
+.disposition-choice:disabled {
+  opacity: 1.0;
+  color:darkslategray;
+}
+
 .haunted .disposition-buttons {
   display: flex;
   flex-direction: column;

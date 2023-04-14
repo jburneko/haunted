@@ -10,7 +10,7 @@
     <div class="character-disposition">
         <div class="disposition-selection">
           <label class="attribute-label" for="system.disposition">{{localize "HAUNTED.Character.Disposition"}}:</label>
-          <select name="system.disposition" {{#if (gt system.disposition 0)}} disabled {{/if}}>
+          <select class="disposition-choice" name="system.disposition" {{#if (gt system.disposition 0)}} disabled {{/if}}>
           {{#select system.disposition}}
             <option value="0">{{localize "HAUNTED.Disposition.Unknown"}}</option>
             <option value="1">{{localize "HAUNTED.Disposition.Adversary"}}</option>
