@@ -8,6 +8,7 @@ import { ActorToSVG } from "./utlis/actor-to-svg.mjs";
 import { SocketHandler } from "./networking/socket-handler.mjs";
 import { SceneLoader } from "./utlis/scene-loader.mjs";
 import { HauntedConflict } from "./documents/haunted-conflict.mjs";
+import { HauntedUI } from "./ui/conflict-ui.mjs";
 
 Hooks.once("init", () => {
     CONFIG.debug.hooks = true;
