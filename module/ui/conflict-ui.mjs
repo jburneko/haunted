@@ -51,8 +51,14 @@ Hooks.on("renderCombatTracker", (tracker) => {
 
   const token_names = $(tracker.element).find(".token-name");
   for (const token_name of token_names) {
+    const actor = HauntedUI.getActorFromUI(token_name);
+
+    const re = $(token_name).parents(".combatant.actor").find(".resource");
+    $(re).replaceWith(
+      `<span class="resource">${actor.system.influence}/${actor.system.effort}</span>`
+    );
+
     if (game.combat?.started) {
-      const actor = HauntedUI.getActorFromUI(token_name);
       const conflictData = game.combat.conflictData;
       if (conflictData) {
         let dice = conflictData[actor.id];

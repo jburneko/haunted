@@ -188,3 +188,19 @@ export class HauntedConflict extends Combat {
     this.delete();
   }
 }
+
+Hooks.on("createCombat", (combat, options, id) => {
+  if (UserUtils.isGM) {
+    const scene = combat.scene;
+    console.log("***** CREATE COMBAT *****");
+    const murderer = scene.tokens.filter(
+      (token) =>
+        game.actors.get(token.actorId).type ==
+        HauntedActor.CHARACTER_TYPE.MURDERER
+    )[0];
+    console.log(murderer);
+    combat.createEmbeddedDocuments("Combatant", [
+      { sceneId: scene.id, actorId: murderer.actorId, tokenId: murderer.id },
+    ]);
+  }
+});
