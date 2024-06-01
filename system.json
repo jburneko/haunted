@@ -1,41 +1,44 @@
 {
-    "id": "haunted",
-    "title": "Haunted",
-    "description": "A game about murder and what comes after.",
-    "version": "1.0.1",
-    "background" : "systems/haunted/assets/background/haunted_cover.webp",
-    "authors" : [
-        {
-            "name": "Jesse Burneko",
-            "url": "https://bloodthornpress.com/",
-            "email": "jburneko@gmail.com"
-        }
-    ],
-    "esmodules" : [
-        "module/haunted.mjs"
-    ],
-    "styles" : [
-        "styles/fonts.css",
-        "styles/chat-messages.css",
-        "styles/haunted.css"
-    ],
-    "packs" : [
-        {
-            "name": "scenes",
-            "label": "The Social Diagram",
-            "path": "packs/scenes.db",
-            "type": "Scene"
-        }
-    ],
-    "languages": [
-        {
-            "lang": "en",
-            "name": "English",
-            "path": "lang/en.json"
-        }
-    ],
-    "socket" : true,
-    "primaryTokenAttribute": "influence",
-    "secondaryTokenAttribute": "effort",
-    "manifest": "https://github.com/jburneko/haunted/blob/main/system.json"
+  "id": "haunted",
+  "title": "Haunted",
+  "description": "A game about murder and what comes after.",
+  "version": "1.0.1",
+  "url": "https://github.com/jburneko/haunted",
+  "background": "systems/haunted/assets/background/haunted_cover.webp",
+  "authors": [
+    {
+      "name": "Jesse Burneko",
+      "url": "https://bloodthornpress.com/",
+      "email": "jburneko@gmail.com"
+    }
+  ],
+  "compatibility": {
+    "minimum": 10,
+    "verified": "11.315"
+  },
+  "esmodules": ["module/haunted.mjs"],
+  "styles": [
+    "styles/fonts.css",
+    "styles/chat-messages.css",
+    "styles/haunted.css"
+  ],
+  "packs": [
+    {
+      "name": "scenes",
+      "label": "The Social Diagram",
+      "path": "packs/scenes.db",
+      "type": "Scene"
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "socket": true,
+  "primaryTokenAttribute": "influence",
+  "secondaryTokenAttribute": "effort",
+  "manifest": "https://github.com/jburneko/haunted/blob/main/system.json"
 }

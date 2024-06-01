@@ -11,33 +11,42 @@ import { HauntedConflict } from "./documents/haunted-conflict.mjs";
 import { HauntedUI } from "./ui/conflict-ui.mjs";
 
 Hooks.once("init", () => {
-    CONFIG.debug.hooks = true;
+  //CONFIG.debug.hooks = true;
 
-    CONFIG.Actor.documentClass = HauntedActor;
-    CONFIG.Token.objectClass = HauntedToken;
-    CONFIG.Combat.documentClass = HauntedConflict;
+  CONFIG.Actor.documentClass = HauntedActor;
+  CONFIG.Token.objectClass = HauntedToken;
+  CONFIG.Combat.documentClass = HauntedConflict;
 
-    Actors.unregisterSheet("core", ActorSheet);
-    Actors.registerSheet("haunted", MurdererSheet, { types: [HauntedActor.CHARACTER_TYPE.MURDERER], makeDefault: true});
-    Actors.registerSheet("haunted", GhostSheet, { types: [HauntedActor.CHARACTER_TYPE.GHOST], makeDefault: true});
-    Actors.registerSheet("haunted", SupportSheet, { types: [...HauntedActor.CHARACTER_TYPE.SUPPORT], makeDefault: true});
+  Actors.unregisterSheet("core", ActorSheet);
+  Actors.registerSheet("haunted", MurdererSheet, {
+    types: [HauntedActor.CHARACTER_TYPE.MURDERER],
+    makeDefault: true,
+  });
+  Actors.registerSheet("haunted", GhostSheet, {
+    types: [HauntedActor.CHARACTER_TYPE.GHOST],
+    makeDefault: true,
+  });
+  Actors.registerSheet("haunted", SupportSheet, {
+    types: [...HauntedActor.CHARACTER_TYPE.SUPPORT],
+    makeDefault: true,
+  });
 
-    ActorToSVG.createPath();
-   
-    preloadTemplates();
-    configureHandlebars();
+  ActorToSVG.createPath();
 
-    game.socket.on(`system.haunted`, (data) => {
-        SocketHandler.processEvent(data);
-       });
+  preloadTemplates();
+  configureHandlebars();
+
+  game.socket.on(`system.haunted`, (data) => {
+    SocketHandler.processEvent(data);
+  });
 });
 
 Hooks.once("ready", () => {
-    if(game.scenes.size === 0) {
-        SceneLoader.loadScene();
-    }
+  if (game.scenes.size === 0) {
+    SceneLoader.loadScene();
+  }
 
-    const tracker = game.settings.get("core", "combatTrackerConfig");
-    tracker.resource = "influence";
-    game.settings.set("core", "combatTrackerConfig", tracker);
+  const tracker = game.settings.get("core", "combatTrackerConfig");
+  tracker.resource = "influence";
+  game.settings.set("core", "combatTrackerConfig", tracker);
 });
