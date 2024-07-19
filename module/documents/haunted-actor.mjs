@@ -88,7 +88,7 @@ export class HauntedActor extends Actor {
       case HauntedActor.CHARACTER_TYPE.MURDERER:
         data.img = "systems/haunted/assets/icons/spy.svg";
         system.influence = 2;
-        system.effort = 4;
+        system.effort = 3;
 
         ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
         break;
@@ -104,13 +104,19 @@ export class HauntedActor extends Actor {
 
       case HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER:
       case HauntedActor.CHARACTER_TYPE.SUPPORT_BOTH:
-        const disposition = HauntedActor.generateDisposition();
-        system.disposition = disposition;
+        if (game.paused) {
+          const disposition = HauntedActor.generateDisposition();
+          system.disposition = disposition;
+        }
 
       case HauntedActor.CHARACTER_TYPE.SUPPORT_VICTIM:
-        const roll = new Roll("1d4+1").evaluate({ async: false });
-        const influence = roll.total;
-        const effort = 6 - influence;
+        const roll = new Roll("2d5").evaluate({ async: false });
+        let influence = 3;
+
+        if (roll.total < 5) influence = 2;
+        if (roll.total > 10) influence = 4;
+
+        const effort = 5 - influence;
 
         system.influence = influence;
         system.effort = effort;
