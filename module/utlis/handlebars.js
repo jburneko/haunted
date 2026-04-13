@@ -42,11 +42,11 @@ export const configureHandlebars = () => {
   Handlebars.registerHelper("get_help_max", function (value) {
     const actor = game.actors.get(value);
     let result = undefined;
+
     if (actor.type === HauntedActor.CHARACTER_TYPE.GHOST)
       result = actor.system.presence.value;
     else result = actor.system.effort;
-    console.log("HELP MAX RESULT");
-    console.log(result);
+
     return result;
   });
 };

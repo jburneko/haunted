@@ -4,6 +4,7 @@ import { ActorToSVG } from "../utlis/actor-to-svg.mjs";
 import { SocketEvents } from "../networking/socket-events.mjs";
 import { HauntedToken } from "../placeables/HauntedToken.mjs";
 import { UserUtils } from "../utlis/user-utils.mjs";
+import { RollInfo } from "../utlis/roll-info.mjs";
 import { DebugUtils } from "../utlis/debug-utils.mjs";
 
 export class HauntedActor extends Actor {
@@ -200,7 +201,8 @@ export class HauntedActor extends Actor {
   }
 
   async showInfluenceRollDialog() {
-    const dialog = new InfluenceRollDialog(this);
+    const dialog = new InfluenceRollDialog();
+    dialog.init(this);
     dialog.render(true);
   }
 

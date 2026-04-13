@@ -1,4 +1,4 @@
-<form class="haunted">
+<section class="haunted">
     <span class="attribute-label">{{localize "HAUNTED.Character.Influence"}}: {{influence}}</span>
     <div class="influence-roll-row">
         <label class="attribute-label" for="effortSpent"> {{localize "HAUNTED.Dialogs.EffortSpent"}}:</label>
@@ -7,7 +7,7 @@
     </div>
      <div class="influence-roll-row">
         <label class="attribute-label">{{localize "HAUNTED.Dialogs.Helpers"}}:</label>
-        <button class="adjust-button adjust-button-label add-helper">+</button>
+        <button data-action="addHelper" class="adjust-button adjust-button-label add-helper">+</button>
     </div>
     <ul>
         {{#each rollInfo.helpers}}
@@ -17,9 +17,9 @@
             </select>
             <input class="number-field" type="number" name="help-dice" data-index="{{this.index}}" value="{{this.count}}" data-dtype="Number"/>
             <span class="attribute-label">/ {{get_help_max this.id}} </span>
-            <label class="attribute-label clickable" data-index="{{this.index}}"><i class="fas fa-trash"></i></label>
+            <label data-action="deleteHelper" class="attribute-label clickable"><i data-index="{{this.index}}" class="fas fa-trash"></i></label>
         </li>
         {{/each}}
     </ul>
-    <button class="roll-influence">{{localize "HAUNTED.Dialogs.Roll"}}</button>
-</form>
+    <button data-action="rollInfluence" class="roll-influence">{{localize "HAUNTED.Dialogs.Roll"}}</button>
+</section>
