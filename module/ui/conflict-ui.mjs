@@ -54,10 +54,17 @@ Hooks.on("renderCombatTracker", (tracker) => {
   for (const token_name of token_names) {
     const actor = HauntedUI.getActorFromUI(token_name);
 
-    const re = $(token_name).parents(".combatant").find(".resource");
-    $(re).replaceWith(
-      `<span class="resource">${actor.system.influence}/${actor.system.effort}</span>`,
-    );
+    if (actor.isGhost) {
+      DebugUtils.log_data("RENDER UI: PRESENCE", actor.system.presence.value);
+      $(token_name).after(
+        `<div class="token-resource"><span class="resource">${actor.system.presence.value}/${actor.system.presence.max}</span></div>`,
+      );
+    } else {
+      const re = $(token_name).parents(".combatant").find(".resource");
+      $(re).replaceWith(
+        `<span class="resource">${actor.system.influence}/${actor.system.effort}</span>`,
+      );
+    }
 
     if (game.combat?.started) {
       const conflictData = game.combat.conflictData;

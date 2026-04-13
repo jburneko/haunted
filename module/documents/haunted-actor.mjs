@@ -178,6 +178,15 @@ export class HauntedActor extends Actor {
     }
   }
 
+  get isGhost() {
+    const result = this.type === HauntedActor.CHARACTER_TYPE.GHOST;
+    return result;
+  }
+
+  get isMurderer() {
+    return this.type === HauntedActor.CHARACTER_TYPE.MURDERER;
+  }
+
   get inConflict() {
     const conflict = game.combat;
 
