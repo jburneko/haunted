@@ -36,7 +36,6 @@ export class InfluenceRollDialog extends HandlebarsApplicationMixin(
   };
 
   get title() {
-    DebugUtils.log_data("INFLUENCE DIALOG TITLE", this);
     return (
       game.i18n.localize("HAUNTED.Dialogs.InfluenceRoll") +
       `: ${this.actor.name}`
@@ -77,21 +76,21 @@ export class InfluenceRollDialog extends HandlebarsApplicationMixin(
     this.render();
   }
 
-  static async #deleteHelper(event) {
+  static async #deleteHelper(event, target) {
     event.preventDefault();
-    const indexStr = event.target.getAttribute("data-index");
-    const index = parseInt(event.target.getAttribute("data-index"));
+    const indexStr = target.dataset.index;
+    const index = parseInt(indexStr);
     this.rollInfo.deleteHelper(index);
     this.render();
   }
 
-  static async #addHelper(event) {
+  static async #addHelper(event, target) {
     event.preventDefault();
     this.rollInfo.createHelper();
     this.render();
   }
 
-  static async #rollInfluence(event) {
+  static async #rollInfluence(event, target) {
     event.preventDefault();
 
     this.close();
