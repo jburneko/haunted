@@ -55,7 +55,6 @@ Hooks.on("renderCombatTracker", (tracker) => {
     const actor = HauntedUI.getActorFromUI(token_name);
 
     if (actor.isGhost) {
-      DebugUtils.log_data("RENDER UI: PRESENCE", actor.system.presence.value);
       $(token_name).after(
         `<div class="token-resource"><span class="resource">${actor.system.presence.value}/${actor.system.presence.max}</span></div>`,
       );
@@ -73,7 +72,9 @@ Hooks.on("renderCombatTracker", (tracker) => {
         if (Array.isArray(dice)) {
           dice = DiceFormater.highlightVictories(dice, 0);
           dice = DiceFormater.diceToString(dice);
-          $(token_name).append(
+
+          const ne = $(token_name).children(".name");
+          $(ne).after(
             `<span class="haunted"><div class="attribute-dice conflict-dice">${dice}</div></spen>`,
           );
 
