@@ -14,7 +14,7 @@ export class HauntedToken extends foundry.canvas.placeables.Token {
     const src = this.document.texture.src;
     await PIXI.Assets.unload(src);
     const newTexture = await PIXI.Assets.load(src);
-    TextureLoader.loader.setCache(src, newTexture);
+    foundry.canvas.TextureLoader.loader.setCache(src, newTexture);
     this.texture = newTexture;
     this.mesh.texture = newTexture;
   }

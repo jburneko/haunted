@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Finger+Paint&family=Permanent+Marker&display=swap');
 
 @font-face {
-  font-family: "DPoly-Six-Sider";
-  src: url("../assets/fonts/DPoly-Six-Sider.otf") format("opentype");
+  font-family: "DPoly-Ten-Sider";
+  src: url("../assets/fonts/DPoly-Ten-Sider.otf") format("opentype");
 }
 
 .haunted .character-header h1 {
@@ -20,7 +20,7 @@
 }
 
 .haunted .attribute-dice {
-  font-family: "DPoly-Six-Sider";
+  font-family: "DPoly-Ten-Sider";
   font-size: xx-large;
 }
 

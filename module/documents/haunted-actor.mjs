@@ -204,7 +204,7 @@ export class HauntedActor extends Actor {
     if (typeof value !== "number") value = value.value;
 
     const totalDice = value + effortSpent + helpDice;
-    const diceFormula = `${totalDice}d6`;
+    const diceFormula = `${totalDice}d10`;
     const roll = new Roll(diceFormula);
 
     await roll.evaluate();

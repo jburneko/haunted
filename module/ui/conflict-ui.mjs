@@ -5,18 +5,9 @@ import { DebugUtils } from "../utlis/debug-utils.mjs";
 
 export class HauntedUI {
   static getActorFromUI(element) {
-    DebugUtils.log_data("GET ACTOR FROM UI: ELEMENT", element);
     const id = $(element).parents(".combatant").attr("data-combatant-id");
-    DebugUtils.log_data("GET ACTOR FROM UI: ID", id);
-    DebugUtils.log_data(
-      "GET ACTOR FROM UI: COMBATANTS",
-      game.combat.combatants,
-    );
     const entry = game.combat.combatants.get(id);
-    DebugUtils.log_data("GET ACTOR FROM UI: ENTRY", entry);
-    DebugUtils.log_data("GET ACTOR FROM UI: ACTORS", game.actors);
     const actor = game.actors.get(entry.actorId);
-    DebugUtils.log_data("GET ACTOR FROM UI: ACTOR", actor);
     return actor;
   }
 
@@ -63,7 +54,7 @@ Hooks.on("renderCombatTracker", (tracker) => {
   for (const token_name of token_names) {
     const actor = HauntedUI.getActorFromUI(token_name);
 
-    const re = $(token_name).parents(".combatant.actor").find(".resource");
+    const re = $(token_name).parents(".combatant").find(".resource");
     $(re).replaceWith(
       `<span class="resource">${actor.system.influence}/${actor.system.effort}</span>`,
     );

@@ -149,7 +149,6 @@ export class HauntedConflict extends Combat {
 
   processRolls() {
     if (this.allIn) {
-      console.log("*****Determining Outcome*****");
       const outcome = this.determineOutcome();
       this.applyVictories(outcome);
       this.reportConflictOutcome(outcome);
@@ -174,7 +173,7 @@ export class HauntedConflict extends Combat {
       outcome: outcome,
     };
 
-    const html = await renderTemplate(
+    const html = await foundry.applications.handlebars.renderTemplate(
       "systems/haunted/templates/chat/conflict-outcome.hbs",
       chatData,
     );
