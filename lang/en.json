@@ -1,34 +1,34 @@
 {
-    "HAUNTED": {
-        "Title" : "Haunted",
-        "Character" : {
-            "Name": "Name",
-            "Ambition": "Ambition",
-            "Influence": "Influence",
-            "Effort": "Effort",
-            "Disposition": "Disposition",
-            "Problem": "Problem",
-            "UnfinishedBusiness": "Unfinished Business",
-            "Presence": "Presence",
-            "Notes": "Notes"
-        },
-        "Dialogs": {
-            "InfluenceRoll": "Roll Influence",
-            "EffortSpent": "Spend Effort",
-            "HelpDice": "Help Dice",
-            "Roll": "Roll",
-            "Helpers": "Helpers"
-        },
-        "Chat": {
-            "InfluenceRoll": "Influence Roll"
-        },
-        "Disposition": {
-            "Unknown": "Unknown",
-            "Adversary": "Adversary",
-            "Unfriendly": "Unfriendly",
-            "Conflicted" : "Conflicted",
-            "Friendly": "Friendly",
-            "Advocate": "Advocate"
-        }
+  "HAUNTED": {
+    "Title": "Haunted",
+    "Character": {
+      "Name": "Name",
+      "Ambition": "Ambition",
+      "Influence": "Influence",
+      "Effort": "Effort",
+      "Disposition": "Disposition",
+      "Problem": "Problem",
+      "UnfinishedBusiness": "Unfinished Business",
+      "Presence": "Presence",
+      "Notes": "Notes"
+    },
+    "Dialogs": {
+      "InfluenceRoll": "Roll Influence",
+      "EffortSpent": "Spend Effort",
+      "HelpDice": "Help Dice",
+      "Roll": "Roll",
+      "Helpers": "Helpers"
+    },
+    "Chat": {
+      "InfluenceRoll": "Influence Roll"
+    },
+    "Disposition": {
+      "Unknown": "Unknown",
+      "Adversary": "Adversary",
+      "Unfriendly": "Unfriendly",
+      "Uncertain": "Uncertain",
+      "Friendly": "Friendly",
+      "Advocate": "Advocate"
     }
+  }
 }

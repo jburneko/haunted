@@ -37,7 +37,7 @@ export class HauntedActor extends Actor {
     "HAUNTED.Disposition.Unknown",
     "HAUNTED.Disposition.Adversary",
     "HAUNTED.Disposition.Unfriendly",
-    "HAUNTED.Disposition.Conflicted",
+    "HAUNTED.Disposition.Uncertain",
     "HAUNTED.Disposition.Friendly",
     "HAUNTED.Disposition.Advocate",
   ];
@@ -46,7 +46,7 @@ export class HauntedActor extends Actor {
     UNKNOWN: 0,
     ADVERSARY: 1,
     UNFRIENDLY: 2,
-    CONFLICTED: 3,
+    UNCERTAIN: 3,
     FRIENDLY: 4,
     ADVOCATE: 5,
 
@@ -63,11 +63,11 @@ export class HauntedActor extends Actor {
 
   static DISPOSITION_TABLE = [
     { min: 0, max: 0, disposition: HauntedActor.DISPOSITION.UNKNOWN },
-    { min: 2, max: 3, disposition: HauntedActor.DISPOSITION.ADVOCATE },
-    { min: 4, max: 5, disposition: HauntedActor.DISPOSITION.FRIENDLY },
-    { min: 6, max: 8, disposition: HauntedActor.DISPOSITION.CONFLICTED },
-    { min: 9, max: 10, disposition: HauntedActor.DISPOSITION.UNFRIENDLY },
-    { min: 11, max: 12, disposition: HauntedActor.DISPOSITION.ADVERSARY },
+    { min: 2, max: 3, disposition: HauntedActor.DISPOSITION.ADVERSARY },
+    { min: 4, max: 5, disposition: HauntedActor.DISPOSITION.UNFRIENDLY },
+    { min: 6, max: 8, disposition: HauntedActor.DISPOSITION.UNCERTAIN },
+    { min: 9, max: 10, disposition: HauntedActor.DISPOSITION.FRIENDLY },
+    { min: 11, max: 12, disposition: HauntedActor.DISPOSITION.ADVOCATE },
   ];
 
   static async create(data, options = {}) {
@@ -87,7 +87,7 @@ export class HauntedActor extends Actor {
       case HauntedActor.CHARACTER_TYPE.MURDERER:
         data.img = "systems/haunted/assets/icons/spy.svg";
         system.influence = 2;
-        system.effort = 3;
+        system.effort = 4;
 
         ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
         break;
@@ -95,8 +95,8 @@ export class HauntedActor extends Actor {
       case HauntedActor.CHARACTER_TYPE.GHOST:
         data.img = "systems/haunted/assets/icons/haunting.svg";
         system.presence = {
-          value: 6,
-          max: 6,
+          value: 7,
+          max: 7,
         };
         ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
         break;

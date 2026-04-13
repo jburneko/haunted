@@ -1,5 +1,6 @@
 import { HauntedActor } from "../documents/haunted-actor.mjs";
 import { CharacterSheet } from "./character-sheet.mjs";
+import { DebugUtils } from "../utlis/debug-utils.mjs";
 
 export class SupportSheet extends CharacterSheet {
   static TEMPLATES = {
@@ -22,8 +23,11 @@ export class SupportSheet extends CharacterSheet {
       }),
     );
 
-    console.log("***SUPPORT GET DATA***");
-    console.log(context);
+    DebugUtils.log_data(
+      "SUPPORT DISPOSIION CHOICES",
+      context.dispositionChoices,
+    );
+    DebugUtils.log_data("SUPPORT DISPOSITION", context.system.disposition);
 
     return context;
   }
