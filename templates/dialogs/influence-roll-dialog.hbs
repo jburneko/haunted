@@ -13,7 +13,7 @@
         {{#each rollInfo.helpers}}
         <li>
             <select name="helper-choice" data-index="{{this.index}}">
-                {{selectOptions ../helperChoices selected=this.id nameAttr="key" labelAttr="label"}}
+                {{selectOptions ../helperChoices selected=this.id valueAttr="key" labelAttr="label"}}
             </select>
             <input class="number-field" type="number" name="help-dice" data-index="{{this.index}}" value="{{this.count}}" data-dtype="Number"/>
             <span class="attribute-label">/ {{get_help_max this.id}} </span>

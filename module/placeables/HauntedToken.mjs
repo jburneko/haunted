@@ -1,6 +1,6 @@
 import { ActorToSVG } from "../utlis/actor-to-svg.mjs";
 
-export class HauntedToken extends Token {
+export class HauntedToken extends foundry.canvas.placeables.Token {
   static redrawToken(actorId) {
     for (const token of canvas.tokens.placeables) {
       if (token.document.actorId === actorId) {

@@ -17,16 +17,18 @@ Hooks.once("init", () => {
   CONFIG.Token.objectClass = HauntedToken;
   CONFIG.Combat.documentClass = HauntedConflict;
 
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("haunted", MurdererSheet, {
+  const actors = foundry.documents.collections.Actors;
+
+  actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+  actors.registerSheet("haunted", MurdererSheet, {
     types: [HauntedActor.CHARACTER_TYPE.MURDERER],
     makeDefault: true,
   });
-  Actors.registerSheet("haunted", GhostSheet, {
+  actors.registerSheet("haunted", GhostSheet, {
     types: [HauntedActor.CHARACTER_TYPE.GHOST],
     makeDefault: true,
   });
-  Actors.registerSheet("haunted", SupportSheet, {
+  actors.registerSheet("haunted", SupportSheet, {
     types: [...HauntedActor.CHARACTER_TYPE.SUPPORT],
     makeDefault: true,
   });
@@ -42,9 +44,7 @@ Hooks.once("init", () => {
 });
 
 Hooks.once("ready", () => {
-  if (game.scenes.size === 0) {
-    SceneLoader.loadScene();
-  }
+  SceneLoader.loadScene();
 
   const tracker = game.settings.get("core", "combatTrackerConfig");
   tracker.resource = "influence";

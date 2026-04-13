@@ -32,9 +32,15 @@ export class ActorToSVG {
 
   static async createPath() {
     try {
-      await FilePicker.browse("data", ActorToSVG.getPath());
+      await foundry.applications.apps.FilePicker.implementation.browse(
+        "data",
+        ActorToSVG.getPath(),
+      );
     } catch (e) {
-      await FilePicker.createDirectory("data", ActorToSVG.getPath());
+      await foundry.applications.apps.FilePicker.implementation.createDirectory(
+        "data",
+        ActorToSVG.getPath(),
+      );
     }
   }
 
@@ -51,12 +57,12 @@ export class ActorToSVG {
   }
 
   static async uploadFile(file) {
-    return FilePicker.upload(
+    return foundry.applications.apps.FilePicker.implementation.upload(
       "data",
       ActorToSVG.getPath(),
       file,
       {},
-      { notify: false }
+      { notify: false },
     );
   }
 
@@ -97,7 +103,7 @@ export class ActorToSVG {
     let lines = this.createText(
       game.i18n.localize("HAUNTED.Character.Name"),
       actorData.name,
-      y
+      y,
     );
     svgStr += lines.svgStr;
     y = lines.y_pos;

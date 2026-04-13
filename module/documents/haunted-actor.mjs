@@ -56,12 +56,13 @@ export class HauntedActor extends Actor {
 
     getLocalString: (disposition) => {
       return game.i18n.localize(
-        HauntedActor.DISPOSITION.getStringID(disposition)
+        HauntedActor.DISPOSITION.getStringID(disposition),
       );
     },
   };
 
   static DISPOSITION_TABLE = [
+    { min: 0, max: 0, disposition: HauntedActor.DISPOSITION.UNKNOWN },
     { min: 2, max: 3, disposition: HauntedActor.DISPOSITION.ADVOCATE },
     { min: 4, max: 5, disposition: HauntedActor.DISPOSITION.FRIENDLY },
     { min: 6, max: 8, disposition: HauntedActor.DISPOSITION.CONFLICTED },
@@ -73,8 +74,6 @@ export class HauntedActor extends Actor {
     data.system = data.system || {};
     data.ownership = data.ownership || {};
     data.prototypeToken = data.prototypeToken || {};
-
-    console.log(data);
 
     const system = {};
     const ownership = {};
@@ -105,12 +104,12 @@ export class HauntedActor extends Actor {
       case HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER:
       case HauntedActor.CHARACTER_TYPE.SUPPORT_BOTH:
         if (game.paused) {
-          const disposition = HauntedActor.generateDisposition();
+          const disposition = await HauntedActor.generateDisposition();
           system.disposition = disposition;
         }
 
       case HauntedActor.CHARACTER_TYPE.SUPPORT_VICTIM:
-        const roll = new Roll("2d5").evaluate({ async: false });
+        const roll = await new Roll("2d6").evaluate();
         let influence = 3;
 
         if (roll.total < 5) influence = 2;
@@ -127,16 +126,18 @@ export class HauntedActor extends Actor {
         break;
     }
 
-    mergeObject(data.system, system, { overwrite: false });
-    mergeObject(data.ownership, ownership, { overwrite: false });
-    mergeObject(data.prototypeToken, prototypeToken, { overwrite: false });
+    foundry.utils.mergeObject(data.system, system, { overwrite: false });
+    foundry.utils.mergeObject(data.ownership, ownership, { overwrite: false });
+    foundry.utils.mergeObject(data.prototypeToken, prototypeToken, {
+      overwrite: false,
+    });
 
     return super.create(data, options);
   }
 
-  static generateDisposition() {
+  static async generateDisposition() {
     const roll = new Roll("2d6");
-    roll.evaluate({ async: false });
+    await roll.evaluate();
     const result = roll.total;
 
     for (const entry of HauntedActor.DISPOSITION_TABLE) {
@@ -147,7 +148,7 @@ export class HauntedActor extends Actor {
   static getCharacterType(types) {
     if (!Array.isArray(types)) types = [types];
     return game.actors.contents.filter((character) =>
-      types.includes(character.type)
+      types.includes(character.type),
     );
   }
 
@@ -201,9 +202,9 @@ export class HauntedActor extends Actor {
 
     const totalDice = value + effortSpent + helpDice;
     const diceFormula = `${totalDice}d6`;
-    const roll = new Roll(diceFormula, this.getRollData());
+    const roll = new Roll(diceFormula);
 
-    roll.evaluate({ async: false });
+    await roll.evaluate();
 
     if (game.dice3d) {
       game.dice3d.showForRoll(roll, game.user, true);
@@ -221,9 +222,9 @@ export class HauntedActor extends Actor {
       roll: dice,
     };
 
-    const html = await renderTemplate(
+    const html = await foundry.applications.handlebars.renderTemplate(
       "systems/haunted/templates/chat/attribute-roll-single.hbs",
-      chatData
+      chatData,
     );
 
     ChatMessage.create({
@@ -302,7 +303,7 @@ export class HauntedActor extends Actor {
 
   async increaseMurdererInfluence() {
     const ghost = HauntedActor.getCharacterType(
-      HauntedActor.CHARACTER_TYPE.GHOST
+      HauntedActor.CHARACTER_TYPE.GHOST,
     )[0];
     const currentMaxPresence = ghost.system.presence.max;
     const currentInfluence = this.system.influence;

@@ -1,12 +1,22 @@
 import { DiceFormater } from "../utlis/dice-formater.mjs";
 import { HauntedActor } from "../documents/haunted-actor.mjs";
 import { UserUtils } from "../utlis/user-utils.mjs";
+import { DebugUtils } from "../utlis/debug-utils.mjs";
 
 export class HauntedUI {
   static getActorFromUI(element) {
-    const id = $(element).parents(".combatant.actor").attr("data-combatant-id");
+    DebugUtils.log_data("GET ACTOR FROM UI: ELEMENT", element);
+    const id = $(element).parents(".combatant").attr("data-combatant-id");
+    DebugUtils.log_data("GET ACTOR FROM UI: ID", id);
+    DebugUtils.log_data(
+      "GET ACTOR FROM UI: COMBATANTS",
+      game.combat.combatants,
+    );
     const entry = game.combat.combatants.get(id);
+    DebugUtils.log_data("GET ACTOR FROM UI: ENTRY", entry);
+    DebugUtils.log_data("GET ACTOR FROM UI: ACTORS", game.actors);
     const actor = game.actors.get(entry.actorId);
+    DebugUtils.log_data("GET ACTOR FROM UI: ACTOR", actor);
     return actor;
   }
 
@@ -41,7 +51,7 @@ Hooks.on("renderCombatTracker", (tracker) => {
   $(initiative).off("click");
   $(initiative).css(
     "background",
-    "url(systems/haunted/assets/icons/rolling-dices.svg) no-repeat 50% 50%"
+    "url(systems/haunted/assets/icons/rolling-dices.svg) no-repeat 50% 50%",
   );
   $(initiative).css("background-size", "32px");
   $(initiative).attr("data-tooltip", "Roll");
@@ -55,7 +65,7 @@ Hooks.on("renderCombatTracker", (tracker) => {
 
     const re = $(token_name).parents(".combatant.actor").find(".resource");
     $(re).replaceWith(
-      `<span class="resource">${actor.system.influence}/${actor.system.effort}</span>`
+      `<span class="resource">${actor.system.influence}/${actor.system.effort}</span>`,
     );
 
     if (game.combat?.started) {
@@ -66,7 +76,7 @@ Hooks.on("renderCombatTracker", (tracker) => {
           dice = DiceFormater.highlightVictories(dice, 0);
           dice = DiceFormater.diceToString(dice);
           $(token_name).append(
-            `<span class="haunted"><div class="attribute-dice conflict-dice">${dice}</div></spen>`
+            `<span class="haunted"><div class="attribute-dice conflict-dice">${dice}</div></spen>`,
           );
 
           const token_img = $(token_name).siblings(".token-image");

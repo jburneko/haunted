@@ -2,6 +2,8 @@ import { UserUtils } from "../utlis/user-utils.mjs";
 import { SocketEvents } from "../networking/socket-events.mjs";
 import { DiceFormater } from "../utlis/dice-formater.mjs";
 import { HauntedActor } from "./haunted-actor.mjs";
+import { DebugUtils } from "../utlis/debug-utils.mjs";
+import { SocialDiagram } from "./hautned-diagram.mjs";
 
 export class HauntedConflict extends Combat {
   static get conflict() {
@@ -14,7 +16,7 @@ export class HauntedConflict extends Combat {
     await conflict.setFlag("haunted", "conflictData", { [actorId]: dice });
 
     const character = conflict.combatants.contents.filter(
-      (entry) => entry.actorId === actorId
+      (entry) => entry.actorId === actorId,
     )[0];
     character.update({ hidden: false });
 
@@ -139,7 +141,7 @@ export class HauntedConflict extends Combat {
 
     if (!this.ghostHelped && !outcomeState.didGhostRoll) {
       const ghost = HauntedActor.getCharacterType(
-        HauntedActor.CHARACTER_TYPE.GHOST
+        HauntedActor.CHARACTER_TYPE.GHOST,
       )[0];
       ghost.adjustPresence(1, false);
     }
@@ -174,7 +176,7 @@ export class HauntedConflict extends Combat {
 
     const html = await renderTemplate(
       "systems/haunted/templates/chat/conflict-outcome.hbs",
-      chatData
+      chatData,
     );
 
     ChatMessage.create({
@@ -189,16 +191,19 @@ export class HauntedConflict extends Combat {
   }
 }
 
+Hooks.on("preCreateCombat", (combat, data, options, userID) => {});
+
 Hooks.on("createCombat", (combat, options, id) => {
   if (UserUtils.isGM) {
-    const scene = combat.scene;
-    console.log("***** CREATE COMBAT *****");
+    const scene = SocialDiagram.instance;
+    combat.updateSource({ scene: scene });
+
     const murderer = scene.tokens.filter(
       (token) =>
         game.actors.get(token.actorId).type ==
-        HauntedActor.CHARACTER_TYPE.MURDERER
+        HauntedActor.CHARACTER_TYPE.MURDERER,
     )[0];
-    console.log(murderer);
+
     combat.createEmbeddedDocuments("Combatant", [
       { sceneId: scene.id, actorId: murderer.actorId, tokenId: murderer.id },
     ]);

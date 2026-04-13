@@ -2,13 +2,13 @@ import { CharacterSheet } from "./character-sheet.mjs";
 
 export class GhostSheet extends CharacterSheet {
   static TEMPLATES = {
-    SHEET: "systems/haunted/templates/sheets/ghost-sheet.hbs"
-  }
+    SHEET: "systems/haunted/templates/sheets/ghost-sheet.hbs",
+  };
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       template: GhostSheet.TEMPLATES.SHEET,
-      classes: ["haunted"]
+      classes: ["haunted"],
     });
   }
 
@@ -17,4 +17,4 @@ export class GhostSheet extends CharacterSheet {
     const attribute = event.target.getAttribute("data-attribute");
     this.actor.rollAttribute(attribute);
   }
-} 
+}
