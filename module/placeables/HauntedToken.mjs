@@ -1,4 +1,5 @@
 import { ActorToSVG } from "../utlis/actor-to-svg.mjs";
+import { DebugUtils } from "../utlis/debug-utils.mjs";
 
 export class HauntedToken extends foundry.canvas.placeables.Token {
   static redrawToken(actorId) {
@@ -18,3 +19,5 @@ export class HauntedToken extends foundry.canvas.placeables.Token {
     this.mesh.texture = newTexture;
   }
 }
+
+Hooks.on("createToken", (token, options, userID) => {});

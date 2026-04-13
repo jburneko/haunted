@@ -4,6 +4,7 @@ import { ActorToSVG } from "../utlis/actor-to-svg.mjs";
 import { SocketEvents } from "../networking/socket-events.mjs";
 import { HauntedToken } from "../placeables/HauntedToken.mjs";
 import { UserUtils } from "../utlis/user-utils.mjs";
+import { DebugUtils } from "../utlis/debug-utils.mjs";
 
 export class HauntedActor extends Actor {
   static CHARACTER_TYPE = {
@@ -81,6 +82,8 @@ export class HauntedActor extends Actor {
       actorLink: true,
       height: 3,
       width: 5,
+      lockRotation: true,
+      movementAction: "blink",
     };
 
     switch (data.type) {

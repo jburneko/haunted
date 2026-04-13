@@ -23,12 +23,6 @@ export class SupportSheet extends CharacterSheet {
       }),
     );
 
-    DebugUtils.log_data(
-      "SUPPORT DISPOSIION CHOICES",
-      context.dispositionChoices,
-    );
-    DebugUtils.log_data("SUPPORT DISPOSITION", context.system.disposition);
-
     return context;
   }
 
