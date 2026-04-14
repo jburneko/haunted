@@ -3,19 +3,22 @@ import { CharacterSheet } from "./character-sheet.mjs";
 import { DebugUtils } from "../utlis/debug-utils.mjs";
 
 export class SupportSheet extends CharacterSheet {
-  static TEMPLATES = {
-    SHEET: "systems/haunted/templates/sheets/support-sheet.hbs",
+  static PARTS = {
+    form: {
+      template: "systems/haunted/templates/sheets/support-sheet.hbs",
+    },
   };
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      template: SupportSheet.TEMPLATES.SHEET,
-      classes: ["haunted"],
-    });
-  }
+  static DEFAULT_OPTIONS = {
+    actions: {
+      increaseDisposition: this.#increaseDisposition,
+      decreaseDisposition: this.#decreaseDisposition,
+    },
+  };
 
-  getData() {
-    const context = super.getData();
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+
     context.dispositionChoices = HauntedActor.DISPOSITION_TABLE.map(
       (entry) => ({
         key: entry.disposition,
@@ -26,32 +29,13 @@ export class SupportSheet extends CharacterSheet {
     return context;
   }
 
-  activateListeners(html) {
-    super.activateListeners(html);
-
-    html
-      .find(".increase-disposition")
-      .click(this._onIncreaseDisposition.bind(this));
-    html
-      .find(".decrease-disposition")
-      .click(this._onDecreaseDisposition.bind(this));
-    html
-      .find(".increase-influence")
-      .click(this._onIncreaseInfluence.bind(this));
-  }
-
-  _onIncreaseDisposition(event) {
+  static async #increaseDisposition(event) {
     event.preventDefault();
     this.actor.adjustDisposition(1);
   }
 
-  _onDecreaseDisposition(event) {
+  static async #decreaseDisposition(event) {
     event.preventDefault();
     this.actor.adjustDisposition(-1);
-  }
-
-  _onIncreaseInfluence(event) {
-    event.preventDefault();
-    this.actor.increaseSupportInfluence();
   }
 }

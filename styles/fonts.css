@@ -14,9 +14,14 @@
 
 .haunted .attribute-label {
     font-family: "Permanent Marker";
-    color: darkred;
-    font-size: medium;
+    color: rgb(183, 0, 0);
+    font-size: 24px;
     flex-shrink: 0;
+}
+
+.haunted .clickable:hover {
+  cursor: pointer;
+  text-shadow: 0 0 12px rgb(183, 0, 0);
 }
 
 .haunted .attribute-dice {

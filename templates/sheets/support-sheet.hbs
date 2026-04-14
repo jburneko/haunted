@@ -1,23 +1,23 @@
-<form>
+<div>
   <section class="character-sheet-front">
     {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
     <div class="character-motive">
-      {{#if (isdefined system.problem)}}
-        <label class="attribute-label" for="system.problem">{{localize "HAUNTED.Character.Problem"}}:</label>
-        <input type="text" name="system.problem" value="{{system.problem}}" data-dtype="String"/>
+      {{#if (isdefined document.system.problem)}}
+        <label class="attribute-label">{{localize "HAUNTED.Character.Problem"}}:</label>
+        <input type="text" name="system.problem" value="{{document.system.problem}}" data-dtype="String"/>
       {{/if}}
     </div>
     <div class="character-disposition">
         <div class="disposition-selection">
-          <label class="attribute-label" for="system.disposition">{{localize "HAUNTED.Character.Disposition"}}:</label>
-          <select class="disposition-choice" name="system.disposition" {{#if (gt system.disposition 0)}} disabled {{/if}}>
-           {{selectOptions dispositionChoices selected=system.disposition valueAttr="key" labelAttr="label"}}
+          <label class="attribute-label">{{localize "HAUNTED.Character.Disposition"}}:</label>
+          <select class="disposition-choice" name="system.disposition" {{#if (gt document.system.disposition 0)}} disabled {{/if}}>
+           {{selectOptions dispositionChoices selected=document.system.disposition valueAttr="key" labelAttr="label"}}
           </select>
         </div>
-        {{#if (gt system.disposition 0)}}
+        {{#if (gt document.system.disposition 0)}}
           <div class="disposition-buttons">
-            <button class="adjust-button adjust-button-label increase-disposition">+</button>
-            <button class="adjust-button adjust-button-label decrease-disposition">-</button>
+            <button data-action="increaseDisposition" class="adjust-button adjust-button-label">+</button>
+            <button data-action="decreaseDisposition" class="adjust-button adjust-button-label">-</button>
           </div>
         {{/if}}
   </div>
@@ -26,4 +26,4 @@
     </div>
   </section>
   {{> "systems/haunted/templates/sheets/partials/character-notes.hbs"}}
-</form>
+</div>

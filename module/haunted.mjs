@@ -19,7 +19,7 @@ Hooks.once("init", () => {
 
   const actors = foundry.documents.collections.Actors;
 
-  actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+  //actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
   actors.registerSheet("haunted", MurdererSheet, {
     types: [HauntedActor.CHARACTER_TYPE.MURDERER],
     makeDefault: true,

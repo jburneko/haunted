@@ -1,4 +1,16 @@
 <section class="character-sheet-back">
-    <label class="attribute-label" for="system.notes">{{localize "HAUNTED.Character.Notes"}}</label>
-    {{editor system.notes target="system.notes" engine="prosemirror" button=false owner=owner editable=true}}
+  <label class="attribute-label">{{localize "HAUNTED.Character.Notes"}}</label>
+  {{#if editable}}
+    <prose-mirror
+      name="system.notes"
+      button="true"
+      editable="{{editable}}"
+      toggled="false"
+      value="{{document.system.notes}}"
+    >
+      {{{notesHTML}}}
+    </prose-mirror>
+  {{else}}
+    {{{notesHTML}}}
+  {{/if}}
 </section>

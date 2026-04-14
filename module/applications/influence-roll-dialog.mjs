@@ -9,6 +9,7 @@ export class InfluenceRollDialog extends HandlebarsApplicationMixin(
 ) {
   static DEFAULT_OPTIONS = {
     id: "influence-roll-dialog",
+    classes: ["haunted"],
     form: {
       handler: InfluenceRollDialog.#onSubmit,
       closeOnSubmit: false,

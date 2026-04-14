@@ -1,26 +1,19 @@
 import { CharacterSheet } from "./character-sheet.mjs";
 
 export class MurdererSheet extends CharacterSheet {
-  static TEMPLATES = {
-    SHEET: "systems/haunted/templates/sheets/murderer-sheet.hbs",
+  static PARTS = {
+    form: {
+      template: "systems/haunted/templates/sheets/murderer-sheet.hbs",
+    },
   };
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      template: MurdererSheet.TEMPLATES.SHEET,
-      classes: ["haunted"],
-    });
-  }
+  static DEFAULT_OPTIONS = {
+    actions: {
+      increaseInfluence: this.#increaseInfluence,
+    },
+  };
 
-  activateListeners(html) {
-    super.activateListeners(html);
-
-    html
-      .find(".increase-influence")
-      .click(this._onIncreaseInfluence.bind(this));
-  }
-
-  _onIncreaseInfluence(event) {
+  static async #increaseInfluence(event, target) {
     event.preventDefault();
     this.actor.increaseMurdererInfluence();
   }

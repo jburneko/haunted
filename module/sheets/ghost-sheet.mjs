@@ -1,20 +1,21 @@
 import { CharacterSheet } from "./character-sheet.mjs";
 
 export class GhostSheet extends CharacterSheet {
-  static TEMPLATES = {
-    SHEET: "systems/haunted/templates/sheets/ghost-sheet.hbs",
+  static PARTS = {
+    form: {
+      template: "systems/haunted/templates/sheets/ghost-sheet.hbs",
+    },
   };
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      template: GhostSheet.TEMPLATES.SHEET,
-      classes: ["haunted"],
-    });
-  }
+  static DEFAULT_OPTIONS = {
+    actions: {
+      rollAttribute: this.#rollAttribute,
+    },
+  };
 
-  _rollAttribute(event) {
+  static async #rollAttribute(event, target) {
     event.preventDefault();
-    const attribute = event.target.getAttribute("data-attribute");
+    const attribute = target.dataset.attribute;
     this.actor.rollAttribute(attribute);
   }
 }

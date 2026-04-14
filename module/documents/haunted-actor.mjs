@@ -188,6 +188,10 @@ export class HauntedActor extends Actor {
     return this.type === HauntedActor.CHARACTER_TYPE.MURDERER;
   }
 
+  get isSupport() {
+    return this.type in HauntedActor.CHARACTER_TYPE.SUPPORT;
+  }
+
   get inConflict() {
     const conflict = game.combat;
 

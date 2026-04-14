@@ -1,11 +1,32 @@
 <div class="attributes">
-    <label class="attribute-label clickable" data-attribute="influence" for="system.influence"><i class="fas fa-dice"></i> {{localize "HAUNTED.Character.Influence"}}:</label>
-    <input class="number-field" type="number" name="system.influence" value="{{system.influence}}" data-dtype="Number"/>
-    <button class="adjust-button adjust-button-label increase-influence">+</button>
+  <label
+    data-action="rollAttribute"
+    class="attribute-label clickable"
+    data-attribute="influence"
+    name="system.influence"
+  ><i class="fas fa-dice"></i>
+    {{localize "HAUNTED.Character.Influence"}}:</label>
+  <input
+    class="number-field"
+    type="number"
+    name="document.system.influence"
+    value="{{document.system.influence}}"
+    data-dtype="Number"
+  />
+  <button
+    data-action="increaseInfluence"
+    class="adjust-button adjust-button-label"
+  >+</button>
 </div>
 <div class="attributes">
-    <label class="attribute-label" for="system.effort">{{localize "HAUNTED.Character.Effort"}}:</label>
-    <input class="number-field" type="number" name="system.effort" value="{{system.effort}}" data-dtype="Number"/>
+  <label class="attribute-label">{{localize
+      "HAUNTED.Character.Effort"
+    }}:</label>
+  <input
+    class="number-field"
+    type="number"
+    name="system.effort"
+    value="{{document.system.effort}}"
+    data-dtype="Number"
+  />
 </div>
-
-
