@@ -19,6 +19,11 @@
     flex-shrink: 0;
 }
 
+.chat-message .message-header .message-sender, .conflict-entry-name {
+  font-family: "Finger Paint";
+  text-shadow: 0 0 0.5rem black;
+}
+
 .haunted .clickable:hover {
   cursor: pointer;
   text-shadow: 0 0 12px rgb(183, 0, 0);
@@ -41,10 +46,10 @@
 }
 
 .haunted .number-field {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   text-align: center;
   flex-shrink: 0;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin-right: 4px;
+  margin-left: 4px;
 }
