@@ -57,7 +57,5 @@
     }
   ],
   "socket": true,
-  "primaryTokenAttribute": "influence",
-  "secondaryTokenAttribute": "effort",
   "manifest": "https://github.com/jburneko/haunted/blob/main/system.json"
 }

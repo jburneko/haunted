@@ -14,6 +14,7 @@ import {
   SupportDataModel,
   VictimSupportDataModel,
 } from "./data-models/actor-models.mjs";
+import { HauntedUI } from "./ui/conflict-ui.mjs";
 
 Hooks.once("init", () => {
   //CONFIG.debug.hooks = true;
@@ -30,6 +31,29 @@ Hooks.once("init", () => {
     [HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER]: SupportDataModel,
     [HauntedActor.CHARACTER_TYPE.SUPPORT_VICTIM]: VictimSupportDataModel,
     [HauntedActor.CHARACTER_TYPE.SUPPORT_BOTH]: VictimSupportDataModel,
+  };
+
+  CONFIG.Actor.trackableAttributes = {
+    [HauntedActor.CHARACTER_TYPE.MURDERER]: {
+      bar: [],
+      value: ["influence", "effort"],
+    },
+    [HauntedActor.CHARACTER_TYPE.GHOST]: {
+      bar: ["presence"],
+      value: [],
+    },
+    [HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER]: {
+      value: ["influence", "effort"],
+      bar: [],
+    },
+    [HauntedActor.CHARACTER_TYPE.SUPPORT_VICTIM]: {
+      value: ["influence", "effort"],
+      bar: [],
+    },
+    [HauntedActor.CHARACTER_TYPE.SUPPORT_BOTH]: {
+      value: ["influence", "effort"],
+      bar: [],
+    },
   };
 
   //actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);

@@ -85,6 +85,16 @@ export class HauntedActor extends Actor {
       width: 5,
       lockRotation: true,
       movementAction: "blink",
+      bar1: {
+        attribute: "effort",
+      },
+      bar2: {
+        attribute: "influence",
+      },
+      displayBars: CONST.TOKEN_DISPLAY_MODES.ALWAYS,
+      turnMarker: {
+        mode: CONST.TOKEN_TURN_MARKER_MODES.DISABLED,
+      },
     };
 
     switch (data.type) {
@@ -103,6 +113,8 @@ export class HauntedActor extends Actor {
           max: 7,
         };
         ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
+        prototypeToken.bar1.attribute = "presence";
+        prototypeToken.bar2.attribute = null;
         break;
 
       case HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER:
