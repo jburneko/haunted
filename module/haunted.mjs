@@ -8,7 +8,12 @@ import { ActorToSVG } from "./utlis/actor-to-svg.mjs";
 import { SocketHandler } from "./networking/socket-handler.mjs";
 import { SceneLoader } from "./utlis/scene-loader.mjs";
 import { HauntedConflict } from "./documents/haunted-conflict.mjs";
-import { HauntedUI } from "./ui/conflict-ui.mjs";
+import {
+  MurdererDataModel,
+  GhostDataModel,
+  SupportDataModel,
+  VictimSupportDataModel,
+} from "./data-models/actor-models.mjs";
 
 Hooks.once("init", () => {
   //CONFIG.debug.hooks = true;
@@ -18,6 +23,14 @@ Hooks.once("init", () => {
   CONFIG.Combat.documentClass = HauntedConflict;
 
   const actors = foundry.documents.collections.Actors;
+
+  CONFIG.Actor.dataModels = {
+    [HauntedActor.CHARACTER_TYPE.MURDERER]: MurdererDataModel,
+    [HauntedActor.CHARACTER_TYPE.GHOST]: GhostDataModel,
+    [HauntedActor.CHARACTER_TYPE.SUPPORT_MURDERER]: SupportDataModel,
+    [HauntedActor.CHARACTER_TYPE.SUPPORT_VICTIM]: VictimSupportDataModel,
+    [HauntedActor.CHARACTER_TYPE.SUPPORT_BOTH]: VictimSupportDataModel,
+  };
 
   //actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
   actors.registerSheet("haunted", MurdererSheet, {

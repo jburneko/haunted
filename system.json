@@ -17,6 +17,25 @@
     "verified": "14.360"
   },
   "esmodules": ["module/haunted.mjs"],
+  "documentTypes": {
+    "Actor": {
+      "murderer": {
+        "htmlFields": ["notes"]
+      },
+      "ghost": {
+        "htmlFields": ["notes"]
+      },
+      "support-murderer": {
+        "htmlFields": ["notes"]
+      },
+      "support-victim": {
+        "htmlFields": ["notes"]
+      },
+      "support-both": {
+        "htmlFields": ["notes"]
+      }
+    }
+  },
   "styles": [
     "styles/fonts.css",
     "styles/chat-messages.css",
