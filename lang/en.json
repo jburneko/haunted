@@ -17,7 +17,9 @@
       "EffortSpent": "Spend Effort",
       "HelpDice": "Help Dice",
       "Roll": "Roll",
-      "Helpers": "Helpers"
+      "Helpers": "Helpers",
+      "ConflictSelection": "Select Characters",
+      "StartConflict": "Start Conflict"
     },
     "Chat": {
       "InfluenceRoll": "Influence Roll"

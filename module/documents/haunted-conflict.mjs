@@ -4,6 +4,7 @@ import { DiceFormater } from "../utlis/dice-formater.mjs";
 import { HauntedActor } from "./haunted-actor.mjs";
 import { DebugUtils } from "../utlis/debug-utils.mjs";
 import { SocialDiagram } from "./hautned-diagram.mjs";
+import { ConflictSelectionDialog } from "../applications/conflict-selection-dialog.mjs";
 
 export class HauntedConflict extends Combat {
   static get conflict() {
@@ -54,6 +55,24 @@ export class HauntedConflict extends Combat {
     const data = this.conflictData;
     for (const entry of entries) if (!(entry.actorId in data)) return false;
     return true;
+  }
+
+  async showSelectionDialog() {
+    const dialog = new ConflictSelectionDialog();
+    dialog.init(this);
+    dialog.render(true);
+  }
+
+  addActorsToConflict(actorList) {
+    const scene = this.scene;
+    for (const id of actorList) {
+      DebugUtils.log_data("ID", id);
+      const token = scene.tokens.find((token) => token.actorId === id);
+      DebugUtils.log_data("TOKEN", token);
+      this.createEmbeddedDocuments("Combatant", [
+        { sceneId: scene.id, actorId: token.actorId, tokenId: token.id },
+      ]);
+    }
   }
 
   async addRoll(actor, dice) {
@@ -206,5 +225,7 @@ Hooks.on("createCombat", (combat, options, id) => {
     combat.createEmbeddedDocuments("Combatant", [
       { sceneId: scene.id, actorId: murderer.actorId, tokenId: murderer.id },
     ]);
+
+    combat.showSelectionDialog();
   }
 });

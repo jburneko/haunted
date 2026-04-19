@@ -17,7 +17,7 @@ import {
 import { HauntedUI } from "./ui/conflict-ui.mjs";
 
 Hooks.once("init", () => {
-  //CONFIG.debug.hooks = true;
+  CONFIG.debug.hooks = true;
 
   CONFIG.Actor.documentClass = HauntedActor;
   CONFIG.Token.objectClass = HauntedToken;

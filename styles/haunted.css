@@ -84,6 +84,12 @@
   margin-left: 108px;
 }
 
+.haunted .conflict-selection-button {
+  display: flex;
+  justify-self: center;
+  margin-top: 1em
+}
+
 
 /* justify-items (along the horizontal axis)
    align-items (along the vertical axis) 

@@ -1,5 +1,6 @@
 import { DiceFormater } from "./dice-formater.mjs";
 import { HauntedActor } from "../documents/haunted-actor.mjs";
+import { DebugUtils } from "./debug-utils.mjs";
 
 export const configureHandlebars = () => {
   Handlebars.registerHelper("format_dice", (dice) => {
@@ -49,6 +50,28 @@ export const configureHandlebars = () => {
 
     return result;
   });
+
+  Handlebars.registerHelper(
+    "checkBoxes",
+    function checkBoxes(name, choices, options) {
+      const localize = options.hash.localize || false;
+      let html = "";
+      for (const item of choices) {
+        if (localize) item.entry.label = game.i18n.localize(item.entry.label);
+        DebugUtils.log_data("ITEM", item);
+        const element = document.createElement("label");
+        element.classList.add("checkbox");
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.name = name;
+        input.value = item.key;
+        input.defaultChecked = item.entry.checked;
+        element.append(input, " ", item.entry.label);
+        html += element.outerHTML;
+      }
+      return new Handlebars.SafeString(html);
+    },
+  );
 };
 
 export async function preloadTemplates() {
