@@ -1,32 +1,43 @@
-<div class="attributes">
-  <label
-    data-action="rollAttribute"
-    class="attribute-label clickable"
-    data-attribute="influence"
-    name="system.influence"
-  ><i class="fas fa-dice"></i>
-    {{localize "HAUNTED.Character.Influence"}}:</label>
-  <input
-    class="number-field"
-    type="number"
-    name="document.system.influence"
-    value="{{document.system.influence}}"
-    data-dtype="Number"
-  />
+<label
+  for="influence-field"
+  class="clickable"
+  data-action="rollAttribute"
+  data-attribute="influence"
+  name="system.influence"
+>
+  <span class="die-label">{{attribute_dice document.system.influence}}</span>
+  {{localize "HAUNTED.Character.Influence"}}:
+</label>
+{{#if (ismurderer document.type)}}
+  <span class="row-spacer"></span>
+{{/if}}
+<input
+  id="influence-field"
+  class="character-attribute-field"
+  type="number"
+  name="document.system.influence"
+  value="{{document.system.influence}}"
+  data-dtype="Number"
+/>
+{{#if (ismurderer document.type)}}
   <button
+    class="row-spacer adjust-button"
     data-action="increaseInfluence"
-    class="adjust-button adjust-button-label"
   >+</button>
-</div>
-<div class="attributes">
-  <label class="attribute-label">{{localize
-      "HAUNTED.Character.Effort"
-    }}:</label>
-  <input
-    class="number-field"
-    type="number"
-    name="system.effort"
-    value="{{document.system.effort}}"
-    data-dtype="Number"
-  />
-</div>
+  <span class="row-spacer"></span>
+{{/if}}
+{{#if (ismurderer document.type)}}
+  <span class="row-spacer"></span>
+{{/if}}
+<label for="effort-field">{{localize "HAUNTED.Character.Effort"}}:</label>
+{{#if (ismurderer document.type)}}
+  <span class="row-spacer"></span>
+{{/if}}
+<input
+  id="effort-field"
+  class="character-attribute-field"
+  type="number"
+  name="system.effort"
+  value="{{document.system.effort}}"
+  data-dtype="Number"
+/>

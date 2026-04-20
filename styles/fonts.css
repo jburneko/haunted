@@ -5,18 +5,23 @@
   src: url("../assets/fonts/DPoly-Ten-Sider.otf") format("opentype");
 }
 
-.haunted .character-header h1 {
+/*.haunted .character-header h1 {
   font-family: "Finger Paint";
   font-size: xx-large;
   text-shadow: 0 0 0.5rem black;
   border-bottom: none;
-}
+}*/
 
 .haunted .attribute-label {
     font-family: "Permanent Marker";
     color: rgb(183, 0, 0);
     font-size: 24px;
     flex-shrink: 0;
+}
+
+.haunted .die-label {
+    font-family: "DPoly-Ten-Sider";
+    font-size: var(--font-size-14);
 }
 
 .chat-message .message-header .message-sender, .conflict-entry-name {
@@ -26,7 +31,7 @@
 
 .haunted .clickable:hover {
   cursor: pointer;
-  text-shadow: 0 0 12px rgb(183, 0, 0);
+  color: var(--color-warm-2);
 }
 
 .haunted .attribute-dice {

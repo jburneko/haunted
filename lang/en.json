@@ -10,7 +10,8 @@
       "Problem": "Problem",
       "UnfinishedBusiness": "Unfinished Business",
       "Presence": "Presence",
-      "Notes": "Notes"
+      "Notes": "Notes",
+      "Attributes": "Attributes"
     },
     "Dialogs": {
       "InfluenceRoll": "Roll Influence",

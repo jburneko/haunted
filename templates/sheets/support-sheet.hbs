@@ -1,29 +1,33 @@
-<div>
-  <section class="character-sheet-front">
+<div class="character-sheet">
     {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
-    <div class="character-motive">
       {{#if (isdefined document.system.problem)}}
-        <label class="attribute-label">{{localize "HAUNTED.Character.Problem"}}:</label>
+    <div class="column-spacer">
+        <h2>{{localize "HAUNTED.Character.Problem"}}</h2>
         <input type="text" name="system.problem" value="{{document.system.problem}}" data-dtype="String"/>
+    </div>
       {{/if}}
-    </div>
-    <div class="character-disposition">
-        <div class="disposition-selection">
-          <label class="attribute-label">{{localize "HAUNTED.Character.Disposition"}}:</label>
-          <select class="disposition-choice" name="system.disposition" {{#if (gt document.system.disposition 0)}} disabled {{/if}}>
-           {{selectOptions dispositionChoices selected=document.system.disposition valueAttr="key" labelAttr="label"}}
-          </select>
+    <div class="column-spacer">
+      <h2>{{localize "HAUNTED.Character.Attributes"}}</h2>
+      <div class="row-entry">
+        <div class="row-entry">
+          <div>
+            <label>{{localize "HAUNTED.Character.Disposition"}}:</label>
+            <select name="system.disposition" {{#if (gt document.system.disposition 0)}} disabled {{/if}}>
+            {{selectOptions dispositionChoices selected=document.system.disposition valueAttr="key" labelAttr="label"}}
+            </select>
+         </div>
+          {{#if (gt document.system.disposition 0)}}
+            <div class="row-spacer">
+              <button class="adjust-button" data-action="increaseDisposition">+</button>
+              <button class="column-spacer-sm adjust-button" data-action="decreaseDisposition">-</button>
+            </div>
+          {{/if}}
         </div>
-        {{#if (gt document.system.disposition 0)}}
-          <div class="disposition-buttons">
-            <button data-action="increaseDisposition" class="adjust-button adjust-button-label">+</button>
-            <button data-action="decreaseDisposition" class="adjust-button adjust-button-label">-</button>
-          </div>
-        {{/if}}
-  </div>
-    <div class="attributes-support">
-      {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
+        <span class="row-spacer"></span>
+        <div class="row-spacer attribute-grid">
+          {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
+        </div>
+      </div>
     </div>
-  </section>
   {{> "systems/haunted/templates/sheets/partials/character-notes.hbs"}}
 </div>

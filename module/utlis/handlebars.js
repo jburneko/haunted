@@ -3,6 +3,12 @@ import { HauntedActor } from "../documents/haunted-actor.mjs";
 import { DebugUtils } from "./debug-utils.mjs";
 
 export const configureHandlebars = () => {
+  Handlebars.registerHelper("attribute_dice", (attribute) => {
+    const char = "l";
+    const diceStr = char.repeat(attribute);
+    return diceStr;
+  });
+
   Handlebars.registerHelper("format_dice", (dice) => {
     const diceObj = DiceFormater.highlightDice(dice);
     const diceStr = DiceFormater.diceToString(diceObj);
@@ -16,6 +22,7 @@ export const configureHandlebars = () => {
   });
 
   Handlebars.registerHelper("isdefined", function (value) {
+    DebugUtils.log_data("IS DEFINED", value);
     const result = value !== undefined;
     return result;
   });
@@ -34,6 +41,10 @@ export const configureHandlebars = () => {
 
   Handlebars.registerHelper("local_attribute", function (value) {
     return HauntedActor.ATTRIBUTE.getLocalString(value);
+  });
+
+  Handlebars.registerHelper("ismurderer", function (value) {
+    return value === HauntedActor.CHARACTER_TYPE.MURDERER;
   });
 
   Handlebars.registerHelper("issupport", function (value) {

@@ -1,16 +1,17 @@
-<div>
-  <section class="character-sheet-front">
+<div class="character-sheet">
     {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}  
-    <div class="character-motive">
-        <label class="attribute-label">{{localize "HAUNTED.Character.UnfinishedBusiness"}}:</label>
+    <div class="column-spacer">
+        <h2>{{localize "HAUNTED.Character.UnfinishedBusiness"}}</h2>
         <input type="text" name="system.unfinishedBusiness" value="{{document.system.unfinishedBusiness}}" data-dtype="String"/>
     </div>
-    <div class="attributes">
-        <label data-action="rollAttribute" class="attribute-label clickable" data-attribute="presence"><i class="fas fa-dice"></i> {{localize "HAUNTED.Character.Presence"}}:</label>
-        <input class="number-field" type="number" name="system.presence.value" value="{{document.system.presence.value}}" data-dtype="Number"/>
-        <label class="attribute-label">/</label>
-        <input class="number-field" type="number" name="system.presence.max" value="{{document.system.presence.max}}" data-dtype="Number"/>
+    <div class="column-spacer">
+       <h2>{{localize "HAUNTED.Character.Attributes"}}</h2>
+       <div class="row-entry">
+        <label class="clickable" data-action="rollAttribute" data-attribute="presence"> <span class="die-label">{{attribute_dice document.system.presence.value}}</span> {{localize "HAUNTED.Character.Presence"}}:</label>
+        <input class="row-spacer character-attribute-field" type="number" name="system.presence.value" value="{{document.system.presence.value}}" data-dtype="Number"/>
+        <label class="row-spacer">/</label>
+        <input class="row-spacer character-attribute-field" type="number" name="system.presence.max" value="{{document.system.presence.max}}" data-dtype="Number"/>
     </div>
-  </section>
+    </div>
   {{> "systems/haunted/templates/sheets/partials/character-notes.hbs"}}
 </div>

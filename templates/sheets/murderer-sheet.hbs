@@ -1,11 +1,14 @@
-<div>
-  <section class="character-sheet-front">
+<main class="character-sheet">
     {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
-    <div class="character-motive">
-      <label class="attribute-label">{{localize "HAUNTED.Character.Ambition"}}:</label>
-      <input type="text" name="system.ambition" value="{{document.system.ambition}}" data-dtype="String"/>
+    <div class="column-spacer">
+      <h2>{{localize "HAUNTED.Character.Ambition"}}</h2>
+      <input id="ambition-field" type="text" name="system.ambition" value="{{document.system.ambition}}" data-dtype="String"/>
     </div>
+    <div class="column-spacer">
+ <h2>{{localize "HAUNTED.Character.Attributes"}}</h2>
+ <div class = "column-spacer row-entry">
     {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
-  </section>
+ </div>
+    </div>
   {{> "systems/haunted/templates/sheets/partials/character-notes.hbs"}}
-</div>
+  </main>

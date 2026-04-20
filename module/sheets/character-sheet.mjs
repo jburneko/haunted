@@ -11,6 +11,10 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     form: {
       submitOnChange: true,
     },
+    position: {
+      width: "auto",
+      height: "auto",
+    },
     actions: {
       rollAttribute: this.#rollAttribute,
       editImage: this.#editImage,

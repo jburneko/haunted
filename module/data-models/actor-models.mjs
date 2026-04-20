@@ -33,7 +33,7 @@ export class MurdererDataModel extends LivingDataModel {
   static defineSchema() {
     return {
       ...super.defineSchema(),
-      ambition: new StringField({ required: true, blank: true }),
+      ambition: new StringField({ required: true, blank: true, initial: "" }),
     };
   }
 }
@@ -57,7 +57,7 @@ export class VictimSupportDataModel extends SupportDataModel {
   static defineSchema() {
     return {
       ...super.defineSchema(),
-      problem: new StringField({ require: true, blank: true }),
+      problem: new StringField({ require: true, blank: true, initial: "" }),
     };
   }
 }
@@ -75,7 +75,11 @@ export class GhostDataModel extends HauntedDataModel {
           initial: 0,
         }),
       }),
-      unfinishedBusiness: new StringField({ require: true, blank: true }),
+      unfinishedBusiness: new StringField({
+        require: true,
+        blank: true,
+        initial: "",
+      }),
     };
   }
 }
