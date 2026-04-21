@@ -1,4 +1,4 @@
-.haunted .character-sheet {
+.haunted .column-layout {
   display: flex;
   flex-direction: column;
   /*grid-template: auto auto auto / 50fr 50fr;*/
@@ -34,7 +34,7 @@
   height: fit-content;
 }
 
-.haunted .character-attribute-field {
+.haunted .attribute-field {
   width: var(--input-height);
   text-align: center;
   flex-grow: 0;
@@ -51,80 +51,11 @@
   width: var(--button-size);
 }
 
-.haunted .character-motive {
-  grid-column: 1 / -1;
-  margin-top: 8px;
-  margin-bottom: 20px;
-}
-
-.haunted .adjust-button {
-  width: 30px;
-  height: 30px; 
-  align-self: center;
-}
-
-.haunted .character-sheet-back {
-  margin-top: 20px;
-  height: 100vh;
-  border-top: 2px solid var(--color-underline-header);
-  padding: 8px  8px 0;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-}
-
-.haunted .character-disposition {
-  display: grid;
-  grid-template: auto / auto auto;
-  align-items: center;
-}
-
-.disposition-selection {
-  display: flex;
-  flex-direction: column;
-  align-self: baseline;
-}
-
-.disposition-choice:disabled {
-  opacity: 1.0;
-  color:darkslategray;
-}
-
-.haunted .disposition-buttons {
-  display: flex;
-  flex-direction: column;
-  justify-self: left;
-  margin-left: 5px;
-}
-
-.haunted .attributes-support {
-  display: grid;
-  grid-template: auto auto / auto;
-  row-gap: 10px;
-}
-
-.haunted .influence-roll-row {
-  margin-top: 16px;
-}
-
-.haunted .roll-influence {
-  width: fit-content;
-  margin-top: 4px;
-  margin-left: 108px;
-}
-
-.haunted .conflict-selection-button {
-  display: flex;
+.haunted .submit-button {
   justify-self: center;
-  margin-top: 1em
+  align-self: center;
+  width: fit-content;
 }
-
-
-/* justify-items (along the horizontal axis)
-   align-items (along the vertical axis) 
-   
-   justify-content (horizontal whole grid)
-   align-conent (verticle)*/
-
 
 
 

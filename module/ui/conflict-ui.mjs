@@ -75,7 +75,7 @@ Hooks.on("renderCombatTracker", (tracker) => {
 
           const ne = $(token_name).children(".name");
           $(ne).after(
-            `<span class="haunted"><div class="attribute-dice conflict-dice">${dice}</div></spen>`,
+            `<span class="haunted"><div class="rolled-dice conflict-dice">${dice}</div></spen>`,
           );
 
           const token_img = $(token_name).siblings(".token-image");

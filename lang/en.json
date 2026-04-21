@@ -25,7 +25,8 @@
       "StartConflict": "Start Conflict"
     },
     "Chat": {
-      "InfluenceRoll": "Influence Roll"
+      "InfluenceRoll": "Influence Roll",
+      "ConflictOutcome": "Conflict Outcome"
     },
     "Disposition": {
       "Unknown": "Unknown",

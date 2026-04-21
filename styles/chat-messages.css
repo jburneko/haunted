@@ -1,13 +1,14 @@
-.haunted .attribute-roll-message {
-    border: 2px solid black;
-    padding-top: 8px;
+.haunted .outcome-message {
+    border: var(--spacer-2) solid black;
+    padding-top: var(--spacer-8);
     text-align: center;
 }
 
 .haunted .dice-box {
-  padding: 4px;
-  border: 4px solid darkred;
-  margin: 8px;
+  padding: var(--spacer-4);
+  border: var(--spacer-4) solid black;
+  margin: var(--spacer-8);
+  margin-top: var(--spacer-4);
 }
 
 .haunted .conflict-entry {
@@ -17,5 +18,4 @@
 
 .haunted .conflict-entry-header {
   align-self: center;
-  margin-top: 0.5rem;
 }

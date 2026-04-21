@@ -1,25 +1,27 @@
 <section>
-    <span class="attribute-label">{{localize "HAUNTED.Character.Influence"}}: {{influence}}</span>
-    <div class="influence-roll-row">
-        <label class="attribute-label" for="effortSpent"> {{localize "HAUNTED.Dialogs.EffortSpent"}}:</label>
-        <input class="number-field" name="effortSpent" type="number" value={{rollInfo.effortSpent}} />
-        <span class="attribute-label"> / {{effort}}</span>
+    <div class="row-entry">
+    <p>{{localize "HAUNTED.Character.Influence"}}: {{influence}}</p>
+        <label class="row-spacer-lg" for="effortSpent"> {{localize "HAUNTED.Dialogs.EffortSpent"}}:</label>
+        <input class="row-spacer attribute-field" id="effortSpent" name="effortSpent" type="number" value={{rollInfo.effortSpent}} />
+        <span class="row-spacer-sm"> / </span><span class="row-spacer-sm">{{effort}}</span>
     </div>
-     <div class="influence-roll-row">
-        <label class="attribute-label">{{localize "HAUNTED.Dialogs.Helpers"}}:</label>
-        <button data-action="addHelper" class="adjust-button adjust-button-label">+</button>
+     <div class="column-spacer row-entry">
+        <label for="addHelper">{{localize "HAUNTED.Dialogs.Helpers"}}:</label>
+        <button class="row-spacer-sm" id="addHelper" data-action="addHelper">+</button>
     </div>
     <ul>
         {{#each rollInfo.helpers}}
         <li>
+            <div class="column-spacer-sm row-entry">
             <select name="helper-choice" data-index="{{this.index}}">
                 {{selectOptions ../helperChoices selected=this.id valueAttr="key" labelAttr="label"}}
             </select>
-            <input class="number-field" type="number" name="help-dice" data-index="{{this.index}}" value="{{this.count}}" data-dtype="Number"/>
-            <span class="attribute-label">/ {{get_help_max this.id}} </span>
-            <label data-action="deleteHelper" data-index="{{this.index}}" class="attribute-label clickable"><i class="fas fa-trash"></i></label>
+            <input class="row-spacer attribute-field" type="number" name="help-dice" data-index="{{this.index}}" value="{{this.count}}" data-dtype="Number"/>
+            <span class="row-spacer-sm">/</span><span class="row-spacer-sm"></span>{{get_help_max this.id}}</span>
+            <label class="row-spacer clickable fas fa-trash" data-action="deleteHelper" data-index="{{this.index}}"></label>
+            <div>
         </li>
         {{/each}}
     </ul>
-    <button data-action="rollInfluence" class="roll-influence">{{localize "HAUNTED.Dialogs.Roll"}}</button>
+    <button class="submit-button" data-action="rollInfluence">{{localize "HAUNTED.Dialogs.Roll"}}</button>
 </section>

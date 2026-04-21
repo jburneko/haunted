@@ -12,8 +12,8 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       submitOnChange: true,
     },
     position: {
-      width: "auto",
-      height: "auto",
+      width: 545,
+      height: 455,
     },
     actions: {
       rollAttribute: this.#rollAttribute,

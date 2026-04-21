@@ -1,21 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Finger+Paint&family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 @font-face {
   font-family: "DPoly-Ten-Sider";
   src: url("../assets/fonts/DPoly-Ten-Sider.otf") format("opentype");
 }
 
-/*.haunted .character-header h1 {
-  font-family: "Finger Paint";
-  font-size: xx-large;
-  text-shadow: 0 0 0.5rem black;
-  border-bottom: none;
-}*/
-
 .haunted .attribute-label {
     font-family: "Permanent Marker";
-    color: rgb(183, 0, 0);
-    font-size: 24px;
+    color: darkred;
+    font-size: medium;
     flex-shrink: 0;
 }
 
@@ -24,37 +17,18 @@
     font-size: var(--font-size-14);
 }
 
-.chat-message .message-header .message-sender, .conflict-entry-name {
-  font-family: "Finger Paint";
-  text-shadow: 0 0 0.5rem black;
-}
-
 .haunted .clickable:hover {
   cursor: pointer;
   color: var(--color-warm-2);
 }
 
-.haunted .attribute-dice {
+.haunted .rolled-dice {
   font-family: "DPoly-Ten-Sider";
   font-size: xxx-large;
 }
 
 .haunted .conflict-dice {
-  font-size: 20px;
-  line-height: 20px;
-}
-
-.haunted .adjust-button-label {
-  font-size: medium;
-  line-height: 0;
-  font-weight: bold;
-}
-
-.haunted .number-field {
-  width: 32px;
-  height: 32px;
-  text-align: center;
-  flex-shrink: 0;
-  margin-right: 4px;
-  margin-left: 4px;
+  font-size: 16px;
+  line-height: 16px;
+  padding-left: 4px;
 }

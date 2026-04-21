@@ -1,5 +1,5 @@
 <section class="tab {{tabs.front.id}} {{tabs.front.cssClass}}" data-tab="{{tabs.front.id}}" data-group="{{tabs.front.group}}">
-<div class="character-sheet column-spacer">
+<div class="column-layout column-spacer">
     {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}  
     <div class="column-spacer">
         <h2>{{localize "HAUNTED.Character.UnfinishedBusiness"}}</h2>
@@ -9,9 +9,9 @@
        <h2>{{localize "HAUNTED.Character.Attributes"}}</h2>
        <div class="row-entry">
         <label class="clickable" data-action="rollAttribute" data-attribute="presence"> <span class="die-label">{{attribute_dice document.system.presence.value}}</span> {{localize "HAUNTED.Character.Presence"}}:</label>
-        <input class="row-spacer character-attribute-field" type="number" name="system.presence.value" value="{{document.system.presence.value}}" data-dtype="Number"/>
+        <input class="row-spacer attribute-field" type="number" name="system.presence.value" value="{{document.system.presence.value}}" data-dtype="Number"/>
         <label class="row-spacer-sm">/</label>
-        <input class="row-spacer-sm character-attribute-field" type="number" name="system.presence.max" value="{{document.system.presence.max}}" data-dtype="Number"/>
+        <input class="row-spacer-sm attribute-field" type="number" name="system.presence.max" value="{{document.system.presence.max}}" data-dtype="Number"/>
     </div>
     </div>
 </div>

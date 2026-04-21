@@ -257,7 +257,7 @@ export class HauntedActor extends Actor {
       chatData,
     );
 
-    ChatMessage.create({
+    const message = await ChatMessage.create({
       content: html,
       sound: CONFIG.sounds.dice, //TODO: Support Dice So Nice?
       speaker: ChatMessage.getSpeaker({ actor: this }),
