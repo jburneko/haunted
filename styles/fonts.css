@@ -25,6 +25,7 @@
 .haunted .rolled-dice {
   font-family: "DPoly-Ten-Sider";
   font-size: xxx-large;
+  line-height: 1;
 }
 
 .haunted .conflict-dice {

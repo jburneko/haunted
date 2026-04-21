@@ -72,7 +72,6 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
           relativeTo: this.document,
         },
       );
-    DebugUtils.log_data("CONTEXT FETCH", context);
     return context;
   }
 }

@@ -6,6 +6,7 @@ import { HauntedToken } from "../placeables/HauntedToken.mjs";
 import { UserUtils } from "../utlis/user-utils.mjs";
 import { RollInfo } from "../utlis/roll-info.mjs";
 import { DebugUtils } from "../utlis/debug-utils.mjs";
+import { SocialDiagram } from "./hautned-diagram.mjs";
 
 export class HauntedActor extends Actor {
   static CHARACTER_TYPE = {
@@ -81,8 +82,8 @@ export class HauntedActor extends Actor {
     const ownership = {};
     const prototypeToken = {
       actorLink: true,
-      height: 3,
-      width: 5,
+      height: HauntedToken.IndexCardSize.y,
+      width: HauntedToken.IndexCardSize.x,
       lockRotation: true,
       movementAction: "blink",
       bar1: {
@@ -94,6 +95,9 @@ export class HauntedActor extends Actor {
       displayBars: CONST.TOKEN_DISPLAY_MODES.ALWAYS,
       turnMarker: {
         mode: CONST.TOKEN_TURN_MARKER_MODES.DISABLED,
+      },
+      texture: {
+        fit: "fill",
       },
     };
 
@@ -357,14 +361,23 @@ export class HauntedActor extends Actor {
 }
 
 Hooks.on("createActor", (document, options, userID) => {
-  if (UserUtils.isGM)
+  if (UserUtils.isGM) {
     document.update({
       "prototypeToken.texture.src": ActorToSVG.getFullPath(document),
     });
+  }
 });
 
 Hooks.on("preUpdateActor", (document, changes, options, userID) => {});
 
 Hooks.on("updateActor", (document, changes, options, userID) => {
   if (UserUtils.isGM) document.updateToken();
+});
+
+Hooks.on("deleteActor", (document, options, userID) => {
+  if (UserUtils.isGM) {
+    const scene = SocialDiagram.instance;
+    const token = scene.tokens.find((token) => token.actorId === document._id);
+    scene.deleteEmbeddedDocuments("Token", [token._id]);
+  }
 });
