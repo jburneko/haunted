@@ -2,7 +2,8 @@ import { CharacterSheet } from "./character-sheet.mjs";
 
 export class MurdererSheet extends CharacterSheet {
   static PARTS = {
-    form: {
+    ...super.PARTS,
+    front: {
       template: "systems/haunted/templates/sheets/murderer-sheet.hbs",
     },
   };

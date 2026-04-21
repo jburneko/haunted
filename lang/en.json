@@ -11,7 +11,9 @@
       "UnfinishedBusiness": "Unfinished Business",
       "Presence": "Presence",
       "Notes": "Notes",
-      "Attributes": "Attributes"
+      "Attributes": "Attributes",
+      "Front": "Front",
+      "Back": "Back"
     },
     "Dialogs": {
       "InfluenceRoll": "Roll Influence",

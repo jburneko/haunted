@@ -1,4 +1,5 @@
-<div class="character-sheet">
+<section class="tab {{tabs.front.id}} {{tabs.front.cssClass}}" data-tab="{{tabs.front.id}}" data-group="{{tabs.front.group}}">
+<div class="character-sheet column-spacer">
     {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
       {{#if (isdefined document.system.problem)}}
     <div class="column-spacer">
@@ -23,11 +24,10 @@
             </div>
           {{/if}}
         </div>
-        <span class="row-spacer"></span>
-        <div class="row-spacer attribute-grid">
+        <div class="row-spacer-lg attribute-grid">
           {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
         </div>
       </div>
     </div>
-  {{> "systems/haunted/templates/sheets/partials/character-notes.hbs"}}
 </div>
+</section>

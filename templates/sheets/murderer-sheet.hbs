@@ -1,14 +1,14 @@
-<main class="character-sheet">
-    {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
-    <div class="column-spacer">
-      <h2>{{localize "HAUNTED.Character.Ambition"}}</h2>
-      <input id="ambition-field" type="text" name="system.ambition" value="{{document.system.ambition}}" data-dtype="String"/>
-    </div>
-    <div class="column-spacer">
- <h2>{{localize "HAUNTED.Character.Attributes"}}</h2>
- <div class = "column-spacer row-entry">
-    {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
- </div>
-    </div>
-  {{> "systems/haunted/templates/sheets/partials/character-notes.hbs"}}
-  </main>
+<section class="tab {{tabs.front.id}} {{tabs.front.cssClass}}" data-tab="{{tabs.front.id}}" data-group="{{tabs.front.group}}">
+   <div class="character-sheet column-spacer" >
+      {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
+      <div class="column-spacer">
+         <h2>{{localize "HAUNTED.Character.Ambition"}}</h2>
+         <input id="ambition-field" type="text" name="system.ambition" value="{{document.system.ambition}}" data-dtype="String"/>
+      </div>
+      <div class="column-spacer">
+         <h2>{{localize "HAUNTED.Character.Attributes"}}</h2>
+         <div class = "column-spacer row-entry">
+         {{> "systems/haunted/templates/sheets/partials/character-attributes.hbs"}}
+      </div>
+   </div>
+</section>

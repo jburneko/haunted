@@ -1,16 +1,22 @@
-<section class="column-spacer">
-  <h2>{{localize "HAUNTED.Character.Notes"}}</h2>
-  {{#if editable}}
-    <prose-mirror
-      name="system.notes"
-      button="true"
-      editable="{{editable}}"
-      toggled="false"
-      value="{{document.system.notes}}"
-    >
+<section
+  class="tab {{tabs.back.id}} {{tabs.back.cssClass}}"
+  data-tab="{{tabs.back.id}}"
+  data-group="{{tabs.back.group}}"
+>
+  <div class="column-spacer">
+    <h2>{{localize "HAUNTED.Character.Notes"}}</h2>
+    {{#if editable}}
+      <prose-mirror
+        name="system.notes"
+        button="true"
+        editable="{{editable}}"
+        toggled="false"
+        value="{{document.system.notes}}"
+      >
+        {{{notesHTML}}}
+      </prose-mirror>
+    {{else}}
       {{{notesHTML}}}
-    </prose-mirror>
-  {{else}}
-    {{{notesHTML}}}
-  {{/if}}
+    {{/if}}
+  </div>
 </section>

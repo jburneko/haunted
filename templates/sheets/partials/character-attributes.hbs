@@ -21,13 +21,10 @@
 />
 {{#if (ismurderer document.type)}}
   <button
-    class="row-spacer adjust-button"
+    class="row-spacer-sm adjust-button"
     data-action="increaseInfluence"
   >+</button>
-  <span class="row-spacer"></span>
-{{/if}}
-{{#if (ismurderer document.type)}}
-  <span class="row-spacer"></span>
+  <span class="row-spacer-lg"></span>
 {{/if}}
 <label for="effort-field">{{localize "HAUNTED.Character.Effort"}}:</label>
 {{#if (ismurderer document.type)}}

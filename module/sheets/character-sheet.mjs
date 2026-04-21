@@ -21,6 +21,25 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     },
   };
 
+  static PARTS = {
+    tabs: {
+      template: "systems/haunted/templates/sheets/partials/character-tabs.hbs",
+    },
+    back: {
+      template: "systems/haunted/templates/sheets/partials/character-notes.hbs",
+    },
+  };
+
+  static TABS = {
+    primary: {
+      tabs: [
+        { id: "front", label: "HAUNTED.Character.Front" },
+        { id: "back", label: "HAUNTED.Character.Back" },
+      ],
+      initial: "front", // Set the initial tab
+    },
+  };
+
   get title() {
     return this.document.name;
   }
@@ -45,8 +64,6 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-
-    // Enrich content for display
     context.notesHTML =
       await foundry.applications.ux.TextEditor.implementation.enrichHTML(
         this.document.system.notes,
@@ -55,7 +72,7 @@ export class CharacterSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
           relativeTo: this.document,
         },
       );
-
+    DebugUtils.log_data("CONTEXT FETCH", context);
     return context;
   }
 }

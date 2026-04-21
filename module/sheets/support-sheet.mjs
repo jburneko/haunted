@@ -4,7 +4,8 @@ import { DebugUtils } from "../utlis/debug-utils.mjs";
 
 export class SupportSheet extends CharacterSheet {
   static PARTS = {
-    form: {
+    ...super.PARTS,
+    front: {
       template: "systems/haunted/templates/sheets/support-sheet.hbs",
     },
   };
