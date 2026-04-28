@@ -15,6 +15,7 @@ import {
   VictimSupportDataModel,
 } from "./data-models/actor-models.mjs";
 import { HauntedUI } from "./ui/conflict-ui.mjs";
+import { DebugUtils } from "./utlis/debug-utils.mjs";
 
 Hooks.once("init", () => {
   CONFIG.debug.hooks = true;
@@ -82,10 +83,16 @@ Hooks.once("init", () => {
   });
 });
 
+Hooks.once("initializeCombatConfiguration", (config) => {
+  config.turnMarker.enabled = false;
+});
+
 Hooks.once("ready", () => {
   SceneLoader.loadScene();
 
-  const tracker = game.settings.get("core", "combatTrackerConfig");
-  tracker.resource = "influence";
-  game.settings.set("core", "combatTrackerConfig", tracker);
+  game.settings.set("core", "tokenAutoRotate", false);
+  /*foundry.applications.api.DialogV2.prompt({
+    content: "Welcome To Haunted!",
+    modal: true,
+  });*/
 });

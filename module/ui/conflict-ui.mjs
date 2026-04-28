@@ -23,7 +23,7 @@ export class HauntedUI {
 }
 
 Hooks.on("combatStart", (combat, options) => {
-  if (UserUtils.isGM) {
+  if (UserUtils.isSourceOfTruth()) {
     for (const entry of combat.combatants.contents) {
       entry.update({ hidden: true });
     }
@@ -31,7 +31,7 @@ Hooks.on("combatStart", (combat, options) => {
 });
 
 Hooks.on("createCombatant", (character, options, uuid) => {
-  if (UserUtils.isGM) {
+  if (UserUtils.isSourceOfTruth()) {
     const actor = game.actors.get(character.actorId);
     character.update({ img: actor.img });
   }

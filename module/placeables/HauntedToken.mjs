@@ -1,7 +1,7 @@
 import { ActorToSVG } from "../utlis/actor-to-svg.mjs";
 import { DebugUtils } from "../utlis/debug-utils.mjs";
 import { UserUtils } from "../utlis/user-utils.mjs";
-import { SocialDiagram } from "../documents/hautned-diagram.mjs";
+import { SocialDiagram } from "../documents/haunted-diagram.mjs";
 
 export class HauntedToken extends foundry.canvas.placeables.Token {
   static INDEX_CARD_SIZES = {
@@ -21,7 +21,7 @@ export class HauntedToken extends foundry.canvas.placeables.Token {
       (placeable) => placeable.document.actorId === actorId,
     );
     if (token) token.redraw();
-    else if (UserUtils.isGM) {
+    else if (UserUtils.isSourceOfTruth()) {
       const scene = SocialDiagram.instance;
       const actor = game.actors.get(actorId);
       const tokenData = actor.prototypeToken.toObject();
@@ -33,10 +33,11 @@ export class HauntedToken extends foundry.canvas.placeables.Token {
   async redraw() {
     const src = this.document.texture.src;
     await PIXI.Assets.unload(src);
-    const newTexture = await PIXI.Assets.load(src);
-    foundry.canvas.TextureLoader.loader.setCache(src, newTexture);
-    this.texture = newTexture;
-    this.mesh.texture = newTexture;
+    /* const texture = await PIXI.Assets.load(src);
+    foundry.canvas.TextureLoader.loader.setCache(src, texture);
+    this.texture = texture;
+    this.mesh.texture = texture;*/
+    this.draw();
   }
 }
 

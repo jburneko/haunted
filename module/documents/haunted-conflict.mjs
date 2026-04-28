@@ -3,7 +3,7 @@ import { SocketEvents } from "../networking/socket-events.mjs";
 import { DiceFormater } from "../utlis/dice-formater.mjs";
 import { HauntedActor } from "./haunted-actor.mjs";
 import { DebugUtils } from "../utlis/debug-utils.mjs";
-import { SocialDiagram } from "./hautned-diagram.mjs";
+import { SocialDiagram } from "./haunted-diagram.mjs";
 import { ConflictSelectionDialog } from "../applications/conflict-selection-dialog.mjs";
 
 export class HauntedConflict extends Combat {
@@ -76,7 +76,7 @@ export class HauntedConflict extends Combat {
   }
 
   async addRoll(actor, dice) {
-    if (UserUtils.isGM) HauntedConflict._addRoll(actor.id, dice);
+    if (UserUtils.isSourceOfTruth()) HauntedConflict._addRoll(actor.id, dice);
     else SocketEvents.addConflictRoll(actor.id, dice);
   }
 
@@ -212,18 +212,18 @@ export class HauntedConflict extends Combat {
 Hooks.on("preCreateCombat", (combat, data, options, userID) => {});
 
 Hooks.on("createCombat", (combat, options, id) => {
-  if (UserUtils.isGM) {
+  if (UserUtils.isSourceOfTruth()) {
     const scene = SocialDiagram.instance;
     combat.updateSource({ scene: scene });
 
-    const murderer = scene.tokens.filter(
-      (token) =>
-        game.actors.get(token.actorId).type ==
-        HauntedActor.CHARACTER_TYPE.MURDERER,
-    )[0];
+    const murdererToken = scene.tokens.find((token) => token.actor.isMurderer);
 
     combat.createEmbeddedDocuments("Combatant", [
-      { sceneId: scene.id, actorId: murderer.actorId, tokenId: murderer.id },
+      {
+        sceneId: scene.id,
+        actorId: murdererToken.actorId,
+        tokenId: murdererToken.id,
+      },
     ]);
 
     combat.showSelectionDialog();

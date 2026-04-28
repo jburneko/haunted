@@ -52,9 +52,6 @@ export class ConflictSelectionDialog extends HandlebarsApplicationMixin(
     const context = {
       currentChoices: this.currentChoices,
     };
-
-    DebugUtils.log_data("DIALOG CONTEXT", context);
-
     return context;
   }
 
@@ -62,9 +59,15 @@ export class ConflictSelectionDialog extends HandlebarsApplicationMixin(
     event.preventDefault();
 
     const expandedData = foundry.utils.expandObject(formData.object);
-    const actorList = expandedData.conflictSelection.filter(
-      (id) => id !== null,
-    );
+
+    let actorList = null;
+    if (Array.isArray(expandedData.conflictSelection)) {
+      actorList = expandedData.conflictSelection.filter((id) => id !== null);
+    } else {
+      actorList = [expandedData.conflictSelection];
+    }
+
+    DebugUtils.log_data("EXPANDED DATA", actorList);
 
     this.conflict.addActorsToConflict(actorList);
     this.conflict.startCombat();

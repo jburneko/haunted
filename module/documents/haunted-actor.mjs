@@ -6,7 +6,9 @@ import { HauntedToken } from "../placeables/HauntedToken.mjs";
 import { UserUtils } from "../utlis/user-utils.mjs";
 import { RollInfo } from "../utlis/roll-info.mjs";
 import { DebugUtils } from "../utlis/debug-utils.mjs";
-import { SocialDiagram } from "./hautned-diagram.mjs";
+import { SocialDiagram } from "./haunted-diagram.mjs";
+
+const { DialogV2 } = foundry.applications.api;
 
 export class HauntedActor extends Actor {
   static CHARACTER_TYPE = {
@@ -84,7 +86,6 @@ export class HauntedActor extends Actor {
       actorLink: true,
       height: HauntedToken.IndexCardSize.y,
       width: HauntedToken.IndexCardSize.x,
-      lockRotation: true,
       movementAction: "blink",
       bar1: {
         attribute: "effort",
@@ -169,6 +170,18 @@ export class HauntedActor extends Actor {
     if (!Array.isArray(types)) types = [types];
     return game.actors.contents.filter((character) =>
       types.includes(character.type),
+    );
+  }
+
+  static get Murderer() {
+    return game.actors.find(
+      (actor) => actor.type === HauntedActor.CHARACTER_TYPE.MURDERER,
+    );
+  }
+
+  static get Ghost() {
+    return game.actors.find(
+      (actor) => actor.type === HauntedActor.CHARACTER_TYPE.GHOST,
     );
   }
 
@@ -282,7 +295,7 @@ export class HauntedActor extends Actor {
   }
 
   async spendHelpDice(helpers) {
-    if (UserUtils.isGM) await HauntedActor._spendHelpDice(helpers);
+    if (UserUtils.isSourceOfTruth()) await HauntedActor._spendHelpDice(helpers);
     else SocketEvents.spendHelpDice(helpers);
   }
 
@@ -347,7 +360,7 @@ export class HauntedActor extends Actor {
         "system.influence": currentInfluence + 1,
       });
 
-      if (UserUtils.isGM) ghost.adjustPresence(-1, true);
+      if (UserUtils.isSourceOfTruth()) ghost.adjustPresence(-1, true);
       else SocketEvents.decreasePresence(ghost.id);
     }
   }
@@ -358,10 +371,53 @@ export class HauntedActor extends Actor {
     HauntedToken.redrawToken(this.id);
     SocketEvents.refreshToken(this.id);
   }
+
+  //This might form the basis of some other approach to token rendering.
+  renderToken() {
+    const app = new PIXI.Application({
+      background: "ffffff",
+      width: 500,
+      height: 300,
+    });
+    app.stop();
+    const text = new PIXI.Text("This is a PixiJS text");
+
+    app.stage.addChild(text);
+    //app.render();
+
+    const texture = app.renderer.generateTexture(app.stage);
+    texture.baseTexture.resource = { source: null };
+    return texture;
+  }
+
+  static async ShowCreationError(error) {
+    DialogV2.prompt({
+      content: game.i18n.localize(error),
+      modal: true,
+      window: {
+        title: "HAUNTED.Dialogs.CharacterErrorTitle",
+      },
+    });
+  }
 }
 
+Hooks.on("preCreateActor", (actor, data, options, userId) => {
+  if (!UserUtils.hasSourceOfTruth) {
+    HauntedActor.ShowCreationError("HAUNTED.Dialogs.NoSourceOfTruthError");
+    return false;
+  }
+  if (actor.isMurderer && HauntedActor.Murderer) {
+    HauntedActor.ShowCreationError("HAUNTED.Dialogs.SecondMurdererError");
+    return false;
+  }
+  if (actor.isGhost && HauntedActor.Ghost) {
+    HauntedActor.ShowCreationError("HAUNTED.Dialogs.SecondGhostError");
+    return false;
+  }
+});
+
 Hooks.on("createActor", (document, options, userID) => {
-  if (UserUtils.isGM) {
+  if (UserUtils.isSourceOfTruth()) {
     document.update({
       "prototypeToken.texture.src": ActorToSVG.getFullPath(document),
     });
@@ -370,14 +426,18 @@ Hooks.on("createActor", (document, options, userID) => {
 
 Hooks.on("preUpdateActor", (document, changes, options, userID) => {});
 
-Hooks.on("updateActor", (document, changes, options, userID) => {
-  if (UserUtils.isGM) document.updateToken();
+Hooks.on("updateActor", (actor, changes, options, userID) => {
+  if (UserUtils.isSourceOfTruth()) actor.updateToken();
 });
 
-Hooks.on("deleteActor", (document, options, userID) => {
-  if (UserUtils.isGM) {
+Hooks.on("deleteActor", (actor, options, userID) => {
+  if (UserUtils.isSourceOfTruth()) {
+    //Remove Token From Scene
     const scene = SocialDiagram.instance;
-    const token = scene.tokens.find((token) => token.actorId === document._id);
-    scene.deleteEmbeddedDocuments("Token", [token._id]);
+    const token = scene.tokens.find((token) => token.actorId === actor._id);
+    if (token) scene.deleteEmbeddedDocuments("Token", [token._id]);
+
+    //Delete File
+    const src = actor.prototypeToken.texture.scr;
   }
 });

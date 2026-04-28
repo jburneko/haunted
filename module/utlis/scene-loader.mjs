@@ -1,5 +1,5 @@
 import { DebugUtils } from "./debug-utils.mjs";
-import { SocialDiagram } from "../documents/hautned-diagram.mjs";
+import { SocialDiagram } from "../documents/haunted-diagram.mjs";
 
 export class SceneLoader {
   static async loadScene() {

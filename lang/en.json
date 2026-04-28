@@ -22,7 +22,11 @@
       "Roll": "Roll",
       "Helpers": "Helpers",
       "ConflictSelection": "Select Characters",
-      "StartConflict": "Start Conflict"
+      "StartConflict": "Start Conflict",
+      "CharacterErrorTitle": "Actor Creation Error",
+      "SecondMurdererError": "There can only be one murderer per game of Haunted.",
+      "SecondGhostError": "There can only be one ghost per game of Haunted.",
+      "NoSourceOfTruthError": "The active GM must have file upload permissions."
     },
     "Chat": {
       "InfluenceRoll": "Influence Roll",
