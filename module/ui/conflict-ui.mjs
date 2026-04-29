@@ -64,8 +64,6 @@ export class HauntedUI {
 
     for (const dice_button of dice_buttons) {
       dice_button.setAttribute("data-tooltip", "Roll");
-      dice_button.style.cssText =
-        "--initiative-icon: url(../systems/haunted/assets/icons/rolling-dices.svg); --initiative-icon-hover: url(../systems/haunted/assets/icons/rolling-dices-highlight.svg); ";
     }
   }
 
