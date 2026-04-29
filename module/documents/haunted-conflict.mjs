@@ -63,12 +63,22 @@ export class HauntedConflict extends Combat {
     dialog.render(true);
   }
 
+  async rollInitiative(ids, options) {
+    const combatantId = ids[0];
+    const combatant = this.combatants.get(combatantId);
+    const actorId = combatant.actorId;
+     if (this.started) {
+      const actor = game.actors.get(actorId);
+      if (actor.isGhost) {
+        actor.rollAttribute(HauntedActor.ATTRIBUTE.PRESENCE);
+      } else actor.showInfluenceRollDialog();
+    }
+  }
+
   addActorsToConflict(actorList) {
     const scene = this.scene;
-    for (const id of actorList) {
-      DebugUtils.log_data("ID", id);
+    for (const id of actorList) { 
       const token = scene.tokens.find((token) => token.actorId === id);
-      DebugUtils.log_data("TOKEN", token);
       this.createEmbeddedDocuments("Combatant", [
         { sceneId: scene.id, actorId: token.actorId, tokenId: token.id },
       ]);

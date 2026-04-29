@@ -26,7 +26,7 @@ Hooks.once("init", () => {
   CONFIG.Token.objectClass = HauntedToken;
   CONFIG.Combat.documentClass = HauntedConflict;
 
-  const actors = foundry.documents.collections.Actors;
+  const {Actors, CombatEncounters} = foundry.documents.collections;
 
   CONFIG.Actor.dataModels = {
     [HauntedActor.CHARACTER_TYPE.MURDERER]: MurdererDataModel,
@@ -60,15 +60,15 @@ Hooks.once("init", () => {
   };
 
   //actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
-  actors.registerSheet("haunted", MurdererSheet, {
+  Actors.registerSheet("haunted", MurdererSheet, {
     types: [HauntedActor.CHARACTER_TYPE.MURDERER],
     makeDefault: true,
   });
-  actors.registerSheet("haunted", GhostSheet, {
+  Actors.registerSheet("haunted", GhostSheet, {
     types: [HauntedActor.CHARACTER_TYPE.GHOST],
     makeDefault: true,
   });
-  actors.registerSheet("haunted", SupportSheet, {
+  Actors.registerSheet("haunted", SupportSheet, {
     types: [...HauntedActor.CHARACTER_TYPE.SUPPORT],
     makeDefault: true,
   });
