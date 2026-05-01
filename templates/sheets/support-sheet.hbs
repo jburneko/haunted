@@ -3,12 +3,12 @@
     {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}
       {{#if (isdefined document.system.problem)}}
     <div class="column-spacer">
-        <h2>{{localize "HAUNTED.Character.Problem"}}</h2>
+        <h3>{{localize "HAUNTED.Character.Problem"}}</h3>
         <input type="text" name="system.problem" value="{{document.system.problem}}" data-dtype="String"/>
     </div>
       {{/if}}
     <div class="column-spacer">
-      <h2>{{localize "HAUNTED.Character.Attributes"}}</h2>
+      <h3>{{localize "HAUNTED.Character.Attributes"}}</h3>
       <div class="row-entry">
         <div class="row-entry">
           <div>

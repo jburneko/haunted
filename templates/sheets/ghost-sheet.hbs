@@ -2,11 +2,11 @@
 <div class="column-layout column-spacer">
     {{> "systems/haunted/templates/sheets/partials/character-header.hbs"}}  
     <div class="column-spacer">
-        <h2>{{localize "HAUNTED.Character.UnfinishedBusiness"}}</h2>
+        <h3>{{localize "HAUNTED.Character.UnfinishedBusiness"}}</h3>
         <input type="text" name="system.unfinishedBusiness" value="{{document.system.unfinishedBusiness}}" data-dtype="String"/>
     </div>
     <div class="column-spacer">
-       <h2>{{localize "HAUNTED.Character.Attributes"}}</h2>
+       <h3>{{localize "HAUNTED.Character.Attributes"}}</h3>
        <div class="row-entry">
         <label class="clickable" data-action="rollAttribute" data-attribute="presence"> <span class="die-label">{{attribute_dice document.system.presence.value}}</span> {{localize "HAUNTED.Character.Presence"}}:</label>
         <input class="row-spacer attribute-field" type="number" name="system.presence.value" value="{{document.system.presence.value}}" data-dtype="Number"/>
