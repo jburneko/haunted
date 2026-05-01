@@ -121,11 +121,11 @@ export class HauntedUI {
 }
 
 Hooks.on("combatStart", (combat, options) => {
-  if (UserUtils.isSourceOfTruth()) {
+ /* if (UserUtils.isSourceOfTruth()) {
     for (const entry of combat.combatants.contents) {
       entry.update({ hidden: true });
     }
-  }
+  }*/
 });
 
 Hooks.on("createCombatant", (character, options, uuid) => {
@@ -140,4 +140,9 @@ Hooks.on("renderCombatTracker", (tracker, element, context, options) => {
   HauntedUI.replaceInitiativeButton(element);
   HauntedUI.addResources(element);
   if (game.combat?.started) HauntedUI.addDice(element);
+});
+
+Hooks.on("renderSidebar", (sidebar, element, context, options) => {
+  const button = element.getElementsByClassName(CONFIG.Combat.sidebarIcon)[0];
+  button.setAttribute("aria-label", "Conflict");
 });

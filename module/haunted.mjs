@@ -27,6 +27,7 @@ Hooks.once("init", () => {
   CONFIG.Combat.documentClass = HauntedConflict;
   CONFIG.Combat.initiativeIcon.icon = "../systems/haunted/assets/icons/rolling-dices.svg"
   CONFIG.Combat.initiativeIcon.hover = "../systems/haunted/assets/icons/rolling-dices-highlight.svg"
+  CONFIG.Combat.sidebarIcon = "fa-solid fa-person-harassing";
 
   const {Actors, CombatEncounters} = foundry.documents.collections;
 
